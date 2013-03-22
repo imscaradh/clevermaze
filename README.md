@@ -1,3 +1,3 @@
 CleverMaze
 ==========
-Here will exist a multi-level labyrinth game
+One time this will be a multi-level labyrinth game for android
