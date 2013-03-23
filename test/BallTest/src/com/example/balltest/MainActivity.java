@@ -66,22 +66,6 @@ public class MainActivity extends Activity implements SensorEventListener {
 		ball.setY(ball.getY() + (sensorY * 2f));
 	}
 	
-	private void getAccelerometer(SensorEvent event){
-		Toast.makeText(this, "tey", Toast.LENGTH_LONG);
-		List<Sensor> sensor = sensorManager.getSensorList(Sensor.TYPE_ACCELEROMETER);
-		TextView textX = (TextView)findViewById(R.id.textX);
-		TextView textY = (TextView)findViewById(R.id.textY);
-		textX.setText("x:" + sensor.get(0));
-		textY.setText("y:" + sensor.get(1));
-		//Gets the accelerometer values
-		float[] values = event.values;
-	    float x = values[0];
-	    float y = values[1];
-	    float z = values[2]; // Not needed for our project
-	    setBallPosition(x,y);
-
-	}
-	
 	private void setBallPosition(float x, float y) {
 		//textX.setText(Float.toString(x));
 		//textY.setText(Float.toString(y));
