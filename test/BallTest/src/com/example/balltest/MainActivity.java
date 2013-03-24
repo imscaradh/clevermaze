@@ -1,15 +1,19 @@
 package com.example.balltest;
 
-import android.R;
+import java.util.Random;
+
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -20,6 +24,21 @@ public class MainActivity extends Activity implements SensorEventListener {
 	Bitmap ball;
 	float x, y, sensorX, sensorY;
 
+	// Generates a Colorflash (Caution: Eyecancer)
+	class RenderView extends View {
+		Random rand = new Random();
+
+		public RenderView(Context context) {
+			super(context);
+		}
+
+		protected void onDraw(Canvas canvas) {
+			canvas.drawRGB(rand.nextInt(256), rand.nextInt(256),
+					rand.nextInt(256));
+			invalidate();
+		}
+	}
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// Full-Screen
@@ -28,17 +47,26 @@ public class MainActivity extends Activity implements SensorEventListener {
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		setContentView(new RenderView(this));
+		// setContentView(R.layout.activity_main);
 
-		sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-		if (sensorManager.getSensorList(Sensor.TYPE_ACCELEROMETER).size() != 0) {
-			Sensor s = sensorManager.getSensorList(Sensor.TYPE_ACCELEROMETER)
-					.get(0);
-			sensorManager.registerListener(this, s,
-					SensorManager.SENSOR_DELAY_GAME);
-		}
+		// sensorManager = (SensorManager)
+		// getSystemService(Context.SENSOR_SERVICE);
+		// if (sensorManager.getSensorList(Sensor.TYPE_ACCELEROMETER).size() ==
+		// 0) {
+		// Log.d("Message", "No accelerometer installed");
+		// } else {
+		// Sensor accelerometer = sensorManager.getSensorList(
+		// Sensor.TYPE_ACCELEROMETER).get(0);
+		// if (!sensorManager.registerListener(this, accelerometer,
+		// SensorManager.SENSOR_DELAY_GAME)) {
+		// Log.d("Message", "Couldn't register sensor listener");
+		// }
+		// }
+
 		ball = BitmapFactory.decodeResource(getResources(), R.drawable.ball);
 		x = y = sensorX = sensorY = 0;
+
 	}
 
 	@Override
