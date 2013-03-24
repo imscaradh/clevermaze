@@ -1,5 +1,6 @@
 package com.example.balltest;
 
+import android.R;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -50,7 +51,7 @@ public class MainActivity extends Activity implements SensorEventListener {
 	@Override
 	public void onAccuracyChanged(Sensor arg0, int arg1) {
 		// TODO Auto-generated method stub
-
+		// Testing Yanu
 	}
 
 	@Override
