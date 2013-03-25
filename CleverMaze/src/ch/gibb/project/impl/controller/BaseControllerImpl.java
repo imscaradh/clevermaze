@@ -1,6 +1,6 @@
 package ch.gibb.project.impl.controller;
 
-public class BaseController implements
+public class BaseControllerImpl implements
 		ch.gibb.project.controller.BaseController {
 
 }
