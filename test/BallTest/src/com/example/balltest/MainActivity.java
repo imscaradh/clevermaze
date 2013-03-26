@@ -2,12 +2,14 @@ package com.example.balltest;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Point;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Display;
 import android.view.Menu;
 import android.view.Window;
 import android.view.WindowManager;
@@ -26,12 +28,15 @@ public class MainActivity extends Activity implements SensorEventListener {
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
 		super.onCreate(savedInstanceState);
-		// Creates a new RenderView (Ball)
 
-		// Something don't work here > Could not read file.
-		// InputStream ims = getAssets().open("ball.png");
-		// Picture picture = Picture.createFromStream(ims);
-		ball = new Ball(this);
+		// Returns the display-value
+		Display display = getWindowManager().getDefaultDisplay();
+		Point size = new Point();
+		display.getSize(size);
+
+		// Creates a new View
+		ball = new Ball(this, size.x, size.y);
+
 		setContentView(ball);
 		// setContentView(R.layout.activity_main);
 		sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -72,9 +77,12 @@ public class MainActivity extends Activity implements SensorEventListener {
 		int displayHeight = ball.getHeight();
 		// if ((ball.xPosition + (accelX * 2f)) > displayWidth) {
 		// } else {
-		ball.playGround.contains((int)(ball.xPosition - (accelX * 2f)), (int)(ball.yPosition + (accelY * 2f)))
-		ball.xPosition = ball.xPosition - (accelX * 2f);
-		// }
-		ball.yPosition = ball.yPosition + (accelY * 2f);
+		// boolean test = ball.playGround.contains((int) (ball.xPosition -
+		// (accelX * 2f)),(int) (ball.yPosition + (accelY * 2f)));
+		if (ball.containsBall(accelX, accelY)) {
+			ball.xPosition = ball.xPosition - (accelX * 2f);
+			ball.yPosition = ball.yPosition + (accelY * 2f);
+		}
+
 	}
 }
