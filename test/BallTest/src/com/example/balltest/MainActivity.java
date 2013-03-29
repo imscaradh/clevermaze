@@ -79,8 +79,10 @@ public class MainActivity extends Activity implements SensorEventListener {
 		// } else {
 		// boolean test = ball.playGround.contains((int) (ball.xPosition -
 		// (accelX * 2f)),(int) (ball.yPosition + (accelY * 2f)));
-		if (ball.containsBall(accelX, accelY)) {
+		if (ball.containsBallX(accelX)) {
 			ball.xPosition = ball.xPosition - (accelX * 2f);
+		}
+		if (ball.containsBallY(accelY)) {
 			ball.yPosition = ball.yPosition + (accelY * 2f);
 		}
 

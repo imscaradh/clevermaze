@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.graphics.Picture;
+import android.graphics.Point;
 import android.graphics.Rect;
 import android.view.View;
 
@@ -36,9 +37,33 @@ class Ball extends View {
 		invalidate();
 	}
 
-	public boolean containsBall(float accelX, float accelY) {
-		if (playGround.contains((int) (xPosition - (accelX * 2f)),
-				(int) (yPosition - (accelY * 2f)))) {
+	public boolean contains() {
+		Point p1 = new Point(playGround.top, playGround.left);
+		Point p2 = new Point(playGround.top + playGround.bottom,
+				playGround.left);
+		Point p3 = new Point(playGround.top + playGround.bottom,
+				playGround.left + playGround.right);
+		Point p4 = new Point(playGround.top, playGround.left + playGround.right);
+		Point[] points = new Point[] { p1, p2, p3, p4 };
+		for (Point p : points) {
+			if ((xPosition - p.x) + (yPosition - p.y) > radius) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	public boolean containsBallX(float accelX) {
+		if ((xPosition - (accelX * 2f) - 25) > playGround.left
+				&& (xPosition - (accelX * 2f) + 25) < playGround.right) {
+			return true;
+		}
+		return false;
+	}
+
+	public boolean containsBallY(float accelY) {
+		if ((yPosition + (accelY * 2f) - 25) > playGround.top
+				&& (yPosition + (accelY * 2f) + 25) < playGround.bottom) {
 			return true;
 		}
 		return false;
