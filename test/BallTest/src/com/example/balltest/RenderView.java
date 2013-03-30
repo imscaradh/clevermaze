@@ -3,6 +3,8 @@ package com.example.balltest;
 import java.util.Random;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -10,6 +12,7 @@ import android.graphics.Paint.Style;
 import android.graphics.Picture;
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.util.Log;
 import android.view.View;
 
 // Generates a Colorflash (Caution: Eyecancer)
@@ -20,10 +23,12 @@ class Ball extends View {
 	float yPosition = 200f;
 	Rect playGround;
 	int radius = 25;
+	Bitmap b = BitmapFactory.decodeResource(getResources(), R.drawable.ball);
 
 	public Ball(Context context, int width, int height) {
 		super(context);
 		playGround = new Rect(25, 25, width - 25, height - 25);
+		b = Bitmap.createScaledBitmap(b, 75, 75, true);
 		// ball = picture;
 	}
 
@@ -33,7 +38,8 @@ class Ball extends View {
 		paint.setColor(Color.BLACK);
 		canvas.drawRect(playGround, paint);
 		paint.setColor(Color.GRAY);
-		canvas.drawCircle(xPosition, yPosition, radius, paint);
+		// canvas.drawCircle(xPosition, yPosition, radius, paint);
+		canvas.drawBitmap(b, xPosition, yPosition, paint);
 		invalidate();
 	}
 
@@ -50,22 +56,29 @@ class Ball extends View {
 				return false;
 			}
 		}
+
 		return true;
 	}
 
 	public boolean containsBallX(float accelX) {
-		if ((xPosition - (accelX * 2f) - 25) > playGround.left
-				&& (xPosition - (accelX * 2f) + 25) < playGround.right) {
+		if ((xPosition - (accelX * 2f)) > playGround.left
+				&& (xPosition - (accelX * 2f) + 50) < playGround.right) {
 			return true;
 		}
+		Log.d("right", String.valueOf(playGround.right));
+		Log.d("XPosition",
+				String.valueOf(xPosition) + "--" + String.valueOf(accelX));
 		return false;
 	}
 
 	public boolean containsBallY(float accelY) {
-		if ((yPosition + (accelY * 2f) - 25) > playGround.top
-				&& (yPosition + (accelY * 2f) + 25) < playGround.bottom) {
+		if ((yPosition + (accelY * 2f)) > playGround.top
+				&& (yPosition + (accelY * 2f) + 50) < playGround.bottom) {
 			return true;
 		}
+		Log.d("bottom", String.valueOf(playGround.bottom));
+		Log.d("YPosition",
+				String.valueOf(yPosition) + "--" + String.valueOf(accelY));
 		return false;
 	}
 }
