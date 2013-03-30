@@ -27,6 +27,9 @@ public class MainActivity extends Activity implements SensorEventListener {
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+		// Prevent that the device goes into standby
+		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
 		super.onCreate(savedInstanceState);
 
 		// Returns the display-value
@@ -73,12 +76,6 @@ public class MainActivity extends Activity implements SensorEventListener {
 	}
 
 	private void updateBall(float accelX, float accelY) {
-		int displayWidth = ball.getWidth();
-		int displayHeight = ball.getHeight();
-		// if ((ball.xPosition + (accelX * 2f)) > displayWidth) {
-		// } else {
-		// boolean test = ball.playGround.contains((int) (ball.xPosition -
-		// (accelX * 2f)),(int) (ball.yPosition + (accelY * 2f)));
 		if (ball.containsBallX(accelX)) {
 			ball.xPosition = ball.xPosition - (accelX * 2f);
 		}
