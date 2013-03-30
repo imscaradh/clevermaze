@@ -1,14 +1,12 @@
 package ch.gibb.project.activity;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import ch.gibb.project.R;
-import ch.gibb.project.util.Dialog;
+import ch.gibb.project.util.MessageUtil;
 
 public class Welcome extends Activity {
 
@@ -18,9 +16,11 @@ public class Welcome extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		super.onCreate(savedInstanceState, R.layout.activity_main);
+	}
 
+	@Override
+	protected void initObjects() {
 		start = (Button) findViewById(R.id.btn_play);
 		start.setOnClickListener(new startListener());
 
@@ -36,8 +36,8 @@ public class Welcome extends Activity {
 		@Override
 		public void onClick(View v) {
 			Log.v(this.getClass().toString(), "Button Play clicked");
-			Intent level = new Intent(v.getContext(), Level.class);
-			startActivity(level);
+			activityController.nextActivity(Welcome.this, Level.class);
+
 		}
 	}
 
@@ -46,8 +46,7 @@ public class Welcome extends Activity {
 		@Override
 		public void onClick(View v) {
 			Log.v(this.getClass().toString(), "Button Highscore clicked");
-			Intent highscore = new Intent(v.getContext(), Highscore.class);
-			startActivity(highscore);
+			activityController.nextActivity(Welcome.this, Highscore.class);
 		}
 
 	}
@@ -57,8 +56,8 @@ public class Welcome extends Activity {
 		@Override
 		public void onClick(View v) {
 			Log.v(this.getClass().toString(), "Button Close clicked");
-			Dialog.getInstance().createAlertDialog(Dialog.DIALOG_EXIT,
-					Welcome.this);
+			MessageUtil.getInstance().createAlertMessage(Welcome.this,
+					MessageUtil.DIALOG_EXIT);
 		}
 	}
 
