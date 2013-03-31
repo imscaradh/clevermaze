@@ -5,10 +5,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import ch.gibb.project.R;
-import ch.gibb.project.controller.ActivityController;
 
 public class Level extends Activity {
-	private ActivityController activityController;
 	private Button close;
 
 	@Override
@@ -26,8 +24,7 @@ public class Level extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				Level.this.activityController.nextActivity(Level.this,
-						Welcome.class);
+				Level.this.nextActivity(Welcome.class);
 
 			}
 		});

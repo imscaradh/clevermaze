@@ -5,10 +5,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import ch.gibb.project.R;
-import ch.gibb.project.controller.ActivityController;
 
 public class Highscore extends Activity {
-	private ActivityController activityController;
 	private Button close;
 
 	@Override
@@ -23,7 +21,7 @@ public class Highscore extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				activityController.nextActivity(Highscore.this, Welcome.class);
+				Highscore.this.nextActivity(Welcome.class);
 
 			}
 		});

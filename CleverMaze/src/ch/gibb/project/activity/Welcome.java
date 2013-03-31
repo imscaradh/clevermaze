@@ -36,7 +36,7 @@ public class Welcome extends Activity {
 		@Override
 		public void onClick(View v) {
 			Log.v(this.getClass().toString(), "Button Play clicked");
-			activityController.nextActivity(Welcome.this, Level.class);
+			Welcome.this.nextActivity(Level.class);
 
 		}
 	}
@@ -46,9 +46,8 @@ public class Welcome extends Activity {
 		@Override
 		public void onClick(View v) {
 			Log.v(this.getClass().toString(), "Button Highscore clicked");
-			activityController.nextActivity(Welcome.this, Highscore.class);
+			Welcome.this.nextActivity(Highscore.class);
 		}
-
 	}
 
 	class closeListener implements OnClickListener {
