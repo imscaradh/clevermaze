@@ -17,7 +17,7 @@ import android.view.WindowManager;
 public class MainActivity extends Activity implements SensorEventListener {
 	private SensorManager sensorManager;
 	// Bitmap ball;
-	Ball ball;
+	RenderView view;
 	float x, y, accelX, accelY;
 
 	@Override
@@ -38,9 +38,9 @@ public class MainActivity extends Activity implements SensorEventListener {
 		display.getSize(size);
 
 		// Creates a new View
-		ball = new Ball(this, size.x, size.y);
+		view = new RenderView(this, size.x, size.y);
 
-		setContentView(ball);
+		setContentView(view);
 		// setContentView(R.layout.activity_main);
 		sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 		if (sensorManager.getSensorList(Sensor.TYPE_ACCELEROMETER).size() == 0) {
@@ -76,12 +76,25 @@ public class MainActivity extends Activity implements SensorEventListener {
 	}
 
 	private void updateBall(float accelX, float accelY) {
-		if (ball.containsBallX(accelX)) {
-			ball.xPosition = ball.xPosition - (accelX * 2f);
-		}
-		if (ball.containsBallY(accelY)) {
-			ball.yPosition = ball.yPosition + (accelY * 2f);
-		}
 
+		if (view.containsBallX(accelX)) {
+			view.xPosition = view.xPosition - (accelX * 2f);
+		} else {
+			if (view.touchOnLeft()) {
+				view.xPosition = view.playGround.left;
+			} else {
+				view.xPosition = (view.playGround.right - view.ball.getWidth());
+			}
+		}
+		if (view.containsBallY(accelY)) {
+			view.yPosition = view.yPosition + (accelY * 2f);
+		} else {
+			if (view.touchOnTop()) {
+				view.yPosition = view.playGround.top;
+			} else {
+				view.yPosition = (view.playGround.bottom - view.ball
+						.getHeight());
+			}
+		}
 	}
 }
