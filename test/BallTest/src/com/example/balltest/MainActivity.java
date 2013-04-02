@@ -72,28 +72,28 @@ public class MainActivity extends Activity implements SensorEventListener {
 	public void onSensorChanged(SensorEvent event) {
 		accelX = event.values[0];
 		accelY = event.values[1];
+		boolean ballInHole = view.ballInHole();
 		updateBall(accelX, accelY);
 	}
 
 	private void updateBall(float accelX, float accelY) {
 
 		if (view.containsBallX(accelX)) {
-			view.xPosition = view.xPosition - (accelX * 2f);
+			view.bx = view.bx - (accelX * 2f);
 		} else {
 			if (view.touchOnLeft()) {
-				view.xPosition = view.playGround.left;
+				view.bx = view.playGround.left;
 			} else {
-				view.xPosition = (view.playGround.right - view.ball.getWidth());
+				view.bx = (view.playGround.right - view.ball.getWidth());
 			}
 		}
 		if (view.containsBallY(accelY)) {
-			view.yPosition = view.yPosition + (accelY * 2f);
+			view.by = view.by + (accelY * 2f);
 		} else {
 			if (view.touchOnTop()) {
-				view.yPosition = view.playGround.top;
+				view.by = view.playGround.top;
 			} else {
-				view.yPosition = (view.playGround.bottom - view.ball
-						.getHeight());
+				view.by = (view.playGround.bottom - view.ball.getHeight());
 			}
 		}
 	}
