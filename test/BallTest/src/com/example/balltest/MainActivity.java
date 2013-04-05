@@ -78,7 +78,7 @@ public class MainActivity extends Activity implements SensorEventListener {
 
 	private void updateBall(float accelX, float accelY) {
 
-		// view.checkStarTouch();
+		view.checkStarTouch();
 		if (view.containsBallX(accelX)) {
 			view.b.x = view.b.x - (accelX * 2f);
 		} else {

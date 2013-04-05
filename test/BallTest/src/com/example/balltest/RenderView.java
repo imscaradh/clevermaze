@@ -23,8 +23,8 @@ class RenderView extends View {
 	Rect playGround;
 	int radius = 25;
 	boolean ballInHole = false;
-	Vector<PointF> holes;
-	Vector<PointF> points;
+	Vector<PointF> holes = new Vector<PointF>();
+	Vector<PointF> points = new Vector<PointF>();
 	// Vector with the Hole-/Point-Coordinates
 	// Read Graphics
 	Bitmap ball = BitmapFactory
@@ -41,8 +41,8 @@ class RenderView extends View {
 		ball = Bitmap.createScaledBitmap(ball, 75, 75, true);
 		hole = Bitmap.createScaledBitmap(hole, 75, 75, true);
 		star = Bitmap.createScaledBitmap(star, 60, 60, true);
-		holes.add(new PointF(500f, 500f));
-		points.add(new PointF(345f, 345f));
+		holes.addElement(new PointF(500f, 500f));
+		points.addElement(new PointF(345f, 345f));
 	}
 
 	// In the onDraw should only the Ball "be drawed".
@@ -75,9 +75,6 @@ class RenderView extends View {
 				&& (b.x - (accelX * 2f)) < playGround.right - ball.getWidth()) {
 			return true;
 		}
-		// Log.d("right", String.valueOf(playGround.right));
-		// Log.d("XPosition", String.valueOf(xPosition) + "--" +
-		// String.valueOf(accelX));
 		return false;
 	}
 
@@ -86,9 +83,6 @@ class RenderView extends View {
 				&& (b.y + (accelY * 2f)) < playGround.bottom - ball.getHeight()) {
 			return true;
 		}
-		// Log.d("bottom", String.valueOf(playGround.bottom));
-		// Log.d("YPosition", String.valueOf(yPosition) + "--" +
-		// String.valueOf(accelY));
 		return false;
 	}
 
@@ -112,24 +106,24 @@ class RenderView extends View {
 			float dy = Math.abs(b.y - h.y);
 
 			if (Math.sqrt(dx * dx + dy * dy) < 30) {
+				// the ball is enough near to fall
 				ball = Bitmap.createScaledBitmap(ball, 68, 68, true);
 				ballInHole = true;
 				return true;
-				// the ball is enough near to center
+
 			}
 		}
 		return false;
 	}
 
 	public void checkStarTouch() {
-		Rect ballRect = new Rect((int) b.x, (int) b.y, (int) b.x
-				+ ball.getWidth(), (int) b.x + ball.getHeight());
+		for (PointF p : points) {
+			float dx = Math.abs(b.x - p.x);
+			float dy = Math.abs(b.y - p.y);
 
-		for (PointF s : points) {
-			Rect point = new Rect((int) s.x, (int) s.y, (int) s.x
-					+ star.getWidth(), (int) s.y + star.getHeight());
-			if (ballRect.intersect(point)) {
-				points.remove(s);
+			if (Math.sqrt(dx * dx + dy * dy) < 30) {
+				// the ball is enough near to collect
+				points.remove(p);
 			}
 		}
 
