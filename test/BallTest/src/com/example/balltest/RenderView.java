@@ -7,7 +7,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.graphics.PointF;
@@ -25,8 +24,6 @@ class RenderView extends View {
 	boolean ballInHole = false;
 	Vector<PointF> holes = new Vector<PointF>();
 	Vector<PointF> points = new Vector<PointF>();
-	// Vector with the Hole-/Point-Coordinates
-	// Read Graphics
 	Bitmap ball = BitmapFactory
 			.decodeResource(getResources(), R.drawable.ball2);
 	Bitmap wood = BitmapFactory.decodeResource(getResources(),
@@ -34,6 +31,14 @@ class RenderView extends View {
 	Bitmap wall = BitmapFactory.decodeResource(getResources(), R.drawable.wall);
 	Bitmap hole = BitmapFactory.decodeResource(getResources(), R.drawable.hole);
 	Bitmap star = BitmapFactory.decodeResource(getResources(), R.drawable.star);
+	Bitmap bottom = BitmapFactory.decodeResource(getResources(),
+			R.drawable.bottom);
+
+	Bitmap bitmap;
+	Canvas bitmapCanvas;
+
+	private final Paint paint = new Paint();
+	private final Paint eraserPaint = new Paint();
 
 	public RenderView(Context context, int width, int height) {
 		super(context);
@@ -43,27 +48,42 @@ class RenderView extends View {
 		star = Bitmap.createScaledBitmap(star, 60, 60, true);
 		holes.addElement(new PointF(500f, 500f));
 		points.addElement(new PointF(345f, 345f));
+
+		// Set background
+		this.setBackgroundResource(R.drawable.bottom);
+
+		// Set bitmap
+		bitmap = wood.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+		bitmapCanvas = new Canvas();
+		bitmapCanvas.setBitmap(bitmap);
+		// bitmapCanvas.drawBitmap(wood, width, height, null);
+
+		// Set eraser paint properties
+		eraserPaint.setAlpha(0);
+		eraserPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_IN));
+		eraserPaint.setAntiAlias(true);
 	}
 
 	// In the onDraw should only the Ball "be drawed".
 	protected void onDraw(Canvas canvas) {
+
 		Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG
 				| Paint.FILTER_BITMAP_FLAG);
 		paint.setStyle(Style.FILL_AND_STROKE);
-		paint.setColor(Color.BLACK);
-		canvas.drawBitmap(wall, 0, 0, paint);
-		canvas.drawBitmap(wood, playGround, playGround, paint);
-		Paint p = new Paint();
-		p.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
-		canvas.drawCircle(300, 300, radius, p);
 		if (ballInHole)
 			canvas.drawBitmap(ball, b.x, b.y, paint);
-		// Foreach > drawing holes
+
+		bitmapCanvas.drawBitmap(wall, 0, 0, null);
+		bitmapCanvas.drawBitmap(wood, playGround, playGround, null);
+
+		canvas.drawBitmap(bitmap, 0, 0, paint);
+
+		// // Foreach > drawing holes
 		for (PointF s : points) {
 			canvas.drawBitmap(star, s.x, s.y, paint);
 		}
 		for (PointF h : holes) {
-			canvas.drawBitmap(hole, h.x, h.y, paint);
+			bitmapCanvas.drawCircle(h.x, h.y, 30, eraserPaint);
 		}
 		if (!ballInHole)
 			canvas.drawBitmap(ball, b.x, b.y, paint);
