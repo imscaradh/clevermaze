@@ -13,17 +13,19 @@ import android.graphics.PointF;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
-import android.view.View;
+import android.view.SurfaceView;
 
 // Generates a Colorflash (Caution: Eyecancer)
-class RenderView extends View {
+class RenderView extends SurfaceView {
 	Random rand = new Random();
 	PointF b = new PointF(200f, 200f);
 	Rect playGround;
-	int radius = 25;
+	int radius = 30;
 	boolean ballInHole = false;
+
 	Vector<PointF> holes = new Vector<PointF>();
 	Vector<PointF> points = new Vector<PointF>();
+
 	Bitmap ball = BitmapFactory
 			.decodeResource(getResources(), R.drawable.ball2);
 	Bitmap wood = BitmapFactory.decodeResource(getResources(),
@@ -31,11 +33,11 @@ class RenderView extends View {
 	Bitmap wall = BitmapFactory.decodeResource(getResources(), R.drawable.wall);
 	Bitmap hole = BitmapFactory.decodeResource(getResources(), R.drawable.hole);
 	Bitmap star = BitmapFactory.decodeResource(getResources(), R.drawable.star);
-	Bitmap bottom = BitmapFactory.decodeResource(getResources(),
-			R.drawable.bottom);
 
 	Bitmap bitmap;
 	Canvas bitmapCanvas;
+
+	boolean alreadyDrawed;
 
 	private final Paint paint = new Paint();
 	private final Paint eraserPaint = new Paint();
@@ -43,8 +45,7 @@ class RenderView extends View {
 	public RenderView(Context context, int width, int height) {
 		super(context);
 		playGround = new Rect(40, 40, width - 40, height - 40);
-		ball = Bitmap.createScaledBitmap(ball, 75, 75, true);
-		hole = Bitmap.createScaledBitmap(hole, 75, 75, true);
+		ball = Bitmap.createScaledBitmap(ball, 68, 68, true);
 		star = Bitmap.createScaledBitmap(star, 60, 60, true);
 		holes.addElement(new PointF(500f, 500f));
 		points.addElement(new PointF(345f, 345f));
@@ -56,34 +57,37 @@ class RenderView extends View {
 		bitmap = wood.createBitmap(width, height, Bitmap.Config.ARGB_8888);
 		bitmapCanvas = new Canvas();
 		bitmapCanvas.setBitmap(bitmap);
-		// bitmapCanvas.drawBitmap(wood, width, height, null);
 
 		// Set eraser paint properties
 		eraserPaint.setAlpha(0);
 		eraserPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_IN));
 		eraserPaint.setAntiAlias(true);
+		eraserPaint.setFilterBitmap(true);
+		eraserPaint.setDither(true);
 	}
 
-	// In the onDraw should only the Ball "be drawed".
 	protected void onDraw(Canvas canvas) {
-
 		Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG
 				| Paint.FILTER_BITMAP_FLAG);
 		paint.setStyle(Style.FILL_AND_STROKE);
+		paint.setAntiAlias(true);
+		paint.setFilterBitmap(true);
+		paint.setDither(true);
+
 		if (ballInHole)
 			canvas.drawBitmap(ball, b.x, b.y, paint);
 
-		bitmapCanvas.drawBitmap(wall, 0, 0, null);
-		bitmapCanvas.drawBitmap(wood, playGround, playGround, null);
+		bitmapCanvas.drawBitmap(wall, 0, 0, paint);
+		bitmapCanvas.drawBitmap(wood, playGround, playGround, paint);
 
 		canvas.drawBitmap(bitmap, 0, 0, paint);
-
 		// // Foreach > drawing holes
 		for (PointF s : points) {
 			canvas.drawBitmap(star, s.x, s.y, paint);
 		}
 		for (PointF h : holes) {
-			bitmapCanvas.drawCircle(h.x, h.y, 30, eraserPaint);
+			bitmapCanvas.drawCircle(h.x + radius, h.y + radius, radius,
+					eraserPaint);
 		}
 		if (!ballInHole)
 			canvas.drawBitmap(ball, b.x, b.y, paint);
@@ -127,7 +131,7 @@ class RenderView extends View {
 
 			if (Math.sqrt(dx * dx + dy * dy) < 30) {
 				// the ball is enough near to fall
-				ball = Bitmap.createScaledBitmap(ball, 68, 68, true);
+				ball = Bitmap.createScaledBitmap(ball, 50, 50, true);
 				ballInHole = true;
 				return true;
 
