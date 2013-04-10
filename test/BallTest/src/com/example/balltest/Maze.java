@@ -14,7 +14,7 @@ import android.view.Menu;
 import android.view.Window;
 import android.view.WindowManager;
 
-public class MainActivity extends Activity implements SensorEventListener {
+public class Maze extends Activity implements SensorEventListener {
 	private SensorManager sensorManager;
 	// Bitmap ball;
 	RenderView view;

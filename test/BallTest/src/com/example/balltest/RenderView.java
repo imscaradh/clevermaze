@@ -8,11 +8,11 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.Paint.Style;
 import android.graphics.PointF;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.view.SurfaceView;
 
 // Generates a Colorflash (Caution: Eyecancer)
@@ -20,9 +20,9 @@ class RenderView extends SurfaceView {
 	Random rand = new Random();
 	PointF b = new PointF(200f, 200f);
 	Rect playGround;
-	int radius = 30;
+	int radius = 34;
 	boolean ballInHole = false;
-
+	BallView ballView;
 	Vector<PointF> holes = new Vector<PointF>();
 	Vector<PointF> points = new Vector<PointF>();
 
@@ -33,11 +33,11 @@ class RenderView extends SurfaceView {
 	Bitmap wall = BitmapFactory.decodeResource(getResources(), R.drawable.wall);
 	Bitmap hole = BitmapFactory.decodeResource(getResources(), R.drawable.hole);
 	Bitmap star = BitmapFactory.decodeResource(getResources(), R.drawable.star);
-
+	Drawable ballD;
 	Bitmap bitmap;
 	Canvas bitmapCanvas;
 
-	boolean alreadyDrawed;
+	boolean alreadyDrawed = false;
 
 	private final Paint paint = new Paint();
 	private final Paint eraserPaint = new Paint();
@@ -45,11 +45,11 @@ class RenderView extends SurfaceView {
 	public RenderView(Context context, int width, int height) {
 		super(context);
 		playGround = new Rect(40, 40, width - 40, height - 40);
-		ball = Bitmap.createScaledBitmap(ball, 68, 68, true);
+		ball = Bitmap.createScaledBitmap(ball, radius * 2, radius * 2, true);
 		star = Bitmap.createScaledBitmap(star, 60, 60, true);
 		holes.addElement(new PointF(500f, 500f));
 		points.addElement(new PointF(345f, 345f));
-
+		ballView = new BallView();
 		// Set background
 		this.setBackgroundResource(R.drawable.bottom);
 
@@ -67,31 +67,21 @@ class RenderView extends SurfaceView {
 	}
 
 	protected void onDraw(Canvas canvas) {
-		Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG
-				| Paint.FILTER_BITMAP_FLAG);
-		paint.setStyle(Style.FILL_AND_STROKE);
-		paint.setAntiAlias(true);
-		paint.setFilterBitmap(true);
-		paint.setDither(true);
+		bitmapCanvas.drawBitmap(wall, 0, 0, null);
+		bitmapCanvas.drawBitmap(wood, playGround, playGround, null);
 
-		if (ballInHole)
-			canvas.drawBitmap(ball, b.x, b.y, paint);
-
-		bitmapCanvas.drawBitmap(wall, 0, 0, paint);
-		bitmapCanvas.drawBitmap(wood, playGround, playGround, paint);
-
-		canvas.drawBitmap(bitmap, 0, 0, paint);
+		canvas.drawBitmap(bitmap, 0, 0, null);
 		// // Foreach > drawing holes
 		for (PointF s : points) {
-			canvas.drawBitmap(star, s.x, s.y, paint);
+			canvas.drawBitmap(star, s.x, s.y, null);
 		}
 		for (PointF h : holes) {
 			bitmapCanvas.drawCircle(h.x + radius, h.y + radius, radius,
 					eraserPaint);
 		}
-		if (!ballInHole)
-			canvas.drawBitmap(ball, b.x, b.y, paint);
-		invalidate();
+		ballView.drawBall(canvas, b, ball);
+		postInvalidate();
+
 	}
 
 	public boolean containsBallX(float accelX) {
