@@ -12,28 +12,26 @@ import android.graphics.PointF;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
-import android.graphics.drawable.Drawable;
 import android.view.SurfaceView;
 
 // Generates a Colorflash (Caution: Eyecancer)
 class RenderView extends SurfaceView {
 	Random rand = new Random();
-	PointF b = new PointF(200f, 200f);
+	// PointF b = new PointF(200f, 200f);
 	Rect playGround;
 	int radius = 34;
 	boolean ballInHole = false;
-	BallView ballView;
 	Vector<PointF> holes = new Vector<PointF>();
 	Vector<PointF> points = new Vector<PointF>();
 
-	Bitmap ball = BitmapFactory
-			.decodeResource(getResources(), R.drawable.ball2);
+	// Bitmap ball = BitmapFactory.decodeResource(getResources(),
+	// R.drawable.ball2);
 	Bitmap wood = BitmapFactory.decodeResource(getResources(),
 			R.drawable.wood_background);
 	Bitmap wall = BitmapFactory.decodeResource(getResources(), R.drawable.wall);
 	Bitmap hole = BitmapFactory.decodeResource(getResources(), R.drawable.hole);
 	Bitmap star = BitmapFactory.decodeResource(getResources(), R.drawable.star);
-	Drawable ballD;
+	// Drawable ballD;
 	Bitmap bitmap;
 	Canvas bitmapCanvas;
 
@@ -45,11 +43,11 @@ class RenderView extends SurfaceView {
 	public RenderView(Context context, int width, int height) {
 		super(context);
 		playGround = new Rect(40, 40, width - 40, height - 40);
-		ball = Bitmap.createScaledBitmap(ball, radius * 2, radius * 2, true);
+		// ball = Bitmap.createScaledBitmap(ball, radius * 2, radius * 2, true);
 		star = Bitmap.createScaledBitmap(star, 60, 60, true);
 		holes.addElement(new PointF(500f, 500f));
 		points.addElement(new PointF(345f, 345f));
-		ballView = new BallView();
+
 		// Set background
 		this.setBackgroundResource(R.drawable.bottom);
 
@@ -69,7 +67,6 @@ class RenderView extends SurfaceView {
 	protected void onDraw(Canvas canvas) {
 		bitmapCanvas.drawBitmap(wall, 0, 0, null);
 		bitmapCanvas.drawBitmap(wood, playGround, playGround, null);
-
 		canvas.drawBitmap(bitmap, 0, 0, null);
 		// // Foreach > drawing holes
 		for (PointF s : points) {
@@ -78,67 +75,6 @@ class RenderView extends SurfaceView {
 		for (PointF h : holes) {
 			bitmapCanvas.drawCircle(h.x + radius, h.y + radius, radius,
 					eraserPaint);
-		}
-		ballView.drawBall(canvas, b, ball);
-		postInvalidate();
-
-	}
-
-	public boolean containsBallX(float accelX) {
-		if ((b.x - (accelX * 2f)) > playGround.left
-				&& (b.x - (accelX * 2f)) < playGround.right - ball.getWidth()) {
-			return true;
-		}
-		return false;
-	}
-
-	public boolean containsBallY(float accelY) {
-		if ((b.y + (accelY * 2f)) > playGround.top
-				&& (b.y + (accelY * 2f)) < playGround.bottom - ball.getHeight()) {
-			return true;
-		}
-		return false;
-	}
-
-	public boolean touchOnLeft() {
-		if ((b.x - playGround.left) < (playGround.right - b.x)) {
-			return true;
-		}
-		return false;
-	}
-
-	public boolean touchOnTop() {
-		if ((b.y - playGround.top) < (playGround.bottom - b.y)) {
-			return true;
-		}
-		return false;
-	}
-
-	public boolean ballInHole() {
-		for (PointF h : holes) {
-			float dx = Math.abs(b.x - h.x);
-			float dy = Math.abs(b.y - h.y);
-
-			if (Math.sqrt(dx * dx + dy * dy) < 30) {
-				// the ball is enough near to fall
-				ball = Bitmap.createScaledBitmap(ball, 50, 50, true);
-				ballInHole = true;
-				return true;
-
-			}
-		}
-		return false;
-	}
-
-	public void checkStarTouch() {
-		for (PointF p : points) {
-			float dx = Math.abs(b.x - p.x);
-			float dy = Math.abs(b.y - p.y);
-
-			if (Math.sqrt(dx * dx + dy * dy) < 30) {
-				// the ball is enough near to collect
-				points.remove(p);
-			}
 		}
 
 	}

@@ -13,11 +13,14 @@ import android.view.Display;
 import android.view.Menu;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AbsoluteLayout;
 
 public class Maze extends Activity implements SensorEventListener {
 	private SensorManager sensorManager;
 	// Bitmap ball;
 	RenderView view;
+	BallView ballView;
+	Check check;
 	float x, y, accelX, accelY;
 
 	@Override
@@ -36,12 +39,15 @@ public class Maze extends Activity implements SensorEventListener {
 		Display display = getWindowManager().getDefaultDisplay();
 		Point size = new Point();
 		display.getSize(size);
-
 		// Creates a new View
 		view = new RenderView(this, size.x, size.y);
+		ballView = new BallView(this, size.x, size.y);
+		check = new Check(ballView, view);
+		AbsoluteLayout layout = new AbsoluteLayout(this);
+		layout.addView(view);
+		layout.addView(ballView);
+		setContentView(layout);
 
-		setContentView(view);
-		// setContentView(R.layout.activity_main);
 		sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 		if (sensorManager.getSensorList(Sensor.TYPE_ACCELEROMETER).size() == 0) {
 			Log.d("Message", "No accelerometer installed");
@@ -72,29 +78,28 @@ public class Maze extends Activity implements SensorEventListener {
 	public void onSensorChanged(SensorEvent event) {
 		accelX = event.values[0];
 		accelY = event.values[1];
-		boolean ballInHole = view.ballInHole();
+		// boolean ballInHole = view.ballInHole();
 		updateBall(accelX, accelY);
 	}
 
 	private void updateBall(float accelX, float accelY) {
-
-		view.checkStarTouch();
-		if (view.containsBallX(accelX)) {
-			view.b.x = view.b.x - (accelX * 2f);
+		// check.checkStarTouch();
+		if (check.containsBallX(accelX)) {
+			ballView.b.x = ballView.b.x - (accelX * 2f);
 		} else {
-			if (view.touchOnLeft()) {
-				view.b.x = view.playGround.left;
+			if (check.touchOnLeft()) {
+				ballView.b.x = view.playGround.left;
 			} else {
-				view.b.x = (view.playGround.right - view.ball.getWidth());
+				ballView.b.x = (view.playGround.right - view.playGround.left);
 			}
 		}
-		if (view.containsBallY(accelY)) {
-			view.b.y = view.b.y + (accelY * 2f);
+		if (check.containsBallY(accelY)) {
+			ballView.b.y = ballView.b.y + (accelY * 2f);
 		} else {
-			if (view.touchOnTop()) {
-				view.b.y = view.playGround.top;
+			if (check.touchOnTop()) {
+				ballView.b.y = view.playGround.top;
 			} else {
-				view.b.y = (view.playGround.bottom - view.ball.getHeight());
+				ballView.b.y = (view.playGround.bottom - view.playGround.top);
 			}
 		}
 	}
