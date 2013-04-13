@@ -13,7 +13,7 @@ import android.view.Display;
 import android.view.Menu;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.AbsoluteLayout;
+import android.widget.RelativeLayout;
 
 public class Maze extends Activity implements SensorEventListener {
 	private SensorManager sensorManager;
@@ -43,9 +43,10 @@ public class Maze extends Activity implements SensorEventListener {
 		view = new RenderView(this, size.x, size.y);
 		ballView = new BallView(this, size.x, size.y);
 		check = new Check(ballView, view);
-		AbsoluteLayout layout = new AbsoluteLayout(this);
+		RelativeLayout layout = new RelativeLayout(this);
 		layout.addView(view);
 		layout.addView(ballView);
+
 		setContentView(layout);
 
 		sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);

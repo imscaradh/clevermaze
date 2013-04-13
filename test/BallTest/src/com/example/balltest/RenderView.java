@@ -14,7 +14,6 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.view.SurfaceView;
 
-// Generates a Colorflash (Caution: Eyecancer)
 class RenderView extends SurfaceView {
 	Random rand = new Random();
 	// PointF b = new PointF(200f, 200f);

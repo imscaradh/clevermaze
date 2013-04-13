@@ -1,7 +1,6 @@
 package com.example.balltest;
 
 import android.graphics.PointF;
-import android.util.Log;
 
 public class Check {
 	BallView ballView;
@@ -13,8 +12,6 @@ public class Check {
 	}
 
 	public boolean containsBallX(float accelX) {
-		Log.d("x", ballView.b.x + "accel" + accelX);
-		Log.d("ballViewWidth", "" + ballView.getWidth());
 		if ((ballView.b.x - (accelX * 2f)) > back.playGround.left
 				&& (ballView.b.x - (accelX * 2f)) < (back.playGround.right - back.playGround.left)) {
 			return true;
