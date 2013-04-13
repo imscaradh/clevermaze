@@ -13,7 +13,7 @@ public class Check {
 
 	public boolean containsBallX(float accelX) {
 		if ((ballView.b.x - (accelX * 2f)) > back.playGround.left
-				&& (ballView.b.x - (accelX * 2f)) < (back.playGround.right - back.playGround.left)) {
+				&& (ballView.b.x - (accelX * 2f)) < (back.playGround.right - (ballView.radius * 2))) {
 			return true;
 		}
 		return false;
@@ -22,7 +22,7 @@ public class Check {
 	public boolean containsBallY(float accelY) {
 		if ((ballView.b.y + (accelY * 2f)) > back.playGround.top
 				&& (ballView.b.y + (accelY * 2f)) < back.playGround.bottom
-						- back.playGround.top) {
+						- (ballView.radius * 2)) {
 			return true;
 		}
 		return false;

@@ -34,8 +34,6 @@ class RenderView extends SurfaceView {
 	Bitmap bitmap;
 	Canvas bitmapCanvas;
 
-	boolean alreadyDrawed = false;
-
 	private final Paint paint = new Paint();
 	private final Paint eraserPaint = new Paint();
 

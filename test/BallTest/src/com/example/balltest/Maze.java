@@ -91,7 +91,7 @@ public class Maze extends Activity implements SensorEventListener {
 			if (check.touchOnLeft()) {
 				ballView.b.x = view.playGround.left;
 			} else {
-				ballView.b.x = (view.playGround.right - view.playGround.left);
+				ballView.b.x = (view.playGround.right - (ballView.radius * 2));
 			}
 		}
 		if (check.containsBallY(accelY)) {
@@ -100,7 +100,7 @@ public class Maze extends Activity implements SensorEventListener {
 			if (check.touchOnTop()) {
 				ballView.b.y = view.playGround.top;
 			} else {
-				ballView.b.y = (view.playGround.bottom - view.playGround.top);
+				ballView.b.y = (view.playGround.bottom - (ballView.radius * 2));
 			}
 		}
 	}
