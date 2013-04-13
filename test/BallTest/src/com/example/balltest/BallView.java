@@ -9,9 +9,8 @@ import android.graphics.PointF;
 import android.view.View;
 
 class BallView extends View {
-	int radius = 34;
-	Bitmap ball = BitmapFactory
-			.decodeResource(getResources(), R.drawable.ball2);
+	int radius = 30;
+	Bitmap ball = BitmapFactory.decodeResource(getResources(), R.drawable.ball);
 	PointF b = new PointF(200f, 200f);
 
 	public BallView(Context context, int width, int height) {
@@ -21,8 +20,10 @@ class BallView extends View {
 
 	protected void onDraw(Canvas canvas) {
 		Paint paint = new Paint();
+		paint.setAntiAlias(true);
+		paint.setDither(true);
 		// canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
-		canvas.drawBitmap(ball, b.x, b.y, null);
+		canvas.drawBitmap(ball, b.x, b.y, paint);
 		// Log.d("xy", b.x + " y " + b.y);
 		invalidate();
 
