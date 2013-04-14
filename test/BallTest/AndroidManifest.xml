@@ -29,7 +29,7 @@
         </activity>
 
         <service
-            android:name="com.example.balltest.RenderView"
+            android:name="com.example.balltest.MazeView"
             android:enabled="true"
             android:exported="true" >
         </service>

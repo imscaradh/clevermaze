@@ -12,9 +12,9 @@ import android.graphics.PointF;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
-import android.view.SurfaceView;
+import android.view.View;
 
-class RenderView extends SurfaceView {
+class MazeView extends View {
 	Random rand = new Random();
 	// PointF b = new PointF(200f, 200f);
 	Rect playGround;
@@ -28,7 +28,7 @@ class RenderView extends SurfaceView {
 	Bitmap wood = BitmapFactory.decodeResource(getResources(),
 			R.drawable.wood_background);
 	Bitmap wall = BitmapFactory.decodeResource(getResources(), R.drawable.wall);
-	Bitmap hole = BitmapFactory.decodeResource(getResources(), R.drawable.hole);
+
 	Bitmap star = BitmapFactory.decodeResource(getResources(), R.drawable.star);
 	// Drawable ballD;
 	Bitmap bitmap;
@@ -37,7 +37,7 @@ class RenderView extends SurfaceView {
 	private final Paint paint = new Paint();
 	private final Paint eraserPaint = new Paint();
 
-	public RenderView(Context context, int width, int height) {
+	public MazeView(Context context, int width, int height) {
 		super(context);
 		playGround = new Rect(40, 40, width - 40, height - 40);
 		// ball = Bitmap.createScaledBitmap(ball, radius * 2, radius * 2, true);
@@ -46,7 +46,7 @@ class RenderView extends SurfaceView {
 		points.addElement(new PointF(345f, 345f));
 
 		// Set background
-		this.setBackgroundResource(R.drawable.bottom);
+		// this.setBackgroundResource(R.drawable.bottom);
 
 		// Set bitmap
 		bitmap = wood.createBitmap(width, height, Bitmap.Config.ARGB_8888);

@@ -18,8 +18,10 @@ import android.widget.RelativeLayout;
 public class Maze extends Activity implements SensorEventListener {
 	private SensorManager sensorManager;
 	// Bitmap ball;
-	RenderView view;
+	RelativeLayout layout;
+	MazeView mazeView;
 	BallView ballView;
+	BackView backView;
 	Check check;
 	float x, y, accelX, accelY;
 
@@ -40,13 +42,14 @@ public class Maze extends Activity implements SensorEventListener {
 		Point size = new Point();
 		display.getSize(size);
 		// Creates a new View
-		view = new RenderView(this, size.x, size.y);
-		ballView = new BallView(this, size.x, size.y);
-		check = new Check(ballView, view);
-		RelativeLayout layout = new RelativeLayout(this);
-		layout.addView(view);
-		layout.addView(ballView);
-
+		mazeView = new MazeView(this, size.x, size.y);
+		ballView = new BallView(this);
+		backView = new BackView(this);
+		check = new Check(ballView, mazeView);
+		layout = new RelativeLayout(this);
+		layout.addView(backView, 0);
+		layout.addView(mazeView, 1);
+		layout.addView(ballView, 2);
 		setContentView(layout);
 
 		sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -89,19 +92,23 @@ public class Maze extends Activity implements SensorEventListener {
 			ballView.b.x = ballView.b.x - (accelX * 2f);
 		} else {
 			if (check.touchOnLeft()) {
-				ballView.b.x = view.playGround.left;
+				ballView.b.x = mazeView.playGround.left;
 			} else {
-				ballView.b.x = (view.playGround.right - (ballView.radius * 2));
+				ballView.b.x = (mazeView.playGround.right - (ballView.radius * 2));
 			}
 		}
 		if (check.containsBallY(accelY)) {
 			ballView.b.y = ballView.b.y + (accelY * 2f);
 		} else {
 			if (check.touchOnTop()) {
-				ballView.b.y = view.playGround.top;
+				ballView.b.y = mazeView.playGround.top;
 			} else {
-				ballView.b.y = (view.playGround.bottom - (ballView.radius * 2));
+				ballView.b.y = (mazeView.playGround.bottom - (ballView.radius * 2));
 			}
+		}
+		if (check.ballInHole()) {
+			// Some magic things happens and the ball should go bellow the
+			// mazeView
 		}
 	}
 }

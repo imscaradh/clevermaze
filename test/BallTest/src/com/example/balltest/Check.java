@@ -4,9 +4,9 @@ import android.graphics.PointF;
 
 public class Check {
 	BallView ballView;
-	RenderView back;
+	MazeView back;
 
-	public Check(BallView ball, RenderView back) {
+	public Check(BallView ball, MazeView back) {
 		this.ballView = ball;
 		this.back = back;
 	}
