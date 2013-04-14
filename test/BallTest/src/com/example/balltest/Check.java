@@ -69,7 +69,7 @@ public class Check {
 				float px = p.x;
 				float py = p.y;
 				mazeView.points.remove(p);
-				// Only updates the Rect where the Point was.
+				// Only updates the Rect where the Point was .
 				mazeView.postInvalidate((int) px - 1, (int) py + 1, (int) px
 						+ mazeView.star.getWidth() + 1, (int) py
 						- mazeView.star.getHeight() + 1);
