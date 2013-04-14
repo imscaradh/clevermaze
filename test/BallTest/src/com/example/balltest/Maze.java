@@ -87,7 +87,8 @@ public class Maze extends Activity implements SensorEventListener {
 	}
 
 	private void updateBall(float accelX, float accelY) {
-		// check.checkStarTouch();
+		// TODO: Add Boucing
+		// TODO: Add Acceleration (Speed)
 		if (check.containsBallX(accelX)) {
 			ballView.b.x = ballView.b.x - (accelX * 2f);
 		} else {
@@ -107,8 +108,12 @@ public class Maze extends Activity implements SensorEventListener {
 			}
 		}
 		if (check.ballInHole()) {
-			// Some magic things happens and the ball should go bellow the
-			// mazeView
+			// TODO: Should be nicer..
+			layout.removeView(mazeView);
+			layout.addView(mazeView);
 		}
+
+		check.checkStarTouch();
+
 	}
 }
