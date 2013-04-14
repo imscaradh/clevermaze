@@ -4,24 +4,24 @@ import android.graphics.PointF;
 
 public class Check {
 	BallView ballView;
-	MazeView back;
+	MazeView mazeView;
 
 	public Check(BallView ball, MazeView back) {
 		this.ballView = ball;
-		this.back = back;
+		this.mazeView = back;
 	}
 
 	public boolean containsBallX(float accelX) {
-		if ((ballView.b.x - (accelX * 2f)) > back.playGround.left
-				&& (ballView.b.x - (accelX * 2f)) < (back.playGround.right - (ballView.radius * 2))) {
+		if ((ballView.b.x - (accelX * 2f)) > mazeView.playGround.left
+				&& (ballView.b.x - (accelX * 2f)) < (mazeView.playGround.right - (ballView.radius * 2))) {
 			return true;
 		}
 		return false;
 	}
 
 	public boolean containsBallY(float accelY) {
-		if ((ballView.b.y + (accelY * 2f)) > back.playGround.top
-				&& (ballView.b.y + (accelY * 2f)) < back.playGround.bottom
+		if ((ballView.b.y + (accelY * 2f)) > mazeView.playGround.top
+				&& (ballView.b.y + (accelY * 2f)) < mazeView.playGround.bottom
 						- (ballView.radius * 2)) {
 			return true;
 		}
@@ -29,21 +29,21 @@ public class Check {
 	}
 
 	public boolean touchOnLeft() {
-		if ((ballView.b.x - back.playGround.left) < (back.playGround.right - ballView.b.x)) {
+		if ((ballView.b.x - mazeView.playGround.left) < (mazeView.playGround.right - ballView.b.x)) {
 			return true;
 		}
 		return false;
 	}
 
 	public boolean touchOnTop() {
-		if ((ballView.b.y - back.playGround.top) < (back.playGround.bottom - ballView.b.y)) {
+		if ((ballView.b.y - mazeView.playGround.top) < (mazeView.playGround.bottom - ballView.b.y)) {
 			return true;
 		}
 		return false;
 	}
 
 	public boolean ballInHole() {
-		for (PointF h : back.holes) {
+		for (PointF h : mazeView.holes) {
 			float dx = Math.abs(ballView.b.x - h.x);
 			float dy = Math.abs(ballView.b.y - h.y);
 
@@ -60,13 +60,20 @@ public class Check {
 	}
 
 	public void checkStarTouch() {
-		for (PointF p : back.points) {
+		for (PointF p : mazeView.points) {
 			float dx = Math.abs(ballView.b.x - p.x);
 			float dy = Math.abs(ballView.b.y - p.y);
 
 			if (Math.sqrt(dx * dx + dy * dy) < 30) {
 				// the ball is enough near to collect
-				back.points.remove(p);
+				float px = p.x;
+				float py = p.y;
+				mazeView.points.remove(p);
+				// Only updates the Rect where the Point was.
+				mazeView.postInvalidate((int) px - 1, (int) py + 1, (int) px
+						+ mazeView.star.getWidth() + 1, (int) py
+						- mazeView.star.getHeight() + 1);
+
 			}
 		}
 

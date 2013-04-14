@@ -66,12 +66,12 @@ class MazeView extends View {
 		bitmapCanvas.drawBitmap(wood, playGround, playGround, null);
 		canvas.drawBitmap(bitmap, 0, 0, null);
 		// // Foreach > drawing holes
-		for (PointF s : points) {
-			canvas.drawBitmap(star, s.x, s.y, null);
-		}
 		for (PointF h : holes) {
 			bitmapCanvas.drawCircle(h.x + radius, h.y + radius, radius,
 					eraserPaint);
+		}
+		for (PointF s : points) {
+			canvas.drawBitmap(star, s.x, s.y, null);
 		}
 
 	}
