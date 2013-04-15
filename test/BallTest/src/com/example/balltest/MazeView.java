@@ -34,6 +34,8 @@ class MazeView extends View {
 	Bitmap bitmap;
 	Canvas bitmapCanvas;
 
+	Stages stages = new Stages();
+
 	private final Paint paint = new Paint();
 	private final Paint eraserPaint = new Paint();
 
@@ -42,12 +44,8 @@ class MazeView extends View {
 		playGround = new Rect(40, 40, width - 40, height - 40);
 		// ball = Bitmap.createScaledBitmap(ball, radius * 2, radius * 2, true);
 		star = Bitmap.createScaledBitmap(star, 60, 60, true);
-		holes.addElement(new PointF(500f, 500f));
+		holes = stages.firstHoles();
 		points.addElement(new PointF(345f, 345f));
-
-		// Set background
-		// this.setBackgroundResource(R.drawable.bottom);
-
 		// Set bitmap
 		bitmap = wood.createBitmap(width, height, Bitmap.Config.ARGB_8888);
 		bitmapCanvas = new Canvas();
