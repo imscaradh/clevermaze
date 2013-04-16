@@ -45,7 +45,7 @@ class MazeView extends View {
 		// ball = Bitmap.createScaledBitmap(ball, radius * 2, radius * 2, true);
 		star = Bitmap.createScaledBitmap(star, 60, 60, true);
 		holes = stages.firstHoles();
-		points.addElement(new PointF(345f, 345f));
+		points = stages.firstStars();
 		// Set bitmap
 		bitmap = wood.createBitmap(width, height, Bitmap.Config.ARGB_8888);
 		bitmapCanvas = new Canvas();

@@ -60,23 +60,28 @@ public class Check {
 	}
 
 	public void checkStarTouch() {
+		PointF toRemove = null;
+		float px = 0;
+		float py = 0;
 		for (PointF p : mazeView.points) {
 			float dx = Math.abs(ballView.b.x - p.x);
 			float dy = Math.abs(ballView.b.y - p.y);
-
+			px = p.x;
+			py = p.y;
 			if (Math.sqrt(dx * dx + dy * dy) < 30) {
 				// the ball is enough near to collect
-				float px = p.x;
-				float py = p.y;
-				mazeView.points.remove(p);
+
+				toRemove = new PointF(px, py);
 				// Only updates the Rect where the Point was .
-				mazeView.postInvalidate((int) px - 1, (int) py + 1, (int) px
-						+ mazeView.star.getWidth() + 1, (int) py
-						- mazeView.star.getHeight() + 1);
 
 			}
+
 		}
-
+		if (toRemove != null) {
+			mazeView.points.remove(toRemove);
+			mazeView.postInvalidate((int) px - 1, (int) py + 1, (int) px
+					+ mazeView.star.getWidth() + 1,
+					(int) py - mazeView.star.getHeight() + 1);
+		}
 	}
-
 }
