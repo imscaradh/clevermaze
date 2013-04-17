@@ -7,6 +7,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PointF;
 import android.graphics.PorterDuff;
@@ -22,6 +23,7 @@ class MazeView extends View {
 	boolean ballInHole = false;
 	Vector<PointF> holes = new Vector<PointF>();
 	Vector<PointF> points = new Vector<PointF>();
+	Vector<Rect> walls = new Vector<Rect>();
 
 	// Bitmap ball = BitmapFactory.decodeResource(getResources(),
 	// R.drawable.ball2);
@@ -46,6 +48,7 @@ class MazeView extends View {
 		star = Bitmap.createScaledBitmap(star, 60, 60, true);
 		holes = stages.firstHoles();
 		points = stages.firstStars();
+		walls = stages.firstWalls();
 		// Set bitmap
 		bitmap = wood.createBitmap(width, height, Bitmap.Config.ARGB_8888);
 		bitmapCanvas = new Canvas();
@@ -70,6 +73,14 @@ class MazeView extends View {
 		}
 		for (PointF s : points) {
 			canvas.drawBitmap(star, s.x, s.y, null);
+		}
+		Paint paint = new Paint();
+		paint.setColor(Color.argb(255, 212, 212, 212));
+		paint.setAntiAlias(true);
+		paint.setFilterBitmap(true);
+		paint.setDither(true);
+		for (Rect w : walls) {
+			canvas.drawRect(w, paint);
 		}
 
 	}

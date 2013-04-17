@@ -3,6 +3,7 @@ package com.example.balltest;
 import java.util.Vector;
 
 import android.graphics.PointF;
+import android.graphics.Rect;
 
 public class Stages {
 
@@ -49,4 +50,12 @@ public class Stages {
 		stars.add(new PointF(622f, 186f));
 		return stars;
 	}
+
+	public Vector<Rect> firstWalls() {
+		Vector<Rect> walls = new Vector<Rect>();
+		walls.add(new Rect(103, 40, 176, 320));
+		walls.add(new Rect(103, 500, 176, 780));
+		return walls;
+	}
+
 }
