@@ -108,7 +108,7 @@ public class Maze extends Activity implements SensorEventListener {
 			}
 		}
 		if (check.ballInHole()) {
-			// TODO: Replace with nicer code
+			// TODO: Replace with nicer code?
 			layout.removeView(mazeView);
 			layout.addView(mazeView);
 		}

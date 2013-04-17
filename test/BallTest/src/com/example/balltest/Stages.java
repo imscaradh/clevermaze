@@ -24,7 +24,7 @@ public class Stages {
 		holes.add(new PointF(559f, 259f));
 		holes.add(new PointF(320f, 332f));
 		holes.add(new PointF(103f, 332f));
-		holes.add(new PointF(176f, 478f));
+		holes.add(new PointF(186f, 478f));
 		holes.add(new PointF(395f, 551f));
 		holes.add(new PointF(40f, 1172f));
 		holes.add(new PointF(40f, 1099f));
@@ -53,8 +53,14 @@ public class Stages {
 
 	public Vector<Rect> firstWalls() {
 		Vector<Rect> walls = new Vector<Rect>();
-		walls.add(new Rect(103, 40, 176, 320));
-		walls.add(new Rect(103, 500, 176, 780));
+		walls.add(new Rect(113, 40, 164, 320));
+		walls.add(new Rect(119, 480, 170, 740));
+		walls.add(new Rect(329, 1036, 685, 1087));
+		walls.add(new Rect(259, 250, 310, 559));
+		walls.add(new Rect(405, 200, 456, 539));
+		walls.add(new Rect(456, 450, 580, 501));
+		walls.add(new Rect(529, 501, 580, 801));
+		walls.add(new Rect(405, 700, 456, 1036));
 		return walls;
 	}
 

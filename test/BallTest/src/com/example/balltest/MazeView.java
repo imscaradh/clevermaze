@@ -35,11 +35,9 @@ class MazeView extends View {
 	// Drawable ballD;
 	Bitmap bitmap;
 	Canvas bitmapCanvas;
-
 	Stages stages = new Stages();
-
-	private final Paint paint = new Paint();
-	private final Paint eraserPaint = new Paint();
+	Paint paint = new Paint();
+	Paint eraserPaint = new Paint();
 
 	public MazeView(Context context, int width, int height) {
 		super(context);
@@ -49,6 +47,7 @@ class MazeView extends View {
 		holes = stages.firstHoles();
 		points = stages.firstStars();
 		walls = stages.firstWalls();
+
 		// Set bitmap
 		bitmap = wood.createBitmap(width, height, Bitmap.Config.ARGB_8888);
 		bitmapCanvas = new Canvas();
@@ -60,6 +59,13 @@ class MazeView extends View {
 		eraserPaint.setAntiAlias(true);
 		eraserPaint.setFilterBitmap(true);
 		eraserPaint.setDither(true);
+
+		paint.setColor(Color.argb(200, 212, 212, 212));
+		paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.OVERLAY));
+		paint.setAntiAlias(true);
+		paint.setFilterBitmap(true);
+		paint.setDither(true);
+
 	}
 
 	protected void onDraw(Canvas canvas) {
@@ -72,15 +78,10 @@ class MazeView extends View {
 					eraserPaint);
 		}
 		for (PointF s : points) {
-			canvas.drawBitmap(star, s.x, s.y, null);
+			bitmapCanvas.drawBitmap(star, s.x, s.y, null);
 		}
-		Paint paint = new Paint();
-		paint.setColor(Color.argb(255, 212, 212, 212));
-		paint.setAntiAlias(true);
-		paint.setFilterBitmap(true);
-		paint.setDither(true);
 		for (Rect w : walls) {
-			canvas.drawRect(w, paint);
+			bitmapCanvas.drawRect(w, paint);
 		}
 
 	}

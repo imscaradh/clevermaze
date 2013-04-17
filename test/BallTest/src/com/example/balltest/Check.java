@@ -1,6 +1,7 @@
 package com.example.balltest;
 
 import android.graphics.PointF;
+import android.graphics.Rect;
 
 public class Check {
 	BallView ballView;
@@ -82,6 +83,12 @@ public class Check {
 			mazeView.postInvalidate((int) px - 1, (int) py + 1, (int) px
 					+ mazeView.star.getWidth() + 1,
 					(int) py - mazeView.star.getHeight() + 1);
+		}
+	}
+
+	public void checkIfWallTouch() {
+		for (Rect r : mazeView.walls) {
+
 		}
 	}
 }
