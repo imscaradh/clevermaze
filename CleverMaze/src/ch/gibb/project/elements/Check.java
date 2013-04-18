@@ -1,83 +1,85 @@
 package ch.gibb.project.elements;
 
 import android.graphics.PointF;
+import ch.gibb.project.activity.Level;
 
 public class Check {
-	private Ball ballView;
-	private Maze mazeView;
+	private Ball ballElement;
+	private Maze mazeElement;
+	private Hole holeElement;
+	private Wall wallElement;
+	private Point pointElement;
 
-	public Check(Ball ball, Maze back) {
-		this.ballView = ball;
-		this.mazeView = back;
+	public Check(Level levelActivity) {
+		ballElement = levelActivity.getBallElement();
+		mazeElement = levelActivity.getMazeElement();
+		holeElement = levelActivity.getHoleElement();
+		wallElement = levelActivity.getWallElement();
+		pointElement = levelActivity.getPointElement();
 	}
 
 	public boolean containsBallX(float accelX) {
-		if ((ballView.getB().x - (accelX * 2f)) > mazeView.getPlayGround().left
-				&& (ballView.getB().x - (accelX * 2f)) < (mazeView
-						.getPlayGround().right - (ballView.getRadius() * 2))) {
+		if ((ballElement.getCoordinates().x - (accelX * 2f)) > mazeElement
+				.getPlayGround().left
+				&& (ballElement.getCoordinates().x - (accelX * 2f)) < (mazeElement
+						.getPlayGround().right - (ballElement.getRadius() * 2))) {
 			return true;
 		}
 		return false;
 	}
 
 	public boolean containsBallY(float accelY) {
-		if ((ballView.getB().y + (accelY * 2f)) > mazeView.getPlayGround().top
-				&& (ballView.getB().y + (accelY * 2f)) < mazeView
-						.getPlayGround().bottom - (ballView.getRadius() * 2)) {
+		if ((ballElement.getCoordinates().y + (accelY * 2f)) > mazeElement
+				.getPlayGround().top
+				&& (ballElement.getCoordinates().y + (accelY * 2f)) < mazeElement
+						.getPlayGround().bottom - (ballElement.getRadius() * 2)) {
 			return true;
 		}
 		return false;
 	}
 
 	public boolean touchOnLeft() {
-		if ((ballView.getB().x - mazeView.getPlayGround().left) < (mazeView
-				.getPlayGround().right - ballView.getB().x)) {
+		if ((ballElement.getCoordinates().x - mazeElement.getPlayGround().left) < (mazeElement
+				.getPlayGround().right - ballElement.getCoordinates().x)) {
 			return true;
 		}
 		return false;
 	}
 
 	public boolean touchOnTop() {
-		if ((ballView.getB().y - mazeView.getPlayGround().top) < (mazeView
-				.getPlayGround().bottom - ballView.getB().y)) {
+		if ((ballElement.getCoordinates().y - mazeElement.getPlayGround().top) < (mazeElement
+				.getPlayGround().bottom - ballElement.getCoordinates().y)) {
 			return true;
 		}
 		return false;
 	}
 
 	public boolean ballInHole() {
-		for (PointF h : mazeView.getHoles()) {
-			float dx = Math.abs(ballView.getB().x - h.x);
-			float dy = Math.abs(ballView.getB().y - h.y);
+		for (PointF hole : holeElement.getHoles()) {
+			float dx = Math.abs(ballElement.getCoordinates().x - hole.x);
+			float dy = Math.abs(ballElement.getCoordinates().y - hole.y);
 
 			if (Math.sqrt(dx * dx + dy * dy) < 30) {
-				// the ball is enough near to fall
-				// ballView = Bitmap.createScaledBitmap(ballView.ball, 50,
-				// 50,ytrue);
-				// ballInHole = true;
 				return true;
-
 			}
 		}
 		return false;
 	}
 
 	public void checkStarTouch() {
-		for (PointF p : mazeView.getPoints()) {
-			float dx = Math.abs(ballView.getB().x - p.x);
-			float dy = Math.abs(ballView.getB().y - p.y);
+		for (PointF point : pointElement.getPoints()) {
+			float dx = Math.abs(ballElement.getCoordinates().x - point.x);
+			float dy = Math.abs(ballElement.getCoordinates().y - point.y);
 
 			if (Math.sqrt(dx * dx + dy * dy) < 30) {
 				// the ball is enough near to collect
-				float px = p.x;
-				float py = p.y;
-				mazeView.getPoints().remove(p);
+				float px = point.x;
+				float py = point.y;
+				pointElement.getPoints().remove(point);
 				// Only updates the Rect where the Point was .
-				mazeView.postInvalidate((int) px - 1, (int) py + 1, (int) px
-						+ mazeView.getStar().getWidth() + 1, (int) py
-						- mazeView.getStar().getHeight() + 1);
 
 			}
+
 		}
 
 	}
