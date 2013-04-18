@@ -16,7 +16,7 @@ public class Ball extends View {
 
 	public Ball(Context context) {
 		super(context);
-		ball = BitmapFactory.decodeResource(getResources(), R.drawable.ball);
+		ball = BitmapFactory.decodeResource(getResources(), R.drawable.ball2);
 		ball = Bitmap.createScaledBitmap(ball, radius * 2, radius * 2, true);
 		b = new PointF(200f, 200f);
 	}

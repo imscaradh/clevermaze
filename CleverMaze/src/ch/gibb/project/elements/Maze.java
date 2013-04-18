@@ -36,6 +36,7 @@ public class Maze extends View {
 		wall = BitmapFactory.decodeResource(getResources(), R.drawable.wall);
 		star = BitmapFactory.decodeResource(getResources(), R.drawable.star);
 
+		wood = wood.createScaledBitmap(wood, width - 40, height - 40, true);
 		playGround = new Rect(40, 40, width - 40, height - 40);
 		star = Bitmap.createScaledBitmap(star, 60, 60, true);
 		holes = stages.firstHoles();

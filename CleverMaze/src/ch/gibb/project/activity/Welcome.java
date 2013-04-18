@@ -5,12 +5,13 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageButton;
 import ch.gibb.project.R;
 import ch.gibb.project.util.MessageUtil;
 
 public class Welcome extends Activity {
 
-	private Button start;
+	private ImageButton start;
 	private Button highscore;
 	private Button close;
 
@@ -21,7 +22,7 @@ public class Welcome extends Activity {
 
 	@Override
 	protected void initObjects() {
-		start = (Button) findViewById(R.id.btn_play);
+		start = (ImageButton) findViewById(R.id.btn_play);
 		start.setOnClickListener(new startListener());
 
 		highscore = (Button) findViewById(R.id.btn_highscore);
