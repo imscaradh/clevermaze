@@ -89,6 +89,7 @@ public class Maze extends Activity implements SensorEventListener {
 	private void updateBall(float accelX, float accelY) {
 		// TODO: Add Boucing
 		// TODO: Add Acceleration (Speed)
+		// TODO: Implement WallTouch
 		if (check.containsBallX(accelX)) {
 			ballView.b.x = ballView.b.x - (accelX * 2f);
 		} else {

@@ -86,7 +86,7 @@ public class Check {
 		}
 	}
 
-	public void checkIfWallTouch() {
+	public void checkIfWallTouch(float accelX, float accelY) {
 		for (Rect r : mazeView.walls) {
 
 		}
