@@ -1,4 +1,4 @@
-package ch.gibb.project.elements;
+package ch.gibb.project.controller;
 
 import java.util.Vector;
 

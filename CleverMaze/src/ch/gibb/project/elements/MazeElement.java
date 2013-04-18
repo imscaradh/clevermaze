@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Point;
 import android.view.View;
+import ch.gibb.project.controller.Stages;
 import ch.gibb.project.util.Dimension;
 
 public class MazeElement extends View {

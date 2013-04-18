@@ -27,9 +27,8 @@ public class Wall extends MazeElement {
 
 	public Wall(Context context, int width, int height) {
 		super(context, width, height);
-		backgroundImage = Bitmap.createScaledBitmap(
-				BitmapFactory.decodeResource(getResources(), R.drawable.wall),
-				0, 0, true);
+		backgroundImage = BitmapFactory.decodeResource(getResources(),
+				R.drawable.wall);
 
 		walls = stageManager.firstWalls();
 	}

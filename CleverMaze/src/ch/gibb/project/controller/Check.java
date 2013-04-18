@@ -1,7 +1,12 @@
-package ch.gibb.project.elements;
+package ch.gibb.project.controller;
 
 import android.graphics.PointF;
 import ch.gibb.project.activity.Level;
+import ch.gibb.project.elements.Ball;
+import ch.gibb.project.elements.Hole;
+import ch.gibb.project.elements.Maze;
+import ch.gibb.project.elements.Point;
+import ch.gibb.project.elements.Wall;
 
 public class Check {
 	private Ball ballElement;

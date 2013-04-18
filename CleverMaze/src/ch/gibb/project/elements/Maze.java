@@ -25,7 +25,7 @@ public class Maze extends MazeElement {
 		bitmapCanvas.drawBitmap(
 				BitmapFactory.decodeResource(getResources(), R.drawable.wood),
 				playGround, playGround, null);
-		canvas.drawBitmap(bitmap, 0, 0, null);
+		// canvas.drawBitmap(bitmap, 0, 0, null);
 
 	}
 
