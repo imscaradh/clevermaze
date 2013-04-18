@@ -65,7 +65,6 @@ class MazeView extends View {
 		paint.setAntiAlias(true);
 		paint.setFilterBitmap(true);
 		paint.setDither(true);
-
 	}
 
 	protected void onDraw(Canvas canvas) {

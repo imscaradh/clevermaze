@@ -6,26 +6,26 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.PointF;
-import android.view.View;
 import ch.gibb.project.R;
 
-public class Ball extends View {
+public class Ball extends MazeElement {
 	private int radius = 30;
-	private Bitmap ball;
-	private PointF b;
+	private Bitmap backgroundImage;
+	private PointF coordinates;
 
-	public Ball(Context context) {
-		super(context);
-		ball = BitmapFactory.decodeResource(getResources(), R.drawable.ball2);
-		ball = Bitmap.createScaledBitmap(ball, radius * 2, radius * 2, true);
-		b = new PointF(200f, 200f);
+	public Ball(Context context, int width, int height) {
+		super(context, width, height);
+		backgroundImage = Bitmap.createScaledBitmap(
+				BitmapFactory.decodeResource(getResources(), R.drawable.ball),
+				radius * 2, radius * 2, true);
+		coordinates = new PointF(200f, 200f);
 	}
 
 	protected void onDraw(Canvas canvas) {
 		Paint paint = new Paint();
 		paint.setAntiAlias(true);
 		paint.setDither(true);
-		canvas.drawBitmap(ball, b.x, b.y, paint);
+		canvas.drawBitmap(backgroundImage, coordinates.x, coordinates.y, paint);
 		invalidate();
 	}
 
@@ -37,11 +37,11 @@ public class Ball extends View {
 		this.radius = radius;
 	}
 
-	public PointF getB() {
-		return b;
+	public PointF getCoordinates() {
+		return coordinates;
 	}
 
-	public void setB(PointF b) {
-		this.b = b;
+	public void setCoordinates(PointF coordinates) {
+		this.coordinates = coordinates;
 	}
 }

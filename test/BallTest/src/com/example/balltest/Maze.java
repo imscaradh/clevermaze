@@ -91,7 +91,11 @@ public class Maze extends Activity implements SensorEventListener {
 		// TODO: Add Acceleration (Speed)
 		// TODO: Implement WallTouch
 		if (check.containsBallX(accelX)) {
-			ballView.b.x = ballView.b.x - (accelX * 2f);
+			if (check.checkIfWallTouch(accelX, accelY)) {
+
+			} else {
+				ballView.b.x = ballView.b.x - (accelX * 2f);
+			}
 		} else {
 			if (check.touchOnLeft()) {
 				ballView.b.x = mazeView.playGround.left;

@@ -86,9 +86,23 @@ public class Check {
 		}
 	}
 
-	public void checkIfWallTouch(float accelX, float accelY) {
-		for (Rect r : mazeView.walls) {
-
+	public boolean checkIfWallTouch(float accelX, float accelY) {
+		float bLeft = ballView.b.x;
+		float bTop = ballView.b.y;
+		float bRight = ballView.b.x + ballView.ball.getWidth();
+		float bBottom = ballView.b.y + ballView.ball.getHeight();
+		for (Rect w : mazeView.walls) {
+			if ((bRight + accelX > w.left) && (bRight + accelX < w.right)
+					&& (bTop > w.top && bBottom < w.bottom)) {
+				ballView.b.x = w.left - ballView.ball.getWidth();
+				return true;
+			}
+			// if ((bLeft + accelX < w.right)
+			// && (bTop > w.top && bBottom < w.bottom)) {
+			// ballView.b.x = w.right;
+			// return true;
+			// }
 		}
+		return false;
 	}
 }

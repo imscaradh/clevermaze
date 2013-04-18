@@ -11,7 +11,7 @@ import android.view.View;
 class BallView extends View {
 	int radius = 30;
 	Bitmap ball = BitmapFactory.decodeResource(getResources(), R.drawable.ball);
-	PointF b = new PointF(200f, 200f);
+	PointF b = new PointF(600f, 1150f);
 
 	public BallView(Context context) {
 		super(context);
