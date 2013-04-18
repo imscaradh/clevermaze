@@ -2,10 +2,12 @@ package ch.gibb.project.elements;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.PointF;
 import android.view.View;
+import ch.gibb.project.R;
 
 public class Ball extends View {
 	private int radius = 30;
@@ -14,8 +16,8 @@ public class Ball extends View {
 
 	public Ball(Context context) {
 		super(context);
-		ball = Bitmap.createScaledBitmap(ball, getRadius() * 2,
-				getRadius() * 2, true);
+		ball = BitmapFactory.decodeResource(getResources(), R.drawable.ball);
+		ball = Bitmap.createScaledBitmap(ball, radius * 2, radius * 2, true);
 		b = new PointF(200f, 200f);
 	}
 
@@ -23,7 +25,7 @@ public class Ball extends View {
 		Paint paint = new Paint();
 		paint.setAntiAlias(true);
 		paint.setDither(true);
-		canvas.drawBitmap(ball, getB().x, getB().y, paint);
+		canvas.drawBitmap(ball, b.x, b.y, paint);
 		invalidate();
 	}
 

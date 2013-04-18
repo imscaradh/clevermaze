@@ -3,8 +3,8 @@ package ch.gibb.project.elements;
 import android.graphics.PointF;
 
 public class Check {
-	Ball ballView;
-	Maze mazeView;
+	private Ball ballView;
+	private Maze mazeView;
 
 	public Check(Ball ball, Maze back) {
 		this.ballView = ball;
@@ -13,7 +13,8 @@ public class Check {
 
 	public boolean containsBallX(float accelX) {
 		if ((ballView.getB().x - (accelX * 2f)) > mazeView.getPlayGround().left
-				&& (ballView.getB().x - (accelX * 2f)) < (mazeView.getPlayGround().right - (ballView.getRadius() * 2))) {
+				&& (ballView.getB().x - (accelX * 2f)) < (mazeView
+						.getPlayGround().right - (ballView.getRadius() * 2))) {
 			return true;
 		}
 		return false;
@@ -21,22 +22,24 @@ public class Check {
 
 	public boolean containsBallY(float accelY) {
 		if ((ballView.getB().y + (accelY * 2f)) > mazeView.getPlayGround().top
-				&& (ballView.getB().y + (accelY * 2f)) < mazeView.getPlayGround().bottom
-						- (ballView.getRadius() * 2)) {
+				&& (ballView.getB().y + (accelY * 2f)) < mazeView
+						.getPlayGround().bottom - (ballView.getRadius() * 2)) {
 			return true;
 		}
 		return false;
 	}
 
 	public boolean touchOnLeft() {
-		if ((ballView.getB().x - mazeView.getPlayGround().left) < (mazeView.getPlayGround().right - ballView.getB().x)) {
+		if ((ballView.getB().x - mazeView.getPlayGround().left) < (mazeView
+				.getPlayGround().right - ballView.getB().x)) {
 			return true;
 		}
 		return false;
 	}
 
 	public boolean touchOnTop() {
-		if ((ballView.getB().y - mazeView.getPlayGround().top) < (mazeView.getPlayGround().bottom - ballView.getB().y)) {
+		if ((ballView.getB().y - mazeView.getPlayGround().top) < (mazeView
+				.getPlayGround().bottom - ballView.getB().y)) {
 			return true;
 		}
 		return false;

@@ -10,9 +10,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Display;
 import android.view.Menu;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.RelativeLayout;
 import ch.gibb.project.R;
 import ch.gibb.project.elements.Ball;
@@ -20,40 +19,40 @@ import ch.gibb.project.elements.Check;
 import ch.gibb.project.elements.Maze;
 
 public class Level extends Activity implements SensorEventListener {
-	private Button close;
 	private SensorManager sensorManager;
-	private RelativeLayout layout;
-	private Maze mazeView;
-	private Ball ballView;
-	private Check check;
-	private float accelX, accelY;
+	// Bitmap ball;
+	RelativeLayout layout;
+	Maze mazeView;
+	Ball ballView;
+	BackView backView;
+	Check check;
+	float x, y, accelX, accelY;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState, R.layout.activity_level);
-	}
+		// Full-Screen
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-	@Override
-	protected void initObjects() {
-		close = (Button) findViewById(R.id.btn_close);
-		close.setOnClickListener(new OnClickListener() {
+		// Prevent that the device goes into standby
+		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
-			@Override
-			public void onClick(View v) {
-				Level.this.nextActivity(Welcome.class);
+		super.onCreate(savedInstanceState);
 
-			}
-		});
-
+		// Returns the display-value
 		Display display = getWindowManager().getDefaultDisplay();
 		Point size = new Point();
 		display.getSize(size);
+		// Creates a new View
 		mazeView = new Maze(this, size.x, size.y);
 		ballView = new Ball(this);
+		backView = new BackView(this);
 		check = new Check(ballView, mazeView);
 		layout = new RelativeLayout(this);
-		layout.addView(mazeView, 0);
-		layout.addView(ballView, 1);
+		layout.addView(backView, 0);
+		layout.addView(mazeView, 1);
+		layout.addView(ballView, 2);
 		setContentView(layout);
 
 		sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -71,20 +70,29 @@ public class Level extends Activity implements SensorEventListener {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
+	}
+
+	@Override
+	public void onAccuracyChanged(Sensor arg0, int arg1) {
+		// TODO Auto-generated method stub
+		// Testing Yanu
 	}
 
 	@Override
 	public void onSensorChanged(SensorEvent event) {
 		accelX = event.values[0];
 		accelY = event.values[1];
+		// boolean ballInHole = view.ballInHole();
 		updateBall(accelX, accelY);
 	}
 
 	private void updateBall(float accelX, float accelY) {
 		// TODO: Add Boucing
 		// TODO: Add Acceleration (Speed)
+		// TODO: Implement WallTouch
 		if (check.containsBallX(accelX)) {
 			ballView.getB().x = ballView.getB().x - (accelX * 2f);
 		} else {
@@ -106,7 +114,7 @@ public class Level extends Activity implements SensorEventListener {
 			}
 		}
 		if (check.ballInHole()) {
-			// FIXME: Replace with nicer code
+			// TODO: Replace with nicer code?
 			layout.removeView(mazeView);
 			layout.addView(mazeView);
 		}
@@ -116,9 +124,8 @@ public class Level extends Activity implements SensorEventListener {
 	}
 
 	@Override
-	public void onAccuracyChanged(Sensor arg0, int arg1) {
+	protected void initObjects() {
 		// TODO Auto-generated method stub
 
 	}
-
 }
