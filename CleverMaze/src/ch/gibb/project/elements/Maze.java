@@ -9,7 +9,6 @@ import ch.gibb.project.R;
 
 public class Maze extends MazeElement {
 	private Rect playGround;
-	private Bitmap bitmap;
 	private Bitmap backgroundImage;
 
 	public Maze(Context context, int width, int height) {
@@ -17,7 +16,7 @@ public class Maze extends MazeElement {
 		backgroundImage = BitmapFactory.decodeResource(getResources(),
 				R.drawable.wood);
 
-		backgroundImage = backgroundImage.createScaledBitmap(backgroundImage,
+		backgroundImage = Bitmap.createScaledBitmap(backgroundImage,
 				width - 40, height - 40, true);
 		playGround = new Rect(40, 40, width - 40, height - 40);
 

@@ -30,7 +30,7 @@ public class Level extends Activity implements SensorEventListener {
 
 	private BackView backView;
 	private Check check;
-	private float x, y, accelX, accelY;
+	private float accelX, accelY;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +59,8 @@ public class Level extends Activity implements SensorEventListener {
 		layout.addView(backView, 0);
 		layout.addView(mazeElement, 1);
 		layout.addView(ballElement, 2);
+		layout.addView(holeElement, 3);
+		layout.addView(pointElement, 4);
 		setContentView(layout);
 
 		sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
