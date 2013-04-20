@@ -77,6 +77,7 @@ public class Level extends Activity implements SensorEventListener {
 		layout.addView(ballElement, 2);
 		layout.addView(holeElement, 3);
 		layout.addView(pointElement, 4);
+		layout.addView(wallElement, 5);
 		setContentView(layout);
 	}
 
@@ -102,36 +103,16 @@ public class Level extends Activity implements SensorEventListener {
 		// TODO: Add Boucing
 		// TODO: Add Acceleration (Speed)
 		// TODO: Implement WallTouch
-		if (actionHandler.containsBallX(accelX)) {
-			ballElement.getCoordinates().x = ballElement.getCoordinates().x
-					- (accelX * 2f);
-		} else {
-			if (actionHandler.touchOnLeft()) {
-				ballElement.getCoordinates().x = mazeElement.getPlayGround().left;
-			} else {
-				ballElement.getCoordinates().x = (mazeElement.getPlayGround().right - (ballElement
-						.getRadius() * 2));
-			}
-		}
-		if (actionHandler.containsBallY(accelY)) {
-			ballElement.getCoordinates().y = ballElement.getCoordinates().y
-					+ (accelY * 2f);
-		} else {
-			if (actionHandler.touchOnTop()) {
-				ballElement.getCoordinates().y = mazeElement.getPlayGround().top;
-			} else {
-				ballElement.getCoordinates().y = (mazeElement.getPlayGround().bottom - (ballElement
-						.getRadius() * 2));
-			}
-		}
+		actionHandler.controllXCoordinateWallTouch(accelX);
+		actionHandler.controllYCoordinateWallTouch(accelY);
+		actionHandler.checkStarTouch();
+		actionHandler.checkWallTouch();
+
 		if (actionHandler.ballInHole()) {
 			// TODO: Replace with nicer code?
 			layout.removeView(mazeElement);
 			layout.addView(mazeElement);
 		}
-
-		actionHandler.checkStarTouch();
-
 	}
 
 	public SensorManager getSensorManager() {

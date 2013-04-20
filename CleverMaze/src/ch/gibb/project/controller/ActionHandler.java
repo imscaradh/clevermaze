@@ -77,14 +77,50 @@ public class ActionHandler {
 			float dy = Math.abs(ballElement.getCoordinates().y - point.y);
 
 			if (Math.sqrt(dx * dx + dy * dy) < 30) {
-				// the ball is enough near to collect
-				float px = point.x;
-				float py = point.y;
 				pointElement.getPoints().remove(point);
-				// Only updates the Rect where the Point was .
-
 			}
 
+		}
+	}
+
+	public void checkWallTouch() {
+		for (PointF point : pointElement.getPoints()) {
+			float dx = Math.abs(ballElement.getCoordinates().x - point.x);
+			float dy = Math.abs(ballElement.getCoordinates().y - point.y);
+
+			// if (Math.sqrt(dx * dx + dy * dy) < 30) {
+			// pointElement.getPoints().remove(point);
+			// }
+
+		}
+	}
+
+	public void controllXCoordinateWallTouch(float accelX) {
+		if (containsBallX(accelX)) {
+			ballElement.getCoordinates().x = ballElement.getCoordinates().x
+					- (accelX * 2f);
+		} else {
+			if (touchOnLeft()) {
+				ballElement.getCoordinates().x = mazeElement.getPlayGround().left;
+			} else {
+				ballElement.getCoordinates().x = (mazeElement.getPlayGround().right - (ballElement
+						.getRadius() * 2));
+			}
+		}
+
+	}
+
+	public void controllYCoordinateWallTouch(float accelY) {
+		if (containsBallY(accelY)) {
+			ballElement.getCoordinates().y = ballElement.getCoordinates().y
+					+ (accelY * 2f);
+		} else {
+			if (touchOnTop()) {
+				ballElement.getCoordinates().y = mazeElement.getPlayGround().top;
+			} else {
+				ballElement.getCoordinates().y = (mazeElement.getPlayGround().bottom - (ballElement
+						.getRadius() * 2));
+			}
 		}
 
 	}
