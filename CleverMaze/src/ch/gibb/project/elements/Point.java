@@ -44,4 +44,12 @@ public class Point extends MazeElement {
 		this.value = value;
 	}
 
+	public int getImageWidth() {
+		return backgroundImage.getWidth();
+	}
+
+	public int getImageHeight() {
+		return backgroundImage.getHeight();
+	}
+
 }

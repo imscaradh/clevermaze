@@ -72,14 +72,23 @@ public class ActionHandler {
 	}
 
 	public void checkStarTouch() {
+		PointF toRemove = null;
 		for (PointF point : pointElement.getPoints()) {
 			float dx = Math.abs(ballElement.getCoordinates().x - point.x);
 			float dy = Math.abs(ballElement.getCoordinates().y - point.y);
 
 			if (Math.sqrt(dx * dx + dy * dy) < 30) {
-				pointElement.getPoints().remove(point);
+				// pointElement.getPoints().remove(point);
+				toRemove = point;
+				return;
 			}
-
+		}
+		if (toRemove != null) {
+			pointElement.getPoints().remove(toRemove);
+			pointElement.postInvalidate((int) toRemove.x - 1,
+					(int) toRemove.y + 1,
+					(int) toRemove.x + pointElement.getImageWidth() + 1,
+					(int) toRemove.y - pointElement.getImageHeight() + 1);
 		}
 	}
 
