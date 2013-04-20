@@ -17,7 +17,8 @@ public class Maze extends MazeElement {
 		backgroundImage = BitmapFactory.decodeResource(getResources(),
 				R.drawable.wood);
 
-		wood = wood.createScaledBitmap(wood, width - 40, height - 40, true);
+		backgroundImage = backgroundImage.createScaledBitmap(backgroundImage,
+				width - 40, height - 40, true);
 		playGround = new Rect(40, 40, width - 40, height - 40);
 
 	}
