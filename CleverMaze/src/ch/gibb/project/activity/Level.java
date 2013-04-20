@@ -72,12 +72,12 @@ public class Level extends Activity implements SensorEventListener {
 
 	private void addelementsToView() {
 		layout = new RelativeLayout(this);
-		layout.addView(backView, 0);
-		layout.addView(mazeElement, 1);
-		layout.addView(ballElement, 2);
-		layout.addView(holeElement, 3);
-		layout.addView(pointElement, 4);
-		layout.addView(wallElement, 5);
+		layout.addView(backView);
+		layout.addView(mazeElement);
+		layout.addView(holeElement);
+		layout.addView(pointElement);
+		layout.addView(wallElement);
+		layout.addView(ballElement);
 		setContentView(layout);
 	}
 
