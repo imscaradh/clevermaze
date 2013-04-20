@@ -15,19 +15,15 @@ public class Maze extends MazeElement {
 		super(context, width, height);
 		backgroundImage = BitmapFactory.decodeResource(getResources(),
 				R.drawable.wood);
-
 		backgroundImage = Bitmap.createScaledBitmap(backgroundImage,
 				width - 40, height - 40, true);
+
 		playGround = new Rect(40, 40, width - 40, height - 40);
 
 	}
 
 	protected void onDraw(Canvas canvas) {
-		bitmapCanvas.drawBitmap(
-				BitmapFactory.decodeResource(getResources(), R.drawable.wood),
-				playGround, playGround, null);
-		// canvas.drawBitmap(bitmap, 0, 0, null);
-
+		bitmapCanvas.drawBitmap(backgroundImage, playGround, playGround, null);
 	}
 
 	public Rect getPlayGround() {

@@ -40,12 +40,10 @@ public class Level extends Activity implements SensorEventListener {
 
 	@Override
 	protected void initObjects() {
-		// Returns the display-value
 		Display display = getWindowManager().getDefaultDisplay();
 		android.graphics.Point size = new android.graphics.Point();
 		display.getSize(size);
 
-		// Creates a new View
 		mazeElement = new Maze(this, size.x, size.y);
 		ballElement = new Ball(this, size.x, size.y);
 		wallElement = new Wall(this, size.x, size.y);
@@ -56,9 +54,11 @@ public class Level extends Activity implements SensorEventListener {
 
 		check = new Check(this);
 		layout = new RelativeLayout(this);
-		layout.addView(backView);
-		layout.addView(mazeElement);
-		layout.addView(ballElement);
+		layout.addView(backView, 0);
+		layout.addView(mazeElement, 1);
+		layout.addView(ballElement, 2);
+		layout.addView(holeElement, 3);
+		layout.addView(pointElement, 4);
 		setContentView(layout);
 
 		sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
