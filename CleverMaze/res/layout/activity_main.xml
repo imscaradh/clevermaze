@@ -16,15 +16,6 @@
         android:scaleType="fitXY"
         android:src="@drawable/wood" />
 
-    <TextView
-        android:id="@+id/activity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_x="153dp"
-        android:layout_y="185dp"
-        android:text="Welcome"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
     <Button
         android:id="@+id/btn_close"
         android:layout_width="wrap_content"
@@ -52,5 +43,13 @@
         android:background="@null"
         android:scaleType="fitXY"
         android:src="@drawable/highscorebutton" />
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="184dp"
+        android:layout_height="73dp"
+        android:layout_x="79dp"
+        android:layout_y="44dp"
+        android:src="@drawable/clevermazefont" />
 
 </AbsoluteLayout>
