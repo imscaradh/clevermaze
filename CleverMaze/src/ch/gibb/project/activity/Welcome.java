@@ -12,7 +12,7 @@ import ch.gibb.project.util.MessageUtil;
 public class Welcome extends Activity {
 
 	private ImageButton start;
-	private Button highscore;
+	private ImageButton highscore;
 	private Button close;
 
 	@Override
@@ -25,7 +25,7 @@ public class Welcome extends Activity {
 		start = (ImageButton) findViewById(R.id.btn_play);
 		start.setOnClickListener(new startListener());
 
-		highscore = (Button) findViewById(R.id.btn_highscore);
+		highscore = (ImageButton) findViewById(R.id.btn_highscore);
 		highscore.setOnClickListener(new highscoreListener());
 
 		close = (Button) findViewById(R.id.btn_close);

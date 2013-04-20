@@ -56,9 +56,9 @@ public class Level extends Activity implements SensorEventListener {
 
 		check = new Check(this);
 		layout = new RelativeLayout(this);
-		layout.addView(backView, 0);
-		layout.addView(mazeElement, 1);
-		layout.addView(ballElement, 2);
+		layout.addView(backView);
+		layout.addView(mazeElement);
+		layout.addView(ballElement);
 		setContentView(layout);
 
 		sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
