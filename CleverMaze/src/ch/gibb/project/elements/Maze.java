@@ -23,7 +23,7 @@ public class Maze extends MazeElement {
 	}
 
 	protected void onDraw(Canvas canvas) {
-		bitmapCanvas.drawBitmap(backgroundImage, playGround, playGround, null);
+		canvas.drawBitmap(backgroundImage, playGround, playGround, null);
 	}
 
 	public Rect getPlayGround() {

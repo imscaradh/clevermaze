@@ -8,14 +8,14 @@ import ch.gibb.project.elements.Maze;
 import ch.gibb.project.elements.Point;
 import ch.gibb.project.elements.Wall;
 
-public class Check {
+public class ActionHandler {
 	private Ball ballElement;
 	private Maze mazeElement;
 	private Hole holeElement;
 	private Wall wallElement;
 	private Point pointElement;
 
-	public Check(Level levelActivity) {
+	public ActionHandler(Level levelActivity) {
 		ballElement = levelActivity.getBallElement();
 		mazeElement = levelActivity.getMazeElement();
 		holeElement = levelActivity.getHoleElement();

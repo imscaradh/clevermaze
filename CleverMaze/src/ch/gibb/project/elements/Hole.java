@@ -40,7 +40,7 @@ public class Hole extends MazeElement {
 		paint.setFilterBitmap(true);
 		paint.setDither(true);
 		for (PointF h : holes) {
-			bitmapCanvas.drawCircle(h.x + radius, h.y + radius, radius, paint);
+			canvas.drawCircle(h.x + radius, h.y + radius, radius, paint);
 		}
 	}
 

@@ -14,7 +14,6 @@ public class BackView extends View {
 		super(context);
 		bottom = BitmapFactory
 				.decodeResource(getResources(), R.drawable.bottom);
-		// TODO Auto-generated constructor stub
 	}
 
 	protected void onDraw(Canvas canvas) {

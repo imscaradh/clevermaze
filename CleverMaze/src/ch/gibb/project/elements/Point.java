@@ -32,7 +32,7 @@ public class Point extends MazeElement {
 
 	protected void onDraw(Canvas canvas) {
 		for (PointF s : points) {
-			bitmapCanvas.drawBitmap(backgroundImage, s.x, s.y, null);
+			canvas.drawBitmap(backgroundImage, s.x, s.y, null);
 		}
 	}
 

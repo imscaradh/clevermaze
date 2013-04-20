@@ -41,7 +41,7 @@ public class Wall extends MazeElement {
 		paint.setFilterBitmap(true);
 		paint.setDither(true);
 		for (Rect w : walls) {
-			bitmapCanvas.drawRect(w, paint);
+			canvas.drawRect(w, paint);
 		}
 	}
 }
