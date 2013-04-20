@@ -16,7 +16,7 @@ public abstract class Activity extends android.app.Activity {
 	public void nextActivity(Class<?> nextOne) {
 		Intent nextActivity = new Intent(this.getApplicationContext(), nextOne);
 		this.startActivity(nextActivity);
-
+		this.finish();
 	}
 
 }
