@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.ImageButton;
 import ch.gibb.project.R;
 import ch.gibb.project.util.MessageUtil;
@@ -13,7 +12,7 @@ public class Welcome extends Activity {
 
 	private ImageButton start;
 	private ImageButton highscore;
-	private Button close;
+	private ImageButton close;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +27,7 @@ public class Welcome extends Activity {
 		highscore = (ImageButton) findViewById(R.id.btn_highscore);
 		highscore.setOnClickListener(new highscoreListener());
 
-		close = (Button) findViewById(R.id.btn_close);
+		close = (ImageButton) findViewById(R.id.btn_close);
 		close.setOnClickListener(new closeListener());
 	}
 
