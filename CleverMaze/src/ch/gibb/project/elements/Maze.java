@@ -9,7 +9,6 @@ import ch.gibb.project.R;
 
 public class Maze extends MazeElement {
 	private Rect playGround;
-	private Bitmap backgroundImage;
 
 	public Maze(Context context, int width, int height) {
 		super(context, width, height);
@@ -32,13 +31,5 @@ public class Maze extends MazeElement {
 
 	public void setPlayGround(Rect playGround) {
 		this.playGround = playGround;
-	}
-
-	public int getImageWidth() {
-		return backgroundImage.getWidth();
-	}
-
-	public int getImageHeight() {
-		return backgroundImage.getHeight();
 	}
 }

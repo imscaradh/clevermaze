@@ -3,7 +3,6 @@ package ch.gibb.project.elements;
 import java.util.Vector;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.PointF;
@@ -12,7 +11,6 @@ import android.graphics.PorterDuffXfermode;
 
 public class Hole extends MazeElement {
 	private int radius = 34;
-	private Bitmap backgroundImage;
 	private Vector<PointF> holes = new Vector<PointF>();
 
 	public Vector<PointF> getHoles() {

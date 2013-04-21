@@ -11,7 +11,6 @@ import ch.gibb.project.R;
 
 public class Ball extends MazeElement {
 	private int radius = 30;
-	private Bitmap backgroundImage;
 	private PointF coordinates;
 
 	public Ball(Context context, int width, int height) {
@@ -63,13 +62,5 @@ public class Ball extends MazeElement {
 
 	public void setCoordinates(PointF coordinates) {
 		this.coordinates = coordinates;
-	}
-
-	public int getImageWidth() {
-		return backgroundImage.getWidth();
-	}
-
-	public int getImageHeight() {
-		return backgroundImage.getHeight();
 	}
 }
