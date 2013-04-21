@@ -24,7 +24,7 @@ public class Hole extends MazeElement {
 		// BitmapFactory.decodeResource(getResources(), R.drawable.hole),
 		// 0, 0, true);
 
-		holes = stageManager.firstHoles();
+		holes = stageManager.getLevelOneHoles();
 	}
 
 	protected void onDraw(Canvas canvas) {

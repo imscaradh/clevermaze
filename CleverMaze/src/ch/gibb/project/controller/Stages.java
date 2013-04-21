@@ -10,15 +10,15 @@ public class Stages {
 	public Stages() {
 	}
 
-	public PointF getStartPoint() {
+	public PointF getLevelOneStartPoint() {
 		return new PointF(600f, 1180f);
 	}
 
-	public PointF getFinishPoint() {
+	public PointF getLevelOneFinishPoint() {
 		return new PointF(200f, 200f);
 	}
 
-	public Vector<PointF> firstHoles() {
+	public Vector<PointF> getLevelOneHoles() {
 		Vector<PointF> holes = new Vector<PointF>();
 		// TODO: Anpassen auf Displaygrsse (incl. Playground etc.)
 		holes.add(new PointF(612f, 40f));
@@ -49,7 +49,7 @@ public class Stages {
 
 	}
 
-	public Vector<PointF> firstStars() {
+	public Vector<PointF> getLevelOneStars() {
 		Vector<PointF> stars = new Vector<PointF>();
 		stars.add(new PointF(40f, 40f));
 		stars.add(new PointF(320f, 259f));
@@ -59,11 +59,12 @@ public class Stages {
 		return stars;
 	}
 
-	public Vector<RectF> firstWalls() {
+	public Vector<RectF> getLevelOneWalls() {
 		Vector<RectF> walls = new Vector<RectF>();
 		walls.add(new RectF(113, 40, 164, 320));
 		walls.add(new RectF(119, 480, 170, 740));
 		walls.add(new RectF(329, 963, 685, 1014));
+		walls.add(new RectF(189, 1109, 685, 1160));
 		walls.add(new RectF(259, 250, 310, 559));
 		walls.add(new RectF(405, 200, 456, 539));
 		walls.add(new RectF(456, 450, 580, 501));

@@ -34,7 +34,7 @@ public class Maze extends MazeElement {
 				Bitmap.Config.ARGB_8888);
 		bitmapCanvas = new Canvas();
 		bitmapCanvas.setBitmap(bitmap);
-		holes = stageManager.firstHoles();
+		holes = stageManager.getLevelOneHoles();
 
 	}
 

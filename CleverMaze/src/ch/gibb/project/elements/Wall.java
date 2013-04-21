@@ -30,7 +30,7 @@ public class Wall extends MazeElement {
 		backgroundImage = BitmapFactory.decodeResource(getResources(),
 				R.drawable.wall);
 
-		walls = stageManager.firstWalls();
+		walls = stageManager.getLevelOneWalls();
 	}
 
 	protected void onDraw(Canvas canvas) {

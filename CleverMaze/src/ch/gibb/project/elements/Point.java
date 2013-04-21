@@ -27,7 +27,7 @@ public class Point extends MazeElement {
 		backgroundImage = Bitmap.createScaledBitmap(
 				BitmapFactory.decodeResource(getResources(), R.drawable.star),
 				60, 60, true);
-		points = stageManager.firstStars();
+		points = stageManager.getLevelOneStars();
 	}
 
 	protected void onDraw(Canvas canvas) {
