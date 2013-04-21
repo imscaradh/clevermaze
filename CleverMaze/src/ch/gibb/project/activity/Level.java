@@ -102,7 +102,6 @@ public class Level extends Activity implements SensorEventListener {
 	private void updateBall(float accelX, float accelY) {
 		actionHandler.moveAndCheckX(accelX);
 		actionHandler.moveAndCheckY(accelY);
-		actionHandler.checkWallTouch();
 		actionHandler.checkStarTouch();
 
 		if (actionHandler.ballInHole()) {
@@ -110,6 +109,7 @@ public class Level extends Activity implements SensorEventListener {
 			// layout.removeView(mazeElement);
 			// layout.addView(mazeElement);
 		}
+
 	}
 
 	public SensorManager getSensorManager() {

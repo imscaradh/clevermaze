@@ -34,4 +34,11 @@ public class Maze extends MazeElement {
 		this.playGround = playGround;
 	}
 
+	public int getImageWidth() {
+		return backgroundImage.getWidth();
+	}
+
+	public int getImageHeight() {
+		return backgroundImage.getHeight();
+	}
 }

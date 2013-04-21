@@ -10,18 +10,18 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
-import android.graphics.Rect;
+import android.graphics.RectF;
 import ch.gibb.project.R;
 
 public class Wall extends MazeElement {
 	private Bitmap backgroundImage;
-	private Vector<Rect> walls = new Vector<Rect>();
+	private Vector<RectF> walls = new Vector<RectF>();
 
-	public Vector<Rect> getWalls() {
+	public Vector<RectF> getWalls() {
 		return walls;
 	}
 
-	public void setWalls(Vector<Rect> walls) {
+	public void setWalls(Vector<RectF> walls) {
 		this.walls = walls;
 	}
 
@@ -40,7 +40,7 @@ public class Wall extends MazeElement {
 		paint.setAntiAlias(true);
 		paint.setFilterBitmap(true);
 		paint.setDither(true);
-		for (Rect w : walls) {
+		for (RectF w : walls) {
 			canvas.drawRect(w, paint);
 		}
 	}

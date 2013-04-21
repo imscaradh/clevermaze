@@ -3,11 +3,19 @@ package ch.gibb.project.controller;
 import java.util.Vector;
 
 import android.graphics.PointF;
-import android.graphics.Rect;
+import android.graphics.RectF;
 
 public class Stages {
 
 	public Stages() {
+	}
+
+	public PointF getStartPoint() {
+		return new PointF(600f, 600f);
+	}
+
+	public PointF getFinishPoint() {
+		return new PointF(200f, 200f);
 	}
 
 	public Vector<PointF> firstHoles() {
@@ -51,16 +59,16 @@ public class Stages {
 		return stars;
 	}
 
-	public Vector<Rect> firstWalls() {
-		Vector<Rect> walls = new Vector<Rect>();
-		walls.add(new Rect(113, 40, 164, 320));
-		walls.add(new Rect(119, 480, 170, 740));
-		walls.add(new Rect(329, 1036, 685, 1087));
-		walls.add(new Rect(259, 250, 310, 559));
-		walls.add(new Rect(405, 200, 456, 539));
-		walls.add(new Rect(456, 450, 580, 501));
-		walls.add(new Rect(529, 501, 580, 801));
-		walls.add(new Rect(405, 700, 456, 1036));
+	public Vector<RectF> firstWalls() {
+		Vector<RectF> walls = new Vector<RectF>();
+		walls.add(new RectF(113, 40, 164, 320));
+		walls.add(new RectF(119, 480, 170, 740));
+		walls.add(new RectF(329, 1036, 685, 1087));
+		walls.add(new RectF(259, 250, 310, 559));
+		walls.add(new RectF(405, 200, 456, 539));
+		walls.add(new RectF(456, 450, 580, 501));
+		walls.add(new RectF(529, 501, 580, 801));
+		walls.add(new RectF(405, 700, 456, 1036));
 		return walls;
 	}
 
