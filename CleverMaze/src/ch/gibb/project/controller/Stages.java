@@ -11,7 +11,7 @@ public class Stages {
 	}
 
 	public PointF getStartPoint() {
-		return new PointF(600f, 1100f);
+		return new PointF(600f, 1180f);
 	}
 
 	public PointF getFinishPoint() {
@@ -63,12 +63,12 @@ public class Stages {
 		Vector<RectF> walls = new Vector<RectF>();
 		walls.add(new RectF(113, 40, 164, 320));
 		walls.add(new RectF(119, 480, 170, 740));
-		walls.add(new RectF(329, 1036, 685, 1087));
+		walls.add(new RectF(329, 963, 685, 1014));
 		walls.add(new RectF(259, 250, 310, 559));
 		walls.add(new RectF(405, 200, 456, 539));
 		walls.add(new RectF(456, 450, 580, 501));
 		walls.add(new RectF(529, 501, 580, 801));
-		walls.add(new RectF(405, 700, 456, 1036));
+		walls.add(new RectF(405, 700, 456, 963));
 		return walls;
 	}
 
