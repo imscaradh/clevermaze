@@ -49,6 +49,10 @@ public class Ball extends MazeElement {
 		return radius;
 	}
 
+	public int getDiameter() {
+		return radius * 2;
+	}
+
 	public void setRadius(int radius) {
 		this.radius = radius;
 	}

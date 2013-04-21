@@ -26,20 +26,20 @@ public class ActionHandler {
 	}
 
 	public boolean containsBallX(float accelX) {
-		if ((ballElement.getCoordinates().x - (accelX * 2f)) > mazeElement
+		if ((ballElement.getCoordinates().x - (accelX * 2)) > mazeElement
 				.getPlayGround().left
-				&& (ballElement.getCoordinates().x - (accelX * 2f)) < (mazeElement
-						.getPlayGround().right - (ballElement.getRadius() * 2))) {
+				&& (ballElement.getCoordinates().x - (accelX * 2)) < (mazeElement
+						.getPlayGround().right - (ballElement.getDiameter()))) {
 			return true;
 		}
 		return false;
 	}
 
 	public boolean containsBallY(float accelY) {
-		if ((ballElement.getCoordinates().y + (accelY * 2f)) > mazeElement
+		if ((ballElement.getCoordinates().y + (accelY * 2)) > mazeElement
 				.getPlayGround().top
-				&& (ballElement.getCoordinates().y + (accelY * 2f)) < mazeElement
-						.getPlayGround().bottom - (ballElement.getRadius() * 2)) {
+				&& (ballElement.getCoordinates().y + (accelY * 2)) < mazeElement
+						.getPlayGround().bottom - (ballElement.getDiameter())) {
 			return true;
 		}
 		return false;
@@ -118,24 +118,31 @@ public class ActionHandler {
 	}
 
 	public void moveAndCheckX(float accelX) {
-		if (touchOnWall(Dimension.LEFT)) {
+		if (containsBallX(accelX)) {
+			float newX = ballElement.getCoordinates().x - (accelX * 2);
+			if (!checkWallTouch(newX, ballElement.getCoordinates().y)) {
+				ballElement.getCoordinates().x = newX;
+			}
+		} else if (touchOnWall(Dimension.LEFT)) {
 			ballElement.getCoordinates().x = mazeElement.getPlayGround().left;
 		} else if (touchOnWall(Dimension.RIGHT)) {
 			ballElement.getCoordinates().x = (mazeElement.getPlayGround().right - (ballElement
 					.getRadius() * 2));
-		} else if (!checkWallTouch(accelX, ballElement.getCoordinates().y)) {
-			ballElement.moveX(accelX);
 		}
 	}
 
 	public void moveAndCheckY(float accelY) {
-		if (touchOnWall(Dimension.TOP)) {
+		if (containsBallY(accelY)) {
+			float newY = ballElement.getCoordinates().y + (accelY * 2);
+			if (!checkWallTouch(ballElement.getCoordinates().x, newY)) {
+				ballElement.getCoordinates().y = newY;
+			}
+
+		} else if (touchOnWall(Dimension.TOP)) {
 			ballElement.getCoordinates().y = mazeElement.getPlayGround().top;
 		} else if (touchOnWall(Dimension.BOTTOM)) {
 			ballElement.getCoordinates().y = (mazeElement.getPlayGround().bottom - (ballElement
 					.getRadius() * 2));
-		} else if (!checkWallTouch(ballElement.getCoordinates().x, accelY)) {
-			ballElement.moveY(accelY);
 		}
 	}
 }
