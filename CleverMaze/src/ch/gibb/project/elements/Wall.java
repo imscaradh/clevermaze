@@ -3,6 +3,7 @@ package ch.gibb.project.elements;
 import java.util.Vector;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -13,6 +14,7 @@ import android.graphics.RectF;
 import ch.gibb.project.R;
 
 public class Wall extends MazeElement {
+	private Bitmap backgroundImage;
 	private Vector<RectF> walls = new Vector<RectF>();
 
 	public Vector<RectF> getWalls() {

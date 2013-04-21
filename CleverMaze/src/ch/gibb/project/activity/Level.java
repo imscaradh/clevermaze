@@ -13,18 +13,18 @@ import android.widget.RelativeLayout;
 import ch.gibb.project.R;
 import ch.gibb.project.controller.ActionHandler;
 import ch.gibb.project.elements.Ball;
-import ch.gibb.project.elements.Hole;
 import ch.gibb.project.elements.Maze;
 import ch.gibb.project.elements.Point;
+import ch.gibb.project.elements.Text;
 import ch.gibb.project.elements.Wall;
 
-public class Level extends Activity implements SensorEventListener {
+public class Level extends About implements SensorEventListener {
 	private SensorManager sensorManager;
 	private RelativeLayout layout;
 	private Maze mazeElement;
 	private Ball ballElement;
 	private Wall wallElement;
-	private Hole holeElement;
+	private Text textElement;
 	private Point pointElement;
 	private BackView backView;
 	private ActionHandler actionHandler;
@@ -65,7 +65,7 @@ public class Level extends Activity implements SensorEventListener {
 		mazeElement = new Maze(this, x, y);
 		ballElement = new Ball(this, x, y);
 		wallElement = new Wall(this, x, y);
-		holeElement = new Hole(this, x, y);
+		textElement = new Text(this, x, y);
 		pointElement = new Point(this, x, y);
 		backView = new BackView(this);
 	}
@@ -74,7 +74,7 @@ public class Level extends Activity implements SensorEventListener {
 		layout = new RelativeLayout(this);
 		layout.addView(backView);
 		layout.addView(mazeElement);
-		layout.addView(holeElement);
+		layout.addView(textElement);
 		layout.addView(pointElement);
 		layout.addView(wallElement);
 		layout.addView(ballElement);
@@ -100,6 +100,7 @@ public class Level extends Activity implements SensorEventListener {
 	}
 
 	private void updateBall(float accelX, float accelY) {
+		// TODO: Acceleration
 		actionHandler.moveAndCheckX(accelX);
 		actionHandler.moveAndCheckY(accelY);
 		actionHandler.checkStarTouch();
@@ -144,20 +145,16 @@ public class Level extends Activity implements SensorEventListener {
 		this.wallElement = wallElement;
 	}
 
-	public Hole getHoleElement() {
-		return holeElement;
-	}
-
-	public void setHoleElement(Hole holeElement) {
-		this.holeElement = holeElement;
-	}
-
 	public Point getPointElement() {
 		return pointElement;
 	}
 
 	public void setPointElement(Point pointElement) {
 		this.pointElement = pointElement;
+	}
+
+	public Text getTextElement() {
+		return textElement;
 	}
 
 }

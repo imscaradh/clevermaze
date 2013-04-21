@@ -11,6 +11,7 @@ import ch.gibb.project.R;
 
 public class Point extends MazeElement {
 	private int value;
+	private Bitmap backgroundImage;
 	private Vector<PointF> points = new Vector<PointF>();
 
 	public Vector<PointF> getPoints() {
@@ -42,4 +43,13 @@ public class Point extends MazeElement {
 	public void setValue(int value) {
 		this.value = value;
 	}
+
+	public int getImageWidth() {
+		return backgroundImage.getWidth();
+	}
+
+	public int getImageHeight() {
+		return backgroundImage.getHeight();
+	}
+
 }

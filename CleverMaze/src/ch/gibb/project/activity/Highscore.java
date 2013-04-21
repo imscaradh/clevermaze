@@ -6,7 +6,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import ch.gibb.project.R;
 
-public class Highscore extends Activity {
+public class Highscore extends About {
 	private Button close;
 
 	@Override

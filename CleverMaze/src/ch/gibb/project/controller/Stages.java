@@ -11,7 +11,7 @@ public class Stages {
 	}
 
 	public PointF getStartPoint() {
-		return new PointF(600f, 600f);
+		return new PointF(600f, 1100f);
 	}
 
 	public PointF getFinishPoint() {

@@ -8,7 +8,7 @@ import android.widget.ImageButton;
 import ch.gibb.project.R;
 import ch.gibb.project.util.MessageUtil;
 
-public class Welcome extends Activity {
+public class Welcome extends About {
 
 	private ImageButton start;
 	private ImageButton highscore;
