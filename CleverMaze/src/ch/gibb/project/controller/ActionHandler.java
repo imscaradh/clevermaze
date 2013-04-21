@@ -1,6 +1,8 @@
 package ch.gibb.project.controller;
 
 import android.graphics.PointF;
+import android.graphics.Rect;
+import android.util.Log;
 import ch.gibb.project.activity.Level;
 import ch.gibb.project.elements.Ball;
 import ch.gibb.project.elements.Hole;
@@ -83,22 +85,26 @@ public class ActionHandler {
 		}
 	}
 
-	public void checkWallTouch() {
-		for (PointF point : pointElement.getPoints()) {
-			float dx = Math.abs(ballElement.getCoordinates().x - point.x);
-			float dy = Math.abs(ballElement.getCoordinates().y - point.y);
-
-			// if (Math.sqrt(dx * dx + dy * dy) < 30) {
-			// pointElement.getPoints().remove(point);
-			// }
+	public boolean checkWallTouch() {
+		for (Rect rect : wallElement.getWalls()) {
+			if (rect.contains((int) ballElement.getCoordinates().x,
+					(int) ballElement.getCoordinates().y)) {
+				Log.v("now in wall", "");
+				return true;
+			}
 
 		}
+		return false;
 	}
 
-	public void controllXCoordinateWallTouch(float accelX) {
+	public void moveAndCheckX(float accelX) {
 		if (containsBallX(accelX)) {
-			ballElement.getCoordinates().x = ballElement.getCoordinates().x
-					- (accelX * 2f);
+			if (!checkWallTouch()) {
+				ballElement.getCoordinates().x = ballElement.getCoordinates().x
+						- (accelX * 2f);
+			} else {
+				ballElement.getCoordinates().x = ballElement.getCoordinates().x - 1;
+			}
 		} else {
 			if (touchOnLeft()) {
 				ballElement.getCoordinates().x = mazeElement.getPlayGround().left;
@@ -110,7 +116,7 @@ public class ActionHandler {
 
 	}
 
-	public void controllYCoordinateWallTouch(float accelY) {
+	public void moveAndCheckY(float accelY) {
 		if (containsBallY(accelY)) {
 			ballElement.getCoordinates().y = ballElement.getCoordinates().y
 					+ (accelY * 2f);
@@ -124,5 +130,4 @@ public class ActionHandler {
 		}
 
 	}
-
 }

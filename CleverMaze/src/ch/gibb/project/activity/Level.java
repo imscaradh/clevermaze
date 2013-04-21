@@ -100,18 +100,15 @@ public class Level extends Activity implements SensorEventListener {
 	}
 
 	private void updateBall(float accelX, float accelY) {
-		// TODO: Add Boucing
-		// TODO: Add Acceleration (Speed)
-		// TODO: Implement WallTouch
-		actionHandler.controllXCoordinateWallTouch(accelX);
-		actionHandler.controllYCoordinateWallTouch(accelY);
-		actionHandler.checkStarTouch();
+		actionHandler.moveAndCheckX(accelX);
+		actionHandler.moveAndCheckY(accelY);
 		actionHandler.checkWallTouch();
+		actionHandler.checkStarTouch();
 
 		if (actionHandler.ballInHole()) {
 			// TODO: Replace with nicer code?
-			layout.removeView(mazeElement);
-			layout.addView(mazeElement);
+			// layout.removeView(mazeElement);
+			// layout.addView(mazeElement);
 		}
 	}
 
