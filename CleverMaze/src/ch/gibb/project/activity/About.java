@@ -3,7 +3,7 @@ package ch.gibb.project.activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-public abstract class Activity extends android.app.Activity {
+public abstract class About extends android.app.Activity {
 
 	protected void onCreate(Bundle savedInstanceState, int activity) {
 		super.onCreate(savedInstanceState);

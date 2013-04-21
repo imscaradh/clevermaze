@@ -11,16 +11,19 @@ import ch.gibb.project.util.Dimension;
 public class MazeElement extends View {
 	protected Canvas bitmapCanvas;
 	protected Stages stageManager;
-	private Bitmap bitmap;
+	// TODO: Make with getter/setter
+	public Bitmap bitmap;
 	private Point position;
 	private Dimension dimension;
+	private int height;
+	private int width;
 
 	public MazeElement(Context context, int width, int height) {
 		super(context);
 		stageManager = new Stages();
-		bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-		bitmapCanvas = new Canvas();
-		bitmapCanvas.setBitmap(bitmap);
+		this.width = width;
+		this.height = height;
+
 	}
 
 	public Point getPosition() {

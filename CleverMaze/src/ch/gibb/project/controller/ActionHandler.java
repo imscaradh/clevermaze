@@ -4,25 +4,26 @@ import android.graphics.PointF;
 import android.graphics.RectF;
 import ch.gibb.project.activity.Level;
 import ch.gibb.project.elements.Ball;
-import ch.gibb.project.elements.Hole;
 import ch.gibb.project.elements.Maze;
 import ch.gibb.project.elements.Point;
+import ch.gibb.project.elements.Text;
 import ch.gibb.project.elements.Wall;
 import ch.gibb.project.enums.Dimension;
 
 public class ActionHandler {
 	private Ball ballElement;
 	private Maze mazeElement;
-	private Hole holeElement;
 	private Wall wallElement;
 	private Point pointElement;
+	private Text textElement;
+	public static int pointcount;
 
 	public ActionHandler(Level levelActivity) {
 		ballElement = levelActivity.getBallElement();
 		mazeElement = levelActivity.getMazeElement();
-		holeElement = levelActivity.getHoleElement();
 		wallElement = levelActivity.getWallElement();
 		pointElement = levelActivity.getPointElement();
+		textElement = levelActivity.getTextElement();
 	}
 
 	public boolean containsBallX(float accelX) {
@@ -76,11 +77,11 @@ public class ActionHandler {
 	}
 
 	public boolean ballInHole() {
-		for (PointF hole : holeElement.getHoles()) {
+		for (PointF hole : mazeElement.getHoles()) {
 			float dx = Math.abs(ballElement.getCoordinates().x - hole.x);
 			float dy = Math.abs(ballElement.getCoordinates().y - hole.y);
-
-			if (Math.sqrt(dx * dx + dy * dy) < 30) {
+			// TODO: Auslagern
+			if (Math.sqrt(dx * dx + dy * dy) < 25) {
 				return true;
 			}
 		}
@@ -104,6 +105,8 @@ public class ActionHandler {
 					(int) toRemove.y + 1,
 					(int) toRemove.x + pointElement.getImageWidth() + 1,
 					(int) toRemove.y - pointElement.getImageHeight() + 1);
+			pointcount++;
+			textElement.postInvalidate();
 		}
 	}
 
