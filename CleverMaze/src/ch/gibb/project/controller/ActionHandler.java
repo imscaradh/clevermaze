@@ -110,9 +110,9 @@ public class ActionHandler {
 		}
 	}
 
-	public boolean checkWallTouch(float newX, float newY) {
+	public boolean checkWallTouch(float x, float y) {
 		for (RectF rect : wallElement.getWalls()) {
-			RectF ballAsRect = ballElement.generateRect(newX, newY);
+			RectF ballAsRect = ballElement.generateRect(x, y);
 			if (ballAsRect.intersect(rect)) {
 				return true;
 			}
