@@ -25,7 +25,7 @@
         android:layout_marginBottom="40dp"
         android:background="@null"
         android:scaleType="fitXY"
-        android:src="@drawable/closebutton" />
+        android:src="@drawable/closebuttonselector" />
 
     <ImageButton
         android:id="@+id/btn_play"
@@ -36,7 +36,7 @@
         android:layout_marginBottom="10dp"
         android:background="@null"
         android:scaleType="fitXY"
-        android:src="@drawable/playbutton" />
+        android:src="@drawable/playbuttonselector" />
 
     <ImageButton
         android:id="@+id/btn_highscore"
@@ -47,7 +47,7 @@
         android:layout_marginBottom="10dp"
         android:background="@null"
         android:scaleType="fitXY"
-        android:src="@drawable/highscorebutton" />
+        android:src="@drawable/highscorebuttonselector" />
 
     <ImageButton
         android:id="@+id/btn_about"
