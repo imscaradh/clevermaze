@@ -72,4 +72,9 @@ public class Ball extends MazeElement {
 	public int getImageHeight() {
 		return backgroundImage.getHeight();
 	}
+
+	public RectF getBallRect() {
+		return new RectF(coordinates.x, coordinates.y, getImageWidth()
+				+ coordinates.x, getImageHeight() + coordinates.y);
+	}
 }

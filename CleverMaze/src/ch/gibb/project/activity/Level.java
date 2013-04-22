@@ -101,9 +101,11 @@ public class Level extends About implements SensorEventListener {
 
 	private void updateBall(float accelX, float accelY) {
 		// TODO: Acceleration
-		actionHandler.moveAndCheckX(accelX);
-		actionHandler.moveAndCheckY(accelY);
-		actionHandler.checkStarTouch();
+		if (!actionHandler.checkIfFinished()) {
+			actionHandler.moveAndCheckX(accelX);
+			actionHandler.moveAndCheckY(accelY);
+			actionHandler.checkStarTouch();
+		}
 
 		if (actionHandler.ballInHole()) {
 			// TODO: Replace with nicer code?

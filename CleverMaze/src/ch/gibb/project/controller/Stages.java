@@ -15,7 +15,7 @@ public class Stages {
 	}
 
 	public PointF getLevelOneFinishPoint() {
-		return new PointF(200f, 200f);
+		return new PointF(600f, 1023f);
 	}
 
 	public Vector<PointF> getLevelOneHoles() {
@@ -46,7 +46,6 @@ public class Stages {
 		holes.add(new PointF(120f, 750f));
 
 		return holes;
-
 	}
 
 	public Vector<PointF> getLevelOneStars() {

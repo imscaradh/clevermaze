@@ -148,4 +148,11 @@ public class ActionHandler {
 					.getRadius() * 2));
 		}
 	}
+
+	public boolean checkIfFinished() {
+		if (mazeElement.getFinishRect().contains(ballElement.getBallRect())) {
+			return true;
+		}
+		return false;
+	}
 }
