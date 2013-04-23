@@ -38,8 +38,7 @@ public class Maze extends MazeElement {
 
 		playGround = new Rect(40, 40, width - 40, height - 40);
 
-		bitmap = backgroundImage.createBitmap(width, height,
-				Bitmap.Config.ARGB_8888);
+		bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
 		bitmapCanvas = new Canvas();
 		bitmapCanvas.setBitmap(bitmap);
 

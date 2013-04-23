@@ -9,7 +9,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Display;
 import android.view.Menu;
+import android.view.View;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.TranslateAnimation;
 import android.widget.RelativeLayout;
+import android.widget.ViewFlipper;
 import ch.gibb.project.R;
 import ch.gibb.project.controller.ActionHandler;
 import ch.gibb.project.elements.Ball;
@@ -29,6 +35,8 @@ public class Level extends About implements SensorEventListener {
 	private BackView backView;
 	private ActionHandler actionHandler;
 	private float accelX, accelY;
+	private int stageNumber;
+	private ViewFlipper viewFlipper;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -105,14 +113,37 @@ public class Level extends About implements SensorEventListener {
 			actionHandler.moveAndCheckX(accelX);
 			actionHandler.moveAndCheckY(accelY);
 			actionHandler.checkStarTouch();
+		} else {
+			changeStage(true);
 		}
 
 		if (actionHandler.ballInHole()) {
+			// changeStage(false)
 			// TODO: Replace with nicer code?
 			// layout.removeView(mazeElement);
 			// layout.addView(mazeElement);
 		}
 
+	}
+
+	private void changeStage(boolean goesUp) {
+		if (goesUp) {
+			Animation anim = AnimationUtils.loadAnimation(this, R.anim.fadeout);
+			layout.startAnimation(anim);
+			layout.setVisibility(View.GONE);
+
+		}
+	}
+
+	private Animation inFromTopAnimation() {
+		Animation inFromTop = new TranslateAnimation(
+				Animation.RELATIVE_TO_PARENT, 0.0f,
+				Animation.RELATIVE_TO_PARENT, 0.0f,
+				Animation.RELATIVE_TO_PARENT, -1.0f,
+				Animation.RELATIVE_TO_PARENT, 0.0f);
+		inFromTop.setDuration(1000);
+		inFromTop.setInterpolator(new AccelerateInterpolator());
+		return inFromTop;
 	}
 
 	public SensorManager getSensorManager() {
@@ -157,6 +188,14 @@ public class Level extends About implements SensorEventListener {
 
 	public Text getTextElement() {
 		return textElement;
+	}
+
+	public int getStageNumber() {
+		return stageNumber;
+	}
+
+	public void setStageNumber(int stageNumber) {
+		this.stageNumber = stageNumber;
 	}
 
 }
