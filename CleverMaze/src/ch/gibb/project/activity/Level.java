@@ -23,8 +23,9 @@ import ch.gibb.project.elements.Maze;
 import ch.gibb.project.elements.Point;
 import ch.gibb.project.elements.Text;
 import ch.gibb.project.elements.Wall;
+import ch.gibb.project.enums.StageEnum;
 
-public class Level extends About implements SensorEventListener {
+public class Level extends Activity implements SensorEventListener {
 	private SensorManager sensorManager;
 	private RelativeLayout layout;
 	private Maze mazeElement;
@@ -41,11 +42,11 @@ public class Level extends About implements SensorEventListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		initObjects();
+		stageNumber = 1;
+		initObjects(stageNumber);
 	}
 
-	@Override
-	protected void initObjects() {
+	protected void initObjects(int stageNumber) {
 		Display display = getWindowManager().getDefaultDisplay();
 		android.graphics.Point size = new android.graphics.Point();
 		display.getSize(size);
@@ -114,25 +115,24 @@ public class Level extends About implements SensorEventListener {
 			actionHandler.moveAndCheckY(accelY);
 			actionHandler.checkStarTouch();
 		} else {
-			changeStage(true);
+			initObjects(++stageNumber);
+			// changeStage();
 		}
 
 		if (actionHandler.ballInHole()) {
-			// changeStage(false)
 			// TODO: Replace with nicer code?
-			// layout.removeView(mazeElement);
-			// layout.addView(mazeElement);
+			layout.removeView(mazeElement);
+			layout.addView(mazeElement);
+			initObjects(--stageNumber);
+			// changeStage();
 		}
 
 	}
 
-	private void changeStage(boolean goesUp) {
-		if (goesUp) {
-			Animation anim = AnimationUtils.loadAnimation(this, R.anim.fadeout);
-			layout.startAnimation(anim);
-			layout.setVisibility(View.GONE);
-
-		}
+	private void changeStage() {
+		Animation anim = AnimationUtils.loadAnimation(this, R.anim.fadeout);
+		layout.startAnimation(anim);
+		layout.setVisibility(View.GONE);
 	}
 
 	private Animation inFromTopAnimation() {
@@ -144,6 +144,23 @@ public class Level extends About implements SensorEventListener {
 		inFromTop.setDuration(1000);
 		inFromTop.setInterpolator(new AccelerateInterpolator());
 		return inFromTop;
+	}
+
+	public StageEnum getStage() {
+		switch (stageNumber) {
+		case 1:
+			return StageEnum.STAGE_1;
+		case 2:
+			return StageEnum.STAGE_1;
+		case 3:
+			return StageEnum.STAGE_1;
+		case 4:
+			return StageEnum.STAGE_1;
+		case 5:
+			return StageEnum.STAGE_1;
+		default:
+			return null;
+		}
 	}
 
 	public SensorManager getSensorManager() {

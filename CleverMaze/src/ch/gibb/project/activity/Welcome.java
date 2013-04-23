@@ -8,7 +8,7 @@ import android.widget.ImageButton;
 import ch.gibb.project.R;
 import ch.gibb.project.util.MessageUtil;
 
-public class Welcome extends About {
+public class Welcome extends Activity {
 
 	private ImageButton start;
 	private ImageButton highscore;
@@ -17,9 +17,9 @@ public class Welcome extends About {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState, R.layout.activity_main);
+		initObjects();
 	}
 
-	@Override
 	protected void initObjects() {
 		start = (ImageButton) findViewById(R.id.btn_play);
 		start.setOnClickListener(new startListener());

@@ -1,8 +1,5 @@
 package ch.gibb.project.elements;
 
-import java.util.Vector;
-
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -12,25 +9,18 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.RectF;
 import ch.gibb.project.R;
+import ch.gibb.project.activity.Level;
 
 public class Wall extends MazeElement {
 	private Bitmap backgroundImage;
-	private Vector<RectF> walls = new Vector<RectF>();
+	private RectF[] walls;
 
-	public Vector<RectF> getWalls() {
-		return walls;
-	}
-
-	public void setWalls(Vector<RectF> walls) {
-		this.walls = walls;
-	}
-
-	public Wall(Context context, int width, int height) {
+	public Wall(Level context, int width, int height) {
 		super(context, width, height);
 		backgroundImage = BitmapFactory.decodeResource(getResources(),
 				R.drawable.wall);
 
-		walls = stageManager.getLevelOneWalls();
+		walls = context.getStage().getWalls();
 	}
 
 	protected void onDraw(Canvas canvas) {
@@ -43,5 +33,13 @@ public class Wall extends MazeElement {
 		for (RectF w : walls) {
 			canvas.drawRect(w, paint);
 		}
+	}
+
+	public RectF[] getWalls() {
+		return walls;
+	}
+
+	public void setWalls(RectF[] walls) {
+		this.walls = walls;
 	}
 }

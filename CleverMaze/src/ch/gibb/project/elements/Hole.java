@@ -1,30 +1,16 @@
 package ch.gibb.project.elements;
 
-import java.util.Vector;
-
-import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.PointF;
+import ch.gibb.project.activity.Level;
 
 public class Hole extends MazeElement {
 	private int radius = 34;
-	private Vector<PointF> holes = new Vector<PointF>();
+	private PointF[] holes;
 
-	public Vector<PointF> getHoles() {
-		return holes;
-	}
-
-	public void setHoles(Vector<PointF> holes) {
-		this.holes = holes;
-	}
-
-	public Hole(Context context, int width, int height) {
+	public Hole(Level context, int width, int height) {
 		super(context, width, height);
-		// backgroundImage = Bitmap.createScaledBitmap(
-		// BitmapFactory.decodeResource(getResources(), R.drawable.hole),
-		// 0, 0, true);
-
-		holes = stageManager.getLevelOneHoles();
+		holes = context.getStage().getHoles();
 	}
 
 	protected void onDraw(Canvas canvas) {
@@ -39,4 +25,11 @@ public class Hole extends MazeElement {
 		this.radius = radius;
 	}
 
+	public PointF[] getHoles() {
+		return holes;
+	}
+
+	public void setHoles(PointF[] holes) {
+		this.holes = holes;
+	}
 }

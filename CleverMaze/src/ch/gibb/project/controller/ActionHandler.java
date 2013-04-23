@@ -89,25 +89,24 @@ public class ActionHandler {
 	}
 
 	public void checkStarTouch() {
-		PointF toRemove = null;
 		for (PointF point : pointElement.getPoints()) {
 			float dx = Math.abs(ballElement.getCoordinates().x - point.x);
 			float dy = Math.abs(ballElement.getCoordinates().y - point.y);
 
 			if (Math.sqrt(dx * dx + dy * dy) < 30) {
-				toRemove = point;
+				removeStar(point);
 				break;
 			}
 		}
-		if (toRemove != null) {
-			pointElement.getPoints().remove(toRemove);
-			pointElement.postInvalidate((int) toRemove.x - 1,
-					(int) toRemove.y + 1,
-					(int) toRemove.x + pointElement.getImageWidth() + 1,
-					(int) toRemove.y - pointElement.getImageHeight() + 1);
-			pointcount++;
-			textElement.postInvalidate();
-		}
+	}
+
+	private void removeStar(PointF toRemove) {
+		pointElement.getPoints().remove(toRemove);
+		pointElement.postInvalidate((int) toRemove.x - 1, (int) toRemove.y + 1,
+				(int) toRemove.x + pointElement.getImageWidth() + 1,
+				(int) toRemove.y - pointElement.getImageHeight() + 1);
+		pointcount++;
+		textElement.postInvalidate();
 	}
 
 	public boolean checkWallTouch(float x, float y) {

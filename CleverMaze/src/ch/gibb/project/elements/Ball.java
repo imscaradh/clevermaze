@@ -1,6 +1,5 @@
 package ch.gibb.project.elements;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -8,18 +7,19 @@ import android.graphics.Paint;
 import android.graphics.PointF;
 import android.graphics.RectF;
 import ch.gibb.project.R;
+import ch.gibb.project.activity.Level;
 
 public class Ball extends MazeElement {
 	private int radius = 30;
 	private Bitmap backgroundImage;
 	private PointF coordinates;
 
-	public Ball(Context context, int width, int height) {
+	public Ball(Level context, int width, int height) {
 		super(context, width, height);
 		backgroundImage = Bitmap.createScaledBitmap(
 				BitmapFactory.decodeResource(getResources(), R.drawable.ball),
 				radius * 2, radius * 2, true);
-		coordinates = stageManager.getLevelOneStartPoint();
+		coordinates = context.getStage().getStartPoint();
 	}
 
 	protected void onDraw(Canvas canvas) {
