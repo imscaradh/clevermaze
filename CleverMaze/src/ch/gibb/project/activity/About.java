@@ -12,7 +12,7 @@ public class About extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState, R.layout.activity_highscore);
+		super.onCreate(savedInstanceState, R.layout.activity_about);
 		initObjects();
 	}
 

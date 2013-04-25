@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/wall" >
-
+    
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -24,7 +24,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
         android:src="@drawable/clevermazefont" />
-
+    
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
@@ -32,7 +32,16 @@
         android:layout_below="@+id/imageView1"
         android:paddingLeft="20dp"
         android:layout_marginTop="41dp"
-        android:singleLine="false"
+        android:textColor="#000000"
         android:text="Version: v1.0.0\nDeveloper:\nYannick Pulver\nPascal Zing" />
+
+    <Button
+        android:id="@+id/btn_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/imageView1"
+        android:layout_below="@+id/textView1"
+        android:layout_marginTop="129dp"
+        android:text="X" />
 
 </RelativeLayout>
