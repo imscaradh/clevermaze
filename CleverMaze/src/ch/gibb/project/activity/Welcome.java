@@ -13,6 +13,7 @@ public class Welcome extends Activity {
 	private ImageButton start;
 	private ImageButton highscore;
 	private ImageButton close;
+	private ImageButton about;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +30,9 @@ public class Welcome extends Activity {
 
 		close = (ImageButton) findViewById(R.id.btn_close);
 		close.setOnClickListener(new closeListener());
+
+		about = (ImageButton) findViewById(R.id.btn_about);
+		about.setOnClickListener(new aboutListener());
 	}
 
 	class startListener implements OnClickListener {
@@ -37,7 +41,8 @@ public class Welcome extends Activity {
 		public void onClick(View v) {
 			Log.v(this.getClass().toString(), "Button Play clicked");
 			Welcome.this.nextActivity(Level.class);
-
+			Welcome.this.overridePendingTransition(R.anim.slide_in_right,
+					R.anim.slide_out_left);
 		}
 	}
 
@@ -47,6 +52,19 @@ public class Welcome extends Activity {
 		public void onClick(View v) {
 			Log.v(this.getClass().toString(), "Button Highscore clicked");
 			Welcome.this.nextActivity(Highscore.class);
+			Welcome.this.overridePendingTransition(R.anim.slide_in_right,
+					R.anim.slide_out_left);
+		}
+	}
+
+	class aboutListener implements OnClickListener {
+
+		@Override
+		public void onClick(View v) {
+			Log.v(this.getClass().toString(), "Button About clicked");
+			Welcome.this.nextActivity(About.class);
+			Welcome.this.overridePendingTransition(R.anim.slide_in_right,
+					R.anim.slide_out_left);
 		}
 	}
 

@@ -7,7 +7,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import ch.gibb.project.R;
 
-public class Highscore extends Activity {
+public class About extends Activity {
 	private Button close;
 
 	@Override
@@ -22,9 +22,9 @@ public class Highscore extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				Highscore.this.nextActivity(Welcome.class);
-				Highscore.this.overridePendingTransition(R.anim.slide_in_left,
-						R.anim.slide_out_right);
+				About.this.nextActivity(Welcome.class);
+				About.this.overridePendingTransition(R.anim.slide2,
+						R.anim.slide);
 
 			}
 		});
@@ -33,8 +33,8 @@ public class Highscore extends Activity {
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-			Highscore.this.nextActivity(Welcome.class);
-			Highscore.this.overridePendingTransition(R.anim.slide_in_left,
+			About.this.nextActivity(Welcome.class);
+			About.this.overridePendingTransition(R.anim.slide_in_left,
 					R.anim.slide_out_right);
 			return true;
 		}
