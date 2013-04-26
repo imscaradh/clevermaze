@@ -2,6 +2,7 @@ package ch.gibb.project.activity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
@@ -76,6 +77,18 @@ public class Welcome extends Activity {
 			MessageUtil.getInstance().createAlertMessage(Welcome.this,
 					MessageUtil.DIALOG_EXIT);
 		}
+	}
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+			Log.v(this.getClass().toString(), "Button Back clicked");
+			MessageUtil.getInstance().createAlertMessage(Welcome.this,
+					MessageUtil.DIALOG_EXIT);
+			return true;
+		}
+
+		return super.onKeyDown(keyCode, event);
 	}
 
 }
