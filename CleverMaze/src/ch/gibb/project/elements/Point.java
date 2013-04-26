@@ -19,6 +19,8 @@ public class Point extends MazeElement {
 		backgroundImage = Bitmap.createScaledBitmap(
 				BitmapFactory.decodeResource(getResources(), R.drawable.star),
 				60, 60, true);
+
+		// TODO: Using Vector?
 		points = context.getStage().getStars();
 	}
 

@@ -1,8 +1,5 @@
 package ch.gibb.project.elements;
 
-import java.util.Vector;
-
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -15,11 +12,11 @@ import ch.gibb.project.activity.Level;
 
 public class Maze extends MazeElement {
 	private Rect playGround;
-	private Vector<PointF> holes = new Vector<PointF>();
+	private PointF[] holes;
 	private PointF finishPoint;
 	private int radius = 34;
 
-	public Maze(Context context, int width, int height) {
+	public Maze(Level context, int width, int height) {
 		super(context, width, height);
 
 		playGround = new Rect(40, 40, width - 40, height - 40);
@@ -28,8 +25,8 @@ public class Maze extends MazeElement {
 		bitmapCanvas = new Canvas();
 		bitmapCanvas.setBitmap(bitmap);
 
-		holes = stageManager.getLevelOneHoles();
-		finishPoint = stageManager.getLevelOneFinishPoint();
+		holes = context.getStage().getHoles();
+		finishPoint = context.getStage().getFinishPoint();
 	}
 
 	protected void onDraw(Canvas canvas) {
@@ -67,11 +64,11 @@ public class Maze extends MazeElement {
 		return Level.backgroundImage.getHeight();
 	}
 
-	public Vector<PointF> getHoles() {
+	public PointF[] getHoles() {
 		return holes;
 	}
 
-	public void setHoles(Vector<PointF> holes) {
+	public void setHoles(PointF[] holes) {
 		this.holes = holes;
 	}
 

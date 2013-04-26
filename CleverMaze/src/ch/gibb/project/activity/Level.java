@@ -13,10 +13,8 @@ import android.view.Display;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
-import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.animation.TranslateAnimation;
 import android.widget.RelativeLayout;
 import ch.gibb.project.R;
 import ch.gibb.project.controller.ActionHandler;
@@ -48,7 +46,7 @@ public class Level extends Activity implements SensorEventListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		stageNumber = 1;
+		stageNumber = 3;
 		initObjects(stageNumber);
 	}
 
@@ -141,29 +139,18 @@ public class Level extends Activity implements SensorEventListener {
 		layout.setVisibility(View.GONE);
 	}
 
-	private Animation inFromTopAnimation() {
-		Animation inFromTop = new TranslateAnimation(
-				Animation.RELATIVE_TO_PARENT, 0.0f,
-				Animation.RELATIVE_TO_PARENT, 0.0f,
-				Animation.RELATIVE_TO_PARENT, -1.0f,
-				Animation.RELATIVE_TO_PARENT, 0.0f);
-		inFromTop.setDuration(1000);
-		inFromTop.setInterpolator(new AccelerateInterpolator());
-		return inFromTop;
-	}
-
 	public StageEnum getStage() {
 		switch (stageNumber) {
 		case 1:
 			return StageEnum.STAGE_1;
 		case 2:
-			return StageEnum.STAGE_1;
+			return StageEnum.STAGE_2;
 		case 3:
-			return StageEnum.STAGE_1;
+			return StageEnum.STAGE_3;
 		case 4:
-			return StageEnum.STAGE_1;
+			return StageEnum.STAGE_4;
 		case 5:
-			return StageEnum.STAGE_1;
+			return StageEnum.STAGE_5;
 		default:
 			return null;
 		}

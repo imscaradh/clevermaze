@@ -41,6 +41,7 @@ public class MessageUtil {
 					});
 			AlertDialog dialog = builder.create();
 			dialog.show();
+			break;
 		case DIALOG_LEVELEXIT:
 			Builder builderLvl = new AlertDialog.Builder(activity);
 			builderLvl.setMessage("Are you sure to exit the stage?");
@@ -61,6 +62,7 @@ public class MessageUtil {
 					});
 			AlertDialog dialogLvl = builderLvl.create();
 			dialogLvl.show();
+			break;
 		default:
 
 		}

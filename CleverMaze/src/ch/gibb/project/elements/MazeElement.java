@@ -20,7 +20,7 @@ public class MazeElement extends View {
 
 	public MazeElement(Context context, int width, int height) {
 		super(context);
-		stageManager = new Stages();
+		stageManager = new Stages(context);
 		this.width = width;
 		this.height = height;
 
