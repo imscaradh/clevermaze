@@ -81,7 +81,7 @@ public class ActionHandler {
 			float dx = Math.abs(ballElement.getCoordinates().x - hole.x);
 			float dy = Math.abs(ballElement.getCoordinates().y - hole.y);
 			// TODO: Auslagern
-			if (Math.sqrt(dx * dx + dy * dy) < 25) {
+			if (Math.sqrt(dx * dx + dy * dy) < 30) {
 				return true;
 			}
 		}

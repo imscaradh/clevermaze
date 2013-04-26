@@ -46,7 +46,11 @@ public class Level extends Activity implements SensorEventListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		stageNumber = 3;
+		this.stageNumber = 1;
+		Display display = getWindowManager().getDefaultDisplay();
+		android.graphics.Point size = new android.graphics.Point();
+		display.getSize(size);
+		setBitmaps(size.x, size.y);
 		initObjects(stageNumber);
 	}
 
@@ -54,7 +58,6 @@ public class Level extends Activity implements SensorEventListener {
 		Display display = getWindowManager().getDefaultDisplay();
 		android.graphics.Point size = new android.graphics.Point();
 		display.getSize(size);
-		setBitmaps(size.x, size.y);
 		initViews(size.x, size.y);
 		addelementsToView();
 
@@ -125,9 +128,17 @@ public class Level extends Activity implements SensorEventListener {
 
 		if (actionHandler.ballInHole()) {
 			// TODO: Replace with nicer code?
-			layout.removeView(mazeElement);
-			layout.addView(mazeElement);
-			initObjects(--stageNumber);
+			// layout.removeView(mazeElement);
+			// layout.addView(mazeElement);
+			sensorManager.unregisterListener(this);
+			if (stageNumber == 1) {
+				// TODO: Implement Ball Hole Collision > ATM. OutOfMemoryError
+				layout.removeAllViews();
+				// initObjects(stageNumber);
+				addelementsToView();
+			} else {
+				initObjects(--stageNumber);
+			}
 			// changeStage();
 		}
 
