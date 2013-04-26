@@ -1,6 +1,8 @@
 package ch.gibb.project.activity;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -8,6 +10,7 @@ import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Display;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
@@ -15,7 +18,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.TranslateAnimation;
 import android.widget.RelativeLayout;
-import android.widget.ViewFlipper;
 import ch.gibb.project.R;
 import ch.gibb.project.controller.ActionHandler;
 import ch.gibb.project.elements.Ball;
@@ -24,9 +26,10 @@ import ch.gibb.project.elements.Point;
 import ch.gibb.project.elements.Text;
 import ch.gibb.project.elements.Wall;
 import ch.gibb.project.enums.StageEnum;
+import ch.gibb.project.util.MessageUtil;
 
 public class Level extends Activity implements SensorEventListener {
-	private SensorManager sensorManager;
+	public SensorManager sensorManager;
 	private RelativeLayout layout;
 	private Maze mazeElement;
 	private Ball ballElement;
@@ -37,7 +40,10 @@ public class Level extends Activity implements SensorEventListener {
 	private ActionHandler actionHandler;
 	private float accelX, accelY;
 	private int stageNumber;
-	private ViewFlipper viewFlipper;
+
+	public static Bitmap backgroundImage;
+	public static Bitmap wallImage;
+	public static Bitmap finishImage;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +56,7 @@ public class Level extends Activity implements SensorEventListener {
 		Display display = getWindowManager().getDefaultDisplay();
 		android.graphics.Point size = new android.graphics.Point();
 		display.getSize(size);
-
+		setBitmaps(size.x, size.y);
 		initViews(size.x, size.y);
 		addelementsToView();
 
@@ -64,7 +70,7 @@ public class Level extends Activity implements SensorEventListener {
 					Sensor.TYPE_ACCELEROMETER).get(0);
 			if (!sensorManager.registerListener(this, accelerometer,
 					SensorManager.SENSOR_DELAY_FASTEST)) {
-				Log.d("Message", "Cdaouldn't register sensor listener");
+				Log.d("Message", "Couldn't register sensor listener");
 			}
 		}
 
@@ -161,6 +167,38 @@ public class Level extends Activity implements SensorEventListener {
 		default:
 			return null;
 		}
+	}
+
+	public void setBitmaps(int width, int height) {
+		BitmapFactory.Options opts = new BitmapFactory.Options();
+		opts.inDither = false; // Disable Dithering mode
+		opts.inPurgeable = true;
+		opts.inInputShareable = true; // Which kind of reference will be used to
+										// recover the Bitmap data after being
+										// clear, when it will be used in the
+										// future
+		opts.inTempStorage = new byte[32 * 1024];
+		backgroundImage = BitmapFactory.decodeResource(getResources(),
+				R.drawable.wood, opts);
+		backgroundImage = Bitmap.createScaledBitmap(backgroundImage,
+				width - 40, height - 40, true);
+		wallImage = BitmapFactory.decodeResource(getResources(),
+				R.drawable.wall, opts);
+		wallImage = Bitmap.createScaledBitmap(wallImage, width, height, true);
+		finishImage = BitmapFactory.decodeResource(getResources(),
+				R.drawable.finish, opts);
+		finishImage = Bitmap.createScaledBitmap(finishImage, 73, 73, true);
+	}
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+			MessageUtil.getInstance().createAlertMessage(Level.this,
+					MessageUtil.DIALOG_LEVELEXIT);
+			return true;
+		}
+
+		return super.onKeyDown(keyCode, event);
 	}
 
 	public SensorManager getSensorManager() {
