@@ -169,15 +169,53 @@ public enum StageEnum {
 							new RectF(100, 928, 330, 979)
 							}),
 							
-	STAGE_4(new PointF(40, 40), 
+	STAGE_4(new PointF(300, 1177), 
 			new PointF(322, 1006), 
 			new PointF[] {	
-							new PointF(612, 40)
+							new PointF(40, 987),
+							new PointF(40, 914),
+							new PointF(40, 841),
+							new PointF(40, 768),
+							new PointF(40, 695),
+							new PointF(40, 622),
+							new PointF(40, 549),
+							new PointF(40, 476),
+							new PointF(40, 403),
+							new PointF(40, 330),
+							new PointF(40, 257),
+							new PointF(40, 184),
+							new PointF(40, 111),
+							new PointF(40, 40),
+							
+							new PointF(163, 1050),
+							new PointF(163, 977),
+							new PointF(163, 904),
+							new PointF(163, 831),
+							new PointF(163, 758),
+							new PointF(163, 685),
+							new PointF(163, 612),
+							new PointF(163, 539),
+							new PointF(163, 466),
+							new PointF(163, 393),
+							new PointF(163, 320),
+							new PointF(163, 247),
+							new PointF(163, 174),
+							
+							new PointF(286, 184),
+							new PointF(359, 184),
+							new PointF(432, 184),
+							new PointF(505, 184),
+							new PointF(578, 184),
+							new PointF(286, 111),
+							new PointF(286, 40)
 			}, 
 			new ArrayList<PointF>(Arrays.asList( 
-						new PointF(226, 680))),
+							new PointF(359, 111),
+							new PointF(359, 40)
+					)),
 			new RectF[] {
-							new RectF(300, 100, 351, 1140)
+							new RectF(370, 1125, 421, 1240),
+							new RectF(100, 1125, 370, 1176)
 							}),
 	
 	STAGE_5(new PointF(40, 40), 

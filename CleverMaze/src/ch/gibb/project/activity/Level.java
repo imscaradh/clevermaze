@@ -46,7 +46,7 @@ public class Level extends Activity implements SensorEventListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		this.stageNumber = 1;
+		this.stageNumber = 4;
 		Display display = getWindowManager().getDefaultDisplay();
 		android.graphics.Point size = new android.graphics.Point();
 		display.getSize(size);
