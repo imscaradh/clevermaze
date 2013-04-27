@@ -12,9 +12,6 @@ import android.util.Log;
 import android.view.Display;
 import android.view.KeyEvent;
 import android.view.Menu;
-import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.RelativeLayout;
 import ch.gibb.project.R;
 import ch.gibb.project.controller.ActionHandler;
@@ -46,20 +43,12 @@ public class Level extends Activity implements SensorEventListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		this.stageNumber = 4;
+		this.stageNumber = 1;
 		Display display = getWindowManager().getDefaultDisplay();
 		android.graphics.Point size = new android.graphics.Point();
 		display.getSize(size);
-		setBitmaps(size.x, size.y);
+		setStaticBitmaps(size.x, size.y);
 		initObjects(stageNumber);
-	}
-
-	protected void initObjects(int stageNumber) {
-		Display display = getWindowManager().getDefaultDisplay();
-		android.graphics.Point size = new android.graphics.Point();
-		display.getSize(size);
-		initViews(size.x, size.y);
-		addelementsToView();
 
 		actionHandler = new ActionHandler(this);
 
@@ -74,10 +63,19 @@ public class Level extends Activity implements SensorEventListener {
 				Log.d("Message", "Couldn't register sensor listener");
 			}
 		}
+	}
 
+	protected void initObjects(int stageNumber) {
+		Display display = getWindowManager().getDefaultDisplay();
+		android.graphics.Point size = new android.graphics.Point();
+		display.getSize(size);
+		initViews(size.x, size.y);
+		addelementsToView();
 	}
 
 	private void initViews(int x, int y) {
+		BitmapFactory.Options options = new BitmapFactory.Options();
+		options.inSampleSize = 8;
 		mazeElement = new Maze(this, x, y);
 		ballElement = new Ball(this, x, y);
 		wallElement = new Wall(this, x, y);
@@ -123,31 +121,26 @@ public class Level extends Activity implements SensorEventListener {
 			actionHandler.checkStarTouch();
 		} else {
 			initObjects(++stageNumber);
-			// changeStage();
+			changeStage();
 		}
 
 		if (actionHandler.ballInHole()) {
-			// TODO: Replace with nicer code?
+			// // TODO: Replace with nicer code?
 			// layout.removeView(mazeElement);
 			// layout.addView(mazeElement);
-			sensorManager.unregisterListener(this);
+			// sensorManager.unregisterListener(this);
 			if (stageNumber == 1) {
-				// TODO: Implement Ball Hole Collision > ATM. OutOfMemoryError
-				layout.removeAllViews();
-				// initObjects(stageNumber);
-				addelementsToView();
+				initObjects(stageNumber);
 			} else {
 				initObjects(--stageNumber);
 			}
-			// changeStage();
+			changeStage();
 		}
 
 	}
 
 	private void changeStage() {
-		Animation anim = AnimationUtils.loadAnimation(this, R.anim.fadeout);
-		layout.startAnimation(anim);
-		layout.setVisibility(View.GONE);
+		// TODO zinggpa animation for stage switching
 	}
 
 	public StageEnum getStage() {
@@ -167,14 +160,11 @@ public class Level extends Activity implements SensorEventListener {
 		}
 	}
 
-	public void setBitmaps(int width, int height) {
+	public void setStaticBitmaps(int width, int height) {
 		BitmapFactory.Options opts = new BitmapFactory.Options();
-		opts.inDither = false; // Disable Dithering mode
+		opts.inDither = false;
 		opts.inPurgeable = true;
-		opts.inInputShareable = true; // Which kind of reference will be used to
-										// recover the Bitmap data after being
-										// clear, when it will be used in the
-										// future
+		opts.inInputShareable = true;
 		opts.inTempStorage = new byte[32 * 1024];
 		backgroundImage = BitmapFactory.decodeResource(getResources(),
 				R.drawable.wood, opts);

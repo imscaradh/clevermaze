@@ -41,8 +41,8 @@ public class Welcome extends Activity {
 		@Override
 		public void onClick(View v) {
 			Log.v(this.getClass().toString(), "Button Play clicked");
-			Welcome.this.nextActivity(Level.class);
-			Welcome.this.overridePendingTransition(R.anim.slide_in_right,
+			nextActivity(Level.class);
+			overridePendingTransition(R.anim.slide_in_right,
 					R.anim.slide_out_left);
 		}
 	}
@@ -52,8 +52,8 @@ public class Welcome extends Activity {
 		@Override
 		public void onClick(View v) {
 			Log.v(this.getClass().toString(), "Button Highscore clicked");
-			Welcome.this.nextActivity(Highscore.class);
-			Welcome.this.overridePendingTransition(R.anim.slide_in_right,
+			nextActivity(Highscore.class);
+			overridePendingTransition(R.anim.slide_in_right,
 					R.anim.slide_out_left);
 		}
 	}
@@ -62,9 +62,9 @@ public class Welcome extends Activity {
 
 		@Override
 		public void onClick(View v) {
-			Log.v(this.getClass().toString(), "Button About clicked");
-			Welcome.this.nextActivity(About.class);
-			Welcome.this.overridePendingTransition(R.anim.slide_in_right,
+			Log.v(getClass().toString(), "Button About clicked");
+			nextActivity(About.class);
+			overridePendingTransition(R.anim.slide_in_right,
 					R.anim.slide_out_left);
 		}
 	}
@@ -73,7 +73,7 @@ public class Welcome extends Activity {
 
 		@Override
 		public void onClick(View v) {
-			Log.v(this.getClass().toString(), "Button Close clicked");
+			Log.v(getClass().toString(), "Button Close clicked");
 			MessageUtil.getInstance().createAlertMessage(Welcome.this,
 					MessageUtil.DIALOG_EXIT);
 		}
