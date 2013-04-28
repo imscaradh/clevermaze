@@ -147,23 +147,23 @@ public class Level extends Activity implements SensorEventListener {
 			actionHandler.moveAndCheckY(accelY);
 			actionHandler.checkStarTouch();
 		} else {
-			if (stageNumber == StageEnum.values().length) {
-				sensorManager.unregisterListener(this);
-				MessageUtil.getInstance().createAlertMessage(Level.this,
-						MessageUtil.DIALOG_HIGHSCORE);
-				return;
-			} else {
-				initObjects(++stageNumber);
-				changeStage();
-				return;
-			}
+			// if (stageNumber == StageEnum.values().length) {
+			// sensorManager.unregisterListener(this);
+			// MessageUtil.getInstance().createAlertMessage(Level.this,
+			// MessageUtil.DIALOG_HIGHSCORE);
+			// return;
+			// } else {
+			initObjects(++stageNumber);
+			changeStage();
+			// return;
+			// }
 		}
 		if (actionHandler.ballInHole()) {
 			// // TODO: Replace with nicer code?
 			layout.removeView(mazeElement);
 			layout.addView(mazeElement);
 			MessageUtil.getInstance().createShortToastMessage(Level.this,
-					"Oh no! You fall into a hole");
+					"Oh no! You felt into a hole");
 			sensorManager.unregisterListener(Level.this);
 			initObjects((stageNumber == 1) ? stageNumber : --stageNumber);
 			changeStage();
