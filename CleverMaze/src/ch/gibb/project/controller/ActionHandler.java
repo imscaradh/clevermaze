@@ -16,11 +16,6 @@ public class ActionHandler {
 	private Wall wallElement;
 	private Point pointElement;
 	private Text textElement;
-	public static int pointcount;
-	public static long gamemillis;
-	public static long gameseconds;
-	public static long gameminutes;
-	public static long starttime;
 
 	public ActionHandler(Level levelActivity) {
 		ballElement = levelActivity.getBallElement();
@@ -109,7 +104,7 @@ public class ActionHandler {
 		pointElement.postInvalidate((int) toRemove.x - 1, (int) toRemove.y + 1,
 				(int) toRemove.x + pointElement.getImageWidth() + 1,
 				(int) toRemove.y - pointElement.getImageHeight() + 1);
-		pointcount++;
+		Text.pointcount++;
 		textElement.postInvalidate();
 	}
 

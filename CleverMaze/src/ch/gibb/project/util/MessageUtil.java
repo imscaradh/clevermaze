@@ -9,7 +9,7 @@ import ch.gibb.project.R;
 import ch.gibb.project.activity.Highscore;
 import ch.gibb.project.activity.Level;
 import ch.gibb.project.activity.Welcome;
-import ch.gibb.project.controller.ActionHandler;
+import ch.gibb.project.elements.Text;
 
 public class MessageUtil {
 	public static final int DIALOG_EXIT = 1;
@@ -70,10 +70,7 @@ public class MessageUtil {
 			// Get Points + Time from Level
 			Builder builderScore = new AlertDialog.Builder(activity);
 			builderScore.setMessage("You finished CleverMaze with "
-					+ ActionHandler.pointcount
-					+ " points in "
-					+ String.format("%d:%02d", ActionHandler.gameminutes,
-							ActionHandler.gameseconds));
+					+ Text.pointcount + " points in " + Text.usedTime);
 			builderScore.setCancelable(true);
 			builderScore.setNegativeButton("Home",
 					new DialogInterface.OnClickListener() {
@@ -111,12 +108,10 @@ public class MessageUtil {
 	}
 
 	public void createShortToastMessage(final Activity activity, String message) {
-		Toast.makeText(activity.getApplicationContext(), message,
-				Toast.LENGTH_SHORT).show();
+		Toast.makeText(activity.getApplicationContext(), message, 3).show();
 	}
 
 	public void createLongToastMessage(final Activity activity, String message) {
-		Toast.makeText(activity.getApplicationContext(), message,
-				Toast.LENGTH_LONG).show();
+		Toast.makeText(activity.getApplicationContext(), message, 5).show();
 	}
 }

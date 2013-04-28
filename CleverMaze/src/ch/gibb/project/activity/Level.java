@@ -1,5 +1,10 @@
 package ch.gibb.project.activity;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -8,6 +13,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Display;
 import android.view.KeyEvent;
@@ -36,9 +42,11 @@ public class Level extends Activity implements SensorEventListener {
 	private int stageNumber;
 	private android.graphics.Point displaySize;
 
-	public static Bitmap backgroundImage;
-	public static Bitmap wallImage;
-	public static Bitmap finishImage;
+	private static Bitmap backgroundImage;
+	private static Bitmap wallImage;
+	private static Bitmap finishImage;
+
+	private long millis;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -49,11 +57,11 @@ public class Level extends Activity implements SensorEventListener {
 		display.getSize(displaySize);
 		setStaticBitmaps(displaySize.x, displaySize.y);
 		initObjects(stageNumber);
-		ActionHandler.starttime = System.currentTimeMillis();
-
+		createTimer();
 	}
 
 	protected void initObjects(int stageNumber) {
+		Text.stage = stageNumber;
 		initViews(displaySize.x, displaySize.y);
 		addelementsToView();
 		actionHandler = new ActionHandler(this);
@@ -92,6 +100,30 @@ public class Level extends Activity implements SensorEventListener {
 		setContentView(layout);
 	}
 
+	private void createTimer() {
+
+		final Handler handler = new Handler();
+		Timer timer = new Timer(false);
+		TimerTask timerTask = new TimerTask() {
+			@Override
+			public void run() {
+
+				handler.post(new Runnable() {
+					@Override
+					public void run() {
+
+						millis += 1;
+						Text.usedTime = new SimpleDateFormat("mm:ss:SSS")
+								.format(new Date(millis));
+						textElement.postInvalidate();
+					}
+				});
+			}
+		};
+		timer.scheduleAtFixedRate(timerTask, 0, 1);
+
+	}
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -104,14 +136,8 @@ public class Level extends Activity implements SensorEventListener {
 	}
 
 	@Override
-	public void onSensorChanged(SensorEvent event) {
+	public void onSensorChanged(final SensorEvent event) {
 		updateBall(event.values[0], event.values[1]);
-		ActionHandler.gamemillis = System.currentTimeMillis()
-				- ActionHandler.starttime;
-		ActionHandler.gameseconds = (int) (ActionHandler.gamemillis / 1000);
-		ActionHandler.gameminutes = ActionHandler.gameseconds / 60;
-		ActionHandler.gameseconds = ActionHandler.gameseconds % 60;
-		textElement.postInvalidate();
 	}
 
 	private void updateBall(float accelX, float accelY) {
@@ -134,22 +160,19 @@ public class Level extends Activity implements SensorEventListener {
 		}
 		if (actionHandler.ballInHole()) {
 			// // TODO: Replace with nicer code?
-			// layout.removeView(mazeElement);
-			// layout.addView(mazeElement);
-			sensorManager.unregisterListener(this);
-			if (stageNumber == 1) {
-				initObjects(stageNumber);
-			} else {
-				initObjects(--stageNumber);
-			}
+			layout.removeView(mazeElement);
+			layout.addView(mazeElement);
+			MessageUtil.getInstance().createShortToastMessage(Level.this,
+					"Oh no! You fall into a hole");
+			sensorManager.unregisterListener(Level.this);
 			initObjects((stageNumber == 1) ? stageNumber : --stageNumber);
 			changeStage();
 		}
-
 	}
 
 	private void changeStage() {
-		// TODO zinggpa animation for stage switching
+		overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+
 	}
 
 	public StageEnum getStage() {
@@ -173,16 +196,18 @@ public class Level extends Activity implements SensorEventListener {
 		opts.inPurgeable = true;
 		opts.inInputShareable = true;
 		opts.inTempStorage = new byte[32 * 1024];
-		backgroundImage = BitmapFactory.decodeResource(getResources(),
-				R.drawable.wood, opts);
-		backgroundImage = Bitmap.createScaledBitmap(backgroundImage,
-				width - 40, height - 40, true);
-		wallImage = BitmapFactory.decodeResource(getResources(),
-				R.drawable.wall, opts);
-		wallImage = Bitmap.createScaledBitmap(wallImage, width, height, true);
-		finishImage = BitmapFactory.decodeResource(getResources(),
-				R.drawable.finish, opts);
-		finishImage = Bitmap.createScaledBitmap(finishImage, 73, 73, true);
+		setBackgroundImage(BitmapFactory.decodeResource(getResources(),
+				R.drawable.wood, opts));
+		setBackgroundImage(Bitmap.createScaledBitmap(getBackgroundImage(),
+				width - 40, height - 40, true));
+		setWallImage(BitmapFactory.decodeResource(getResources(),
+				R.drawable.wall, opts));
+		setWallImage(Bitmap.createScaledBitmap(getWallImage(), width, height,
+				true));
+		setFinishImage(BitmapFactory.decodeResource(getResources(),
+				R.drawable.finish, opts));
+		setFinishImage(Bitmap
+				.createScaledBitmap(getFinishImage(), 73, 73, true));
 	}
 
 	@Override
@@ -246,6 +271,30 @@ public class Level extends Activity implements SensorEventListener {
 
 	public void setStageNumber(int stageNumber) {
 		this.stageNumber = stageNumber;
+	}
+
+	public static Bitmap getWallImage() {
+		return wallImage;
+	}
+
+	public static void setWallImage(Bitmap wallImage) {
+		Level.wallImage = wallImage;
+	}
+
+	public static Bitmap getBackgroundImage() {
+		return backgroundImage;
+	}
+
+	public static void setBackgroundImage(Bitmap backgroundImage) {
+		Level.backgroundImage = backgroundImage;
+	}
+
+	public static Bitmap getFinishImage() {
+		return finishImage;
+	}
+
+	public static void setFinishImage(Bitmap finishImage) {
+		Level.finishImage = finishImage;
 	}
 
 }
