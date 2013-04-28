@@ -16,13 +16,16 @@ public class Text extends MazeElement {
 
 	protected void onDraw(Canvas canvas) {
 		Paint paint = new Paint();
-		paint.setStyle(Style.FILL);
+		paint.setStyle(Style.FILL_AND_STROKE);
+		paint.setFakeBoldText(true);
 		paint.setColor(Color.BLACK);
-		paint.setTextSize(25);
+		paint.setTextSize(30);
 		canvas.drawText("Points:" + ActionHandler.pointcount,
 				getWidth() / 2 - 50, 25, paint);
 
 		canvas.drawText("Stage:", 40, getHeight() - 20, paint);
-		canvas.drawText("MM:SS", getWidth() - 120, getHeight() - 20, paint);
+		canvas.drawText(String.format("%d:%02d", ActionHandler.gameminutes,
+				ActionHandler.gameseconds), getWidth() - 120, getHeight() - 20,
+				paint);
 	}
 }

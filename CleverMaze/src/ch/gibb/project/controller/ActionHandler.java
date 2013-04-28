@@ -17,6 +17,10 @@ public class ActionHandler {
 	private Point pointElement;
 	private Text textElement;
 	public static int pointcount;
+	public static long gamemillis;
+	public static long gameseconds;
+	public static long gameminutes;
+	public static long starttime;
 
 	public ActionHandler(Level levelActivity) {
 		ballElement = levelActivity.getBallElement();

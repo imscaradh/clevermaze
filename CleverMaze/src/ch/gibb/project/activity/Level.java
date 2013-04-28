@@ -49,6 +49,16 @@ public class Level extends Activity implements SensorEventListener {
 		display.getSize(size);
 		setStaticBitmaps(size.x, size.y);
 		initObjects(stageNumber);
+		ActionHandler.starttime = System.currentTimeMillis();
+
+	}
+
+	protected void initObjects(int stageNumber) {
+		Display display = getWindowManager().getDefaultDisplay();
+		android.graphics.Point size = new android.graphics.Point();
+		display.getSize(size);
+		initViews(size.x, size.y);
+		addelementsToView();
 
 		actionHandler = new ActionHandler(this);
 
@@ -63,14 +73,6 @@ public class Level extends Activity implements SensorEventListener {
 				Log.d("Message", "Couldn't register sensor listener");
 			}
 		}
-	}
-
-	protected void initObjects(int stageNumber) {
-		Display display = getWindowManager().getDefaultDisplay();
-		android.graphics.Point size = new android.graphics.Point();
-		display.getSize(size);
-		initViews(size.x, size.y);
-		addelementsToView();
 	}
 
 	private void initViews(int x, int y) {
@@ -111,6 +113,12 @@ public class Level extends Activity implements SensorEventListener {
 		accelX = event.values[0];
 		accelY = event.values[1];
 		updateBall(accelX, accelY);
+		ActionHandler.gamemillis = System.currentTimeMillis()
+				- ActionHandler.starttime;
+		ActionHandler.gameseconds = (int) (ActionHandler.gamemillis / 1000);
+		ActionHandler.gameminutes = ActionHandler.gameseconds / 60;
+		ActionHandler.gameseconds = ActionHandler.gameseconds % 60;
+		textElement.postInvalidate();
 	}
 
 	private void updateBall(float accelX, float accelY) {
@@ -120,15 +128,22 @@ public class Level extends Activity implements SensorEventListener {
 			actionHandler.moveAndCheckY(accelY);
 			actionHandler.checkStarTouch();
 		} else {
-			initObjects(++stageNumber);
-			changeStage();
+			if (stageNumber == StageEnum.values().length) {
+				sensorManager.unregisterListener(this);
+				MessageUtil.getInstance().createAlertMessage(Level.this,
+						MessageUtil.DIALOG_HIGHSCORE);
+				return;
+			} else {
+				initObjects(++stageNumber);
+				changeStage();
+				return;
+			}
 		}
-
 		if (actionHandler.ballInHole()) {
 			// // TODO: Replace with nicer code?
 			// layout.removeView(mazeElement);
 			// layout.addView(mazeElement);
-			// sensorManager.unregisterListener(this);
+			sensorManager.unregisterListener(this);
 			if (stageNumber == 1) {
 				initObjects(stageNumber);
 			} else {
@@ -153,8 +168,6 @@ public class Level extends Activity implements SensorEventListener {
 			return StageEnum.STAGE_3;
 		case 4:
 			return StageEnum.STAGE_4;
-		case 5:
-			return StageEnum.STAGE_5;
 		default:
 			return null;
 		}

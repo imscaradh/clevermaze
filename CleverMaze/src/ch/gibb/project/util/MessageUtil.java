@@ -6,12 +6,15 @@ import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
 import android.widget.Toast;
 import ch.gibb.project.R;
+import ch.gibb.project.activity.Highscore;
 import ch.gibb.project.activity.Level;
 import ch.gibb.project.activity.Welcome;
+import ch.gibb.project.controller.ActionHandler;
 
 public class MessageUtil {
 	public static final int DIALOG_EXIT = 1;
 	public static final int DIALOG_LEVELEXIT = 2;
+	public static final int DIALOG_HIGHSCORE = 3;
 	private static MessageUtil singleton;
 
 	private MessageUtil() {
@@ -62,6 +65,44 @@ public class MessageUtil {
 					});
 			AlertDialog dialogLvl = builderLvl.create();
 			dialogLvl.show();
+			break;
+		case DIALOG_HIGHSCORE:
+			// Get Points + Time from Level
+			Builder builderScore = new AlertDialog.Builder(activity);
+			builderScore.setMessage("You finished CleverMaze with "
+					+ ActionHandler.pointcount
+					+ " points in "
+					+ String.format("%d:%02d", ActionHandler.gameminutes,
+							ActionHandler.gameseconds));
+			builderScore.setCancelable(true);
+			builderScore.setNegativeButton("Home",
+					new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							((Level) activity).nextActivity(Welcome.class);
+							((Level) activity).overridePendingTransition(
+									R.anim.slide_in_left,
+									R.anim.slide_out_right);
+							((Level) activity).sensorManager
+									.unregisterListener((Level) activity);
+						}
+
+					});
+			builderScore.setPositiveButton("Highscore",
+					new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							((Level) activity).nextActivity(Highscore.class);
+							((Level) activity).overridePendingTransition(
+									R.anim.slide_in_left,
+									R.anim.slide_out_right);
+							((Level) activity).sensorManager
+									.unregisterListener((Level) activity);
+						}
+
+					});
+			AlertDialog dialogScore = builderScore.create();
+			dialogScore.show();
 			break;
 		default:
 

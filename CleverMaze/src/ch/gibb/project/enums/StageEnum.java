@@ -170,7 +170,7 @@ public enum StageEnum {
 							}),
 							
 	STAGE_4(new PointF(300, 1177), 
-			new PointF(322, 1006), 
+			new PointF(435, 1157), 
 			new PointF[] {	
 							new PointF(40, 987),
 							new PointF(40, 914),
@@ -200,33 +200,62 @@ public enum StageEnum {
 							new PointF(163, 320),
 							new PointF(163, 247),
 							new PointF(163, 174),
-							
+		
 							new PointF(286, 184),
 							new PointF(359, 184),
 							new PointF(432, 184),
 							new PointF(505, 184),
 							new PointF(578, 184),
 							new PointF(286, 111),
-							new PointF(286, 40)
+							new PointF(286, 40),
+							
+							new PointF(236, 320),
+							new PointF(309, 320),
+							new PointF(382, 320),
+							new PointF(455, 320),
+							new PointF(528, 320),
+							
+							new PointF(610, 466),
+							new PointF(537, 466),
+							new PointF(464, 466),
+							new PointF(391, 466),
+							new PointF(318, 466),
+							
+							new PointF(280, 526),
+							new PointF(280, 599),
+							new PointF(280, 672),
+							new PointF(280, 745),
+							new PointF(280, 818),
+							new PointF(280, 891),
+							new PointF(280, 964),
+							
+							new PointF(403, 1050),
+							new PointF(403, 969),
+							new PointF(403, 896),
+							new PointF(403, 823),
+							new PointF(403, 750),
+							new PointF(403, 614),
+							new PointF(476, 614),
+							new PointF(549, 614),
+							
+							new PointF(549, 687),
+							new PointF(549, 760),
+							new PointF(549, 833),
+							new PointF(549, 906),
+							new PointF(549, 979),
+							new PointF(549, 1052)
+							
 			}, 
 			new ArrayList<PointF>(Arrays.asList( 
 							new PointF(359, 111),
-							new PointF(359, 40)
+							new PointF(359, 40),
+							new PointF(476, 979),
+							new PointF(476, 1052)
 					)),
 			new RectF[] {
 							new RectF(370, 1125, 421, 1240),
-							new RectF(100, 1125, 370, 1176)
-							}),
-	
-	STAGE_5(new PointF(40, 40), 
-			new PointF(322, 1006), 
-			new PointF[] {	
-							new PointF(612, 40)
-			}, 
-			new ArrayList<PointF>(Arrays.asList( 
-						new PointF(226, 680))),
-			new RectF[] {
-							new RectF(300, 100, 373, 1140)
+							new RectF(100, 1125, 370, 1176),
+							new RectF(421, 1125, 615, 1140)
 							});
 	
 	// @formatter:on
