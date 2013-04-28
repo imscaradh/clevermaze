@@ -19,7 +19,9 @@ public class Ball extends MazeElement {
 		backgroundImage = Bitmap.createScaledBitmap(
 				BitmapFactory.decodeResource(getResources(), R.drawable.ball),
 				radius * 2, radius * 2, true);
-		coordinates = context.getStage().getStartPoint();
+		coordinates = new PointF();
+		coordinates.x = context.getStage().getStartPoint().x;
+		coordinates.y = context.getStage().getStartPoint().y;
 	}
 
 	protected void onDraw(Canvas canvas) {
@@ -38,11 +40,11 @@ public class Ball extends MazeElement {
 	}
 
 	public void moveX(float x) {
-		getCoordinates().x = getCoordinates().x - (x * 2f);
+		coordinates.x = coordinates.x - (x * 2f);
 	}
 
 	public void moveY(float y) {
-		getCoordinates().y = getCoordinates().y + (y * 2f);
+		coordinates.y = coordinates.y + (y * 2f);
 	}
 
 	public int getRadius() {

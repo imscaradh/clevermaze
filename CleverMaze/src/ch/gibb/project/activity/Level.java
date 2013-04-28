@@ -33,8 +33,8 @@ public class Level extends Activity implements SensorEventListener {
 	private Point pointElement;
 	private BackView backView;
 	private ActionHandler actionHandler;
-	private float accelX, accelY;
 	private int stageNumber;
+	private android.graphics.Point displaySize;
 
 	public static Bitmap backgroundImage;
 	public static Bitmap wallImage;
@@ -45,23 +45,18 @@ public class Level extends Activity implements SensorEventListener {
 		super.onCreate(savedInstanceState);
 		this.stageNumber = 1;
 		Display display = getWindowManager().getDefaultDisplay();
-		android.graphics.Point size = new android.graphics.Point();
-		display.getSize(size);
-		setStaticBitmaps(size.x, size.y);
+		displaySize = new android.graphics.Point();
+		display.getSize(displaySize);
+		setStaticBitmaps(displaySize.x, displaySize.y);
 		initObjects(stageNumber);
 		ActionHandler.starttime = System.currentTimeMillis();
 
 	}
 
 	protected void initObjects(int stageNumber) {
-		Display display = getWindowManager().getDefaultDisplay();
-		android.graphics.Point size = new android.graphics.Point();
-		display.getSize(size);
-		initViews(size.x, size.y);
+		initViews(displaySize.x, displaySize.y);
 		addelementsToView();
-
 		actionHandler = new ActionHandler(this);
-
 		sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 		if (sensorManager.getSensorList(Sensor.TYPE_ACCELEROMETER).size() == 0) {
 			Log.d("Message", "No accelerometer installed");
@@ -110,9 +105,7 @@ public class Level extends Activity implements SensorEventListener {
 
 	@Override
 	public void onSensorChanged(SensorEvent event) {
-		accelX = event.values[0];
-		accelY = event.values[1];
-		updateBall(accelX, accelY);
+		updateBall(event.values[0], event.values[1]);
 		ActionHandler.gamemillis = System.currentTimeMillis()
 				- ActionHandler.starttime;
 		ActionHandler.gameseconds = (int) (ActionHandler.gamemillis / 1000);
@@ -149,6 +142,7 @@ public class Level extends Activity implements SensorEventListener {
 			} else {
 				initObjects(--stageNumber);
 			}
+			initObjects((stageNumber == 1) ? stageNumber : --stageNumber);
 			changeStage();
 		}
 
