@@ -151,8 +151,9 @@ public class Level extends Activity implements SensorEventListener {
 			// MessageUtil.DIALOG_HIGHSCORE);
 			// return;
 			// } else {
-			initObjects(++stageNumber);
 			changeStage();
+			initObjects(++stageNumber);
+			
 			// return;
 			// }
 		}

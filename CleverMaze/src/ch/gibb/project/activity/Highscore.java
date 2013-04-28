@@ -4,11 +4,11 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
+import android.widget.ImageButton;
 import ch.gibb.project.R;
 
 public class Highscore extends Activity {
-	private Button close;
+	private ImageButton close;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -17,7 +17,7 @@ public class Highscore extends Activity {
 	}
 
 	protected void initObjects() {
-		close = (Button) findViewById(R.id.btn_close);
+		close = (ImageButton) findViewById(R.id.btn_close);
 		close.setOnClickListener(new OnClickListener() {
 
 			@Override
