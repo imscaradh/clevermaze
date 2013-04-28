@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
+import ch.gibb.project.enums.StageEnum;
 
 public class Text extends MazeElement {
 	public static String usedTime;
@@ -21,7 +22,8 @@ public class Text extends MazeElement {
 		paint.setFakeBoldText(true);
 		paint.setColor(Color.BLACK);
 		paint.setTextSize(30);
-		canvas.drawText("Stage: " + stage, getWidth() / 2 - 50, 25, paint);
+		canvas.drawText("Stage: " + stage + "/" + StageEnum.values().length,
+				getWidth() / 2 - 50, 25, paint);
 		canvas.drawText("Points:" + pointcount, 40, getHeight() - 15, paint);
 		canvas.drawText("Used time: " + usedTime, getWidth() - 330,
 				getHeight() - 15, paint);
