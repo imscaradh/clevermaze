@@ -13,21 +13,23 @@ public class Ball extends MazeElement {
 	private int radius = 30;
 	private Bitmap backgroundImage;
 	private PointF coordinates;
+	private Paint paint;
 
-	public Ball(Level context, int width, int height) {
-		super(context, width, height);
+	public Ball(Level context) {
+		super(context);
 		backgroundImage = Bitmap.createScaledBitmap(
 				BitmapFactory.decodeResource(getResources(), R.drawable.ball),
 				radius * 2, radius * 2, true);
 		coordinates = new PointF();
 		coordinates.x = context.getStage().getStartPoint().x;
 		coordinates.y = context.getStage().getStartPoint().y;
+
+		paint = new Paint();
+		paint.setAntiAlias(true);
+		paint.setDither(true);
 	}
 
 	protected void onDraw(Canvas canvas) {
-		Paint paint = new Paint();
-		paint.setAntiAlias(true);
-		paint.setDither(true);
 		canvas.drawBitmap(backgroundImage, coordinates.x, coordinates.y, paint);
 		invalidate();
 	}

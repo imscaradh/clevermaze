@@ -15,14 +15,10 @@ public class MazeElement extends View {
 	public Bitmap bitmap;
 	private Point position;
 	private Dimension dimension;
-	private int height;
-	private int width;
 
-	public MazeElement(Context context, int width, int height) {
+	public MazeElement(Context context) {
 		super(context);
 		stageManager = new Stages(context);
-		this.width = width;
-		this.height = height;
 
 	}
 

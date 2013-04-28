@@ -82,10 +82,10 @@ public class Level extends Activity implements SensorEventListener {
 		BitmapFactory.Options options = new BitmapFactory.Options();
 		options.inSampleSize = 8;
 		mazeElement = new Maze(this, x, y);
-		ballElement = new Ball(this, x, y);
-		wallElement = new Wall(this, x, y);
-		textElement = new Text(this, x, y);
-		pointElement = new Point(this, x, y);
+		ballElement = new Ball(this);
+		wallElement = new Wall(this);
+		textElement = new Text(this);
+		pointElement = new Point(this);
 		backView = new BackView(this);
 	}
 
@@ -107,14 +107,12 @@ public class Level extends Activity implements SensorEventListener {
 		TimerTask timerTask = new TimerTask() {
 			@Override
 			public void run() {
-
+				final SimpleDateFormat sdf = new SimpleDateFormat("mm:ss:SSS");
 				handler.post(new Runnable() {
 					@Override
 					public void run() {
-
-						millis += 1;
-						Text.usedTime = new SimpleDateFormat("mm:ss:SSS")
-								.format(new Date(millis));
+						millis++;
+						Text.usedTime = sdf.format(new Date(millis));
 						textElement.postInvalidate();
 					}
 				});
@@ -171,7 +169,8 @@ public class Level extends Activity implements SensorEventListener {
 	}
 
 	private void changeStage() {
-		overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+		// overridePendingTransition(R.anim.slide_in_left,
+		// R.anim.slide_out_right);
 
 	}
 

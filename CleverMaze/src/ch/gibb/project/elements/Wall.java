@@ -10,19 +10,21 @@ import ch.gibb.project.activity.Level;
 
 public class Wall extends MazeElement {
 	private RectF[] walls;
+	private Paint paint;
 
-	public Wall(Level context, int width, int height) {
-		super(context, width, height);
+	public Wall(Level context) {
+		super(context);
 		walls = context.getStage().getWalls();
-	}
-
-	protected void onDraw(Canvas canvas) {
-		Paint paint = new Paint();
+		paint = new Paint();
 		paint.setColor(Color.argb(200, 212, 212, 212));
 		paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.OVERLAY));
 		paint.setAntiAlias(true);
 		paint.setFilterBitmap(true);
 		paint.setDither(true);
+	}
+
+	protected void onDraw(Canvas canvas) {
+
 		for (RectF w : walls) {
 			canvas.drawRect(w, paint);
 		}

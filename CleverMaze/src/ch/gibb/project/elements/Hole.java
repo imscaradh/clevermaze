@@ -8,8 +8,8 @@ public class Hole extends MazeElement {
 	private int radius = 34;
 	private PointF[] holes;
 
-	public Hole(Level context, int width, int height) {
-		super(context, width, height);
+	public Hole(Level context) {
+		super(context);
 		holes = context.getStage().getHoles();
 	}
 

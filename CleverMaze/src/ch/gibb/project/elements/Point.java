@@ -14,13 +14,11 @@ public class Point extends MazeElement {
 	private Bitmap backgroundImage;
 	private ArrayList<PointF> points;
 
-	public Point(Level context, int width, int height) {
-		super(context, width, height);
+	public Point(Level context) {
+		super(context);
 		backgroundImage = Bitmap.createScaledBitmap(
 				BitmapFactory.decodeResource(getResources(), R.drawable.star),
 				60, 60, true);
-
-		// TODO: Using Vector?
 		points = context.getStage().getStars();
 	}
 
