@@ -15,9 +15,10 @@ public class Maze extends MazeElement {
 	private PointF[] holes;
 	private PointF finishPoint;
 	private int radius = 34;
+	private Paint paint;
 
 	public Maze(Level context, int width, int height) {
-		super(context, width, height);
+		super(context);
 
 		playGround = new Rect(40, 40, width - 40, height - 40);
 
@@ -27,22 +28,23 @@ public class Maze extends MazeElement {
 
 		holes = context.getStage().getHoles();
 		finishPoint = context.getStage().getFinishPoint();
-	}
 
-	protected void onDraw(Canvas canvas) {
-		bitmapCanvas.drawBitmap(Level.getWallImage(), 0, 0, null);
-		bitmapCanvas.drawBitmap(Level.getBackgroundImage(), playGround, playGround,
-				null);
-		bitmapCanvas.drawBitmap(Level.getFinishImage(), finishPoint.x,
-				finishPoint.y, null);
-		canvas.drawBitmap(bitmap, 0, 0, null);
-
-		Paint paint = new Paint();
+		paint = new Paint();
 		paint.setAlpha(0);
 		paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_IN));
 		paint.setAntiAlias(true);
 		paint.setFilterBitmap(true);
 		paint.setDither(true);
+	}
+
+	protected void onDraw(Canvas canvas) {
+		bitmapCanvas.drawBitmap(Level.getWallImage(), 0, 0, null);
+		bitmapCanvas.drawBitmap(Level.getBackgroundImage(), playGround,
+				playGround, null);
+		bitmapCanvas.drawBitmap(Level.getFinishImage(), finishPoint.x,
+				finishPoint.y, null);
+		canvas.drawBitmap(bitmap, 0, 0, null);
+
 		for (PointF h : holes) {
 			bitmapCanvas.drawCircle(h.x + radius, h.y + radius, radius, paint);
 		}
@@ -73,9 +75,9 @@ public class Maze extends MazeElement {
 	}
 
 	public RectF getFinishRect() {
-		return new RectF(finishPoint.x, finishPoint.y,
-				Level.getFinishImage().getWidth() + finishPoint.x,
-				Level.getFinishImage().getHeight() + finishPoint.y);
+		return new RectF(finishPoint.x, finishPoint.y, Level.getFinishImage()
+				.getWidth() + finishPoint.x, Level.getFinishImage().getHeight()
+				+ finishPoint.y);
 
 	}
 
