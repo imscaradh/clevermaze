@@ -237,7 +237,7 @@ public enum StageEnum {
 	private ArrayList<PointF> stars;
 	private RectF[] walls;
 
-	private StageEnum(PointF startPoint, PointF finishPoint, PointF[] holes,
+	StageEnum(PointF startPoint, PointF finishPoint, PointF[] holes,
 			ArrayList<PointF> stars, RectF[] walls) {
 		this.startPoint = startPoint;
 		this.finishPoint = finishPoint;
@@ -258,39 +258,20 @@ public enum StageEnum {
 		return startPoint;
 	}
 
-	public void setStartPoint(PointF startPoint) {
-		this.startPoint = startPoint;
-	}
-
 	public PointF getFinishPoint() {
 		return finishPoint;
-	}
-
-	public void setFinishPoint(PointF finishPoint) {
-		this.finishPoint = finishPoint;
 	}
 
 	public PointF[] getHoles() {
 		return holes;
 	}
 
-	public void setHoles(PointF[] holes) {
-		this.holes = holes;
-	}
-
 	public ArrayList<PointF> getStars() {
 		return stars;
-	}
-
-	public void setStars(ArrayList<PointF> stars) {
-		this.stars = stars;
 	}
 
 	public RectF[] getWalls() {
 		return walls;
 	}
 
-	public void setWalls(RectF[] walls) {
-		this.walls = walls;
-	}
 }
