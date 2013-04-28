@@ -30,10 +30,10 @@ public class Maze extends MazeElement {
 	}
 
 	protected void onDraw(Canvas canvas) {
-		bitmapCanvas.drawBitmap(Level.wallImage, 0, 0, null);
-		bitmapCanvas.drawBitmap(Level.backgroundImage, playGround, playGround,
+		bitmapCanvas.drawBitmap(Level.getWallImage(), 0, 0, null);
+		bitmapCanvas.drawBitmap(Level.getBackgroundImage(), playGround, playGround,
 				null);
-		bitmapCanvas.drawBitmap(Level.finishImage, finishPoint.x,
+		bitmapCanvas.drawBitmap(Level.getFinishImage(), finishPoint.x,
 				finishPoint.y, null);
 		canvas.drawBitmap(bitmap, 0, 0, null);
 
@@ -57,11 +57,11 @@ public class Maze extends MazeElement {
 	}
 
 	public int getImageWidth() {
-		return Level.backgroundImage.getWidth();
+		return Level.getBackgroundImage().getWidth();
 	}
 
 	public int getImageHeight() {
-		return Level.backgroundImage.getHeight();
+		return Level.getBackgroundImage().getHeight();
 	}
 
 	public PointF[] getHoles() {
@@ -74,8 +74,8 @@ public class Maze extends MazeElement {
 
 	public RectF getFinishRect() {
 		return new RectF(finishPoint.x, finishPoint.y,
-				Level.finishImage.getWidth() + finishPoint.x,
-				Level.finishImage.getHeight() + finishPoint.y);
+				Level.getFinishImage().getWidth() + finishPoint.x,
+				Level.getFinishImage().getHeight() + finishPoint.y);
 
 	}
 

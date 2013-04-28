@@ -70,12 +70,10 @@ public class MessageUtil {
 	}
 
 	public void createShortToastMessage(final Activity activity, String message) {
-		Toast.makeText(activity.getApplicationContext(), message,
-				Toast.LENGTH_SHORT).show();
+		Toast.makeText(activity.getApplicationContext(), message, 3).show();
 	}
 
 	public void createLongToastMessage(final Activity activity, String message) {
-		Toast.makeText(activity.getApplicationContext(), message,
-				Toast.LENGTH_LONG).show();
+		Toast.makeText(activity.getApplicationContext(), message, 5).show();
 	}
 }
