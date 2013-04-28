@@ -50,6 +50,15 @@ public class Level extends Activity implements SensorEventListener {
 		setStaticBitmaps(size.x, size.y);
 		initObjects(stageNumber);
 
+	}
+
+	protected void initObjects(int stageNumber) {
+		Display display = getWindowManager().getDefaultDisplay();
+		android.graphics.Point size = new android.graphics.Point();
+		display.getSize(size);
+		initViews(size.x, size.y);
+		addelementsToView();
+
 		actionHandler = new ActionHandler(this);
 
 		sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -63,14 +72,6 @@ public class Level extends Activity implements SensorEventListener {
 				Log.d("Message", "Couldn't register sensor listener");
 			}
 		}
-	}
-
-	protected void initObjects(int stageNumber) {
-		Display display = getWindowManager().getDefaultDisplay();
-		android.graphics.Point size = new android.graphics.Point();
-		display.getSize(size);
-		initViews(size.x, size.y);
-		addelementsToView();
 	}
 
 	private void initViews(int x, int y) {
@@ -128,7 +129,7 @@ public class Level extends Activity implements SensorEventListener {
 			// // TODO: Replace with nicer code?
 			// layout.removeView(mazeElement);
 			// layout.addView(mazeElement);
-			// sensorManager.unregisterListener(this);
+			sensorManager.unregisterListener(this);
 			if (stageNumber == 1) {
 				initObjects(stageNumber);
 			} else {
