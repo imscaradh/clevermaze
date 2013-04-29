@@ -153,31 +153,24 @@ public class Level extends Activity implements SensorEventListener {
 			// MessageUtil.DIALOG_HIGHSCORE);
 			// return;
 			// } else {
-			changeStage();
 			Animation animation = AnimationUtils.loadAnimation(this,
-					R.anim.slide_out_left);
+					R.anim.push_down_out);
 			layout.startAnimation(animation);
 			initObjects(++stageNumber);
-
-			// return;
+			return;
 			// }
 		}
 		if (actionHandler.ballInHole()) {
-			// // TODO: Replace with nicer code?
 			layout.removeView(mazeElement);
 			layout.addView(mazeElement);
 			MessageUtil.getInstance().createShortToastMessage(Level.this,
 					"Oh no! You felt into a hole");
 			sensorManager.unregisterListener(Level.this);
+			Animation animation = AnimationUtils.loadAnimation(this,
+					R.anim.push_up_out);
+			layout.startAnimation(animation);
 			initObjects((stageNumber == 1) ? stageNumber : --stageNumber);
-			changeStage();
 		}
-	}
-
-	private void changeStage() {
-		// overridePendingTransition(R.anim.slide_in_left,
-		// R.anim.slide_out_right);
-
 	}
 
 	public StageEnum getStage() {
