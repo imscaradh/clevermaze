@@ -59,7 +59,7 @@ public class Level extends Activity implements SensorEventListener {
 		display.getSize(displaySize);
 		setStaticBitmaps(displaySize.x, displaySize.y);
 		initObjects(stageNumber);
-		// createTimer();
+		createTimer();
 	}
 
 	protected void initObjects(int stageNumber) {
