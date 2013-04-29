@@ -18,6 +18,8 @@ import android.util.Log;
 import android.view.Display;
 import android.view.KeyEvent;
 import android.view.Menu;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.RelativeLayout;
 import ch.gibb.project.R;
 import ch.gibb.project.controller.ActionHandler;
@@ -152,8 +154,11 @@ public class Level extends Activity implements SensorEventListener {
 			// return;
 			// } else {
 			changeStage();
+			Animation animation = AnimationUtils.loadAnimation(this,
+					R.anim.slide_out_left);
+			layout.startAnimation(animation);
 			initObjects(++stageNumber);
-			
+
 			// return;
 			// }
 		}
