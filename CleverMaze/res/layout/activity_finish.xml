@@ -1,0 +1,82 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/wall"
+    tools:context=".activity.Finish" >
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_x="0dp"
+        android:layout_y="0dp"
+        android:paddingBottom="12dp"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:paddingTop="12dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/wood" />
+
+    <ImageButton
+        android:id="@+id/btn_close"
+        android:layout_width="25dp"
+        android:layout_height="70dp"
+        android:layout_marginLeft="22dp"
+        android:layout_marginTop="40dp"
+        android:background="@null"
+        android:scaleType="fitXY"
+        android:src="@drawable/backbuttonselector" />
+
+    <ImageView
+        android:id="@+id/aboutfont"
+        android:layout_width="220dp"
+        android:layout_height="111dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="16dp"
+        android:layout_toRightOf="@+id/btn_close"
+        android:src="@drawable/highscorefont" />
+
+    <TextView
+        android:id="@+id/pointDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/aboutfont"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="58dp"
+        android:text="Reached points"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/timeDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/reachedPoints"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="62dp"
+        android:text="Used time"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/reachedPoints"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/pointDescription"
+        android:layout_centerHorizontal="true"
+        android:text="0"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="50dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/usedTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/timeDescription"
+        android:layout_centerHorizontal="true"
+        android:text="00:00:000"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="50dp"
+        android:textStyle="bold" />
+
+</RelativeLayout>

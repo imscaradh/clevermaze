@@ -22,7 +22,7 @@ public class Welcome extends Activity {
 		initObjects();
 	}
 
-	protected void initObjects() {
+	private void initObjects() {
 		start = (ImageButton) findViewById(R.id.btn_play);
 		start.setOnClickListener(new startListener());
 

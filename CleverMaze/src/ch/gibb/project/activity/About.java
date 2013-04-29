@@ -16,7 +16,7 @@ public class About extends Activity {
 		initObjects();
 	}
 
-	protected void initObjects() {
+	private void initObjects() {
 		close = (ImageButton) findViewById(R.id.btn_close);
 		close.setOnClickListener(new OnClickListener() {
 

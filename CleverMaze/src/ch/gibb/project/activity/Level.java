@@ -53,13 +53,13 @@ public class Level extends Activity implements SensorEventListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		this.stageNumber = 1;
+		this.stageNumber = 4;
 		Display display = getWindowManager().getDefaultDisplay();
 		displaySize = new android.graphics.Point();
 		display.getSize(displaySize);
 		setStaticBitmaps(displaySize.x, displaySize.y);
 		initObjects(stageNumber);
-		createTimer();
+		// createTimer();
 	}
 
 	protected void initObjects(int stageNumber) {
@@ -147,30 +147,29 @@ public class Level extends Activity implements SensorEventListener {
 			actionHandler.moveAndCheckY(accelY);
 			actionHandler.checkStarTouch();
 		} else {
-			// if (stageNumber == StageEnum.values().length) {
-			// sensorManager.unregisterListener(this);
-			// MessageUtil.getInstance().createAlertMessage(Level.this,
-			// MessageUtil.DIALOG_HIGHSCORE);
-			// return;
-			// } else {
-			Animation animation = AnimationUtils.loadAnimation(this,
-					R.anim.push_down_out);
-			layout.startAnimation(animation);
-			initObjects(++stageNumber);
-			return;
-			// }
+			if (stageNumber == StageEnum.values().length) {
+				sensorManager.unregisterListener(this);
+				nextActivity(Finish.class);
+				return;
+			} else {
+				Animation animation = AnimationUtils.loadAnimation(this,
+						R.anim.push_down_out);
+				layout.startAnimation(animation);
+				initObjects(++stageNumber);
+				return;
+			}
 		}
-		if (actionHandler.ballInHole()) {
-			layout.removeView(mazeElement);
-			layout.addView(mazeElement);
-			MessageUtil.getInstance().createShortToastMessage(Level.this,
-					"Oh no! You felt into a hole");
-			sensorManager.unregisterListener(Level.this);
-			Animation animation = AnimationUtils.loadAnimation(this,
-					R.anim.push_up_out);
-			layout.startAnimation(animation);
-			initObjects((stageNumber == 1) ? stageNumber : --stageNumber);
-		}
+		// if (actionHandler.ballInHole()) {
+		// layout.removeView(mazeElement);
+		// layout.addView(mazeElement);
+		// MessageUtil.getInstance().createShortToastMessage(Level.this,
+		// "Oh no! You felt into a hole");
+		// sensorManager.unregisterListener(Level.this);
+		// Animation animation = AnimationUtils.loadAnimation(this,
+		// R.anim.push_up_out);
+		// layout.startAnimation(animation);
+		// initObjects((stageNumber == 1) ? stageNumber : --stageNumber);
+		// }
 	}
 
 	public StageEnum getStage() {

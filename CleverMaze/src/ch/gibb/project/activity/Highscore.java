@@ -16,14 +16,14 @@ public class Highscore extends Activity {
 		initObjects();
 	}
 
-	protected void initObjects() {
+	private void initObjects() {
 		close = (ImageButton) findViewById(R.id.btn_close);
 		close.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				Highscore.this.nextActivity(Welcome.class);
-				Highscore.this.overridePendingTransition(R.anim.slide_in_left,
+				nextActivity(Welcome.class);
+				overridePendingTransition(R.anim.slide_in_left,
 						R.anim.slide_out_right);
 
 			}
