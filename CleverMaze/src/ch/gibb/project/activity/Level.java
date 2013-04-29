@@ -185,6 +185,7 @@ public class Level extends Activity implements SensorEventListener {
 		case 4:
 			return StageEnum.STAGE_4;
 		default:
+			nextActivity(Finish.class);
 			return null;
 		}
 	}
