@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/wall" >
-    
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -16,32 +16,75 @@
         android:scaleType="fitXY"
         android:src="@drawable/wood" />
 
+    <ImageButton
+        android:id="@+id/btn_close"
+        android:layout_width="25dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="22dp"
+        android:background="@null"
+        android:scaleType="fitXY"
+        android:src="@drawable/backbuttonselector" />
+
     <ImageView
-        android:id="@+id/imageView1"
-        android:layout_width="280dp"
+        android:id="@+id/aboutfont"
+        android:layout_width="220dp"
         android:layout_height="111dp"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:src="@drawable/clevermazefont" />
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="16dp"
+        android:layout_toRightOf="@+id/btn_close"
+        android:src="@drawable/aboutfont" />
     
     <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
+        android:id="@+id/version"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/imageView1"
-        android:paddingLeft="20dp"
-        android:layout_marginTop="41dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="150dp"
+        android:textSize="25sp"
+        android:gravity="center_horizontal"
         android:textColor="#000000"
-        android:text="Version: v1.0.0\nDeveloper:\nYannick Pulver\nPascal Zing" />
+        android:text="Version: v1.0.0" />
 
-    <Button
-        android:id="@+id/btn_close"
-        android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/developers"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/imageView1"
-        android:layout_below="@+id/textView1"
-        android:layout_marginTop="129dp"
-        android:text="X" />
+        android:layout_alignLeft="@+id/version"
+        android:layout_marginTop="200dp"
+        android:layout_marginRight="30dp"
+        android:textSize="25sp"
+        android:gravity="center_horizontal"
+        android:textColor="#000000"
+        android:text="Developers:\nYannick Pulver\nPascal Zingg" />
+    
+    <TextView
+        android:id="@+id/contact"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/developers"
+        android:layout_marginTop="300dp"
+        android:layout_marginRight="30dp"
+        android:textSize="25sp"
+        android:gravity="center_horizontal"
+        android:textColor="#000000"
+        android:text="Contact:" />
+    
+     <TextView
+        android:id="@+id/mail"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/contact"
+        android:layout_marginTop="330dp"
+        android:layout_marginRight="30dp"
+        android:textSize="25sp"
+        android:gravity="center_horizontal"
+        android:textColor="#000000"
+        android:autoLink="email"
+        android:text="clevermaze@gmail.com" />
+    
+    
 
-</RelativeLayout>
+    </RelativeLayout>

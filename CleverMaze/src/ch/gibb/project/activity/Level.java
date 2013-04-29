@@ -18,6 +18,8 @@ import android.util.Log;
 import android.view.Display;
 import android.view.KeyEvent;
 import android.view.Menu;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.RelativeLayout;
 import ch.gibb.project.R;
 import ch.gibb.project.controller.ActionHandler;
@@ -145,33 +147,30 @@ public class Level extends Activity implements SensorEventListener {
 			actionHandler.moveAndCheckY(accelY);
 			actionHandler.checkStarTouch();
 		} else {
-			if (stageNumber == StageEnum.values().length) {
-				sensorManager.unregisterListener(this);
-				MessageUtil.getInstance().createAlertMessage(Level.this,
-						MessageUtil.DIALOG_HIGHSCORE);
-				return;
-			} else {
-				initObjects(++stageNumber);
-				changeStage();
-				return;
-			}
+			// if (stageNumber == StageEnum.values().length) {
+			// sensorManager.unregisterListener(this);
+			// MessageUtil.getInstance().createAlertMessage(Level.this,
+			// MessageUtil.DIALOG_HIGHSCORE);
+			// return;
+			// } else {
+			Animation animation = AnimationUtils.loadAnimation(this,
+					R.anim.push_down_out);
+			layout.startAnimation(animation);
+			initObjects(++stageNumber);
+			return;
+			// }
 		}
 		if (actionHandler.ballInHole()) {
-			// // TODO: Replace with nicer code?
 			layout.removeView(mazeElement);
 			layout.addView(mazeElement);
 			MessageUtil.getInstance().createShortToastMessage(Level.this,
-					"Oh no! You fall into a hole");
+					"Oh no! You felt into a hole");
 			sensorManager.unregisterListener(Level.this);
+			Animation animation = AnimationUtils.loadAnimation(this,
+					R.anim.push_up_out);
+			layout.startAnimation(animation);
 			initObjects((stageNumber == 1) ? stageNumber : --stageNumber);
-			changeStage();
 		}
-	}
-
-	private void changeStage() {
-		// overridePendingTransition(R.anim.slide_in_left,
-		// R.anim.slide_out_right);
-
 	}
 
 	public StageEnum getStage() {
