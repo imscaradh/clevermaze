@@ -1,12 +1,8 @@
 package ch.gibb.project.activity;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -15,6 +11,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import ch.gibb.project.R;
 import ch.gibb.project.elements.Text;
+import ch.gibb.project.util.HighscoreUtil;
 
 public class Finish extends Activity {
 	private ImageButton close;
@@ -49,23 +46,13 @@ public class Finish extends Activity {
 	}
 
 	private void persist() {
-		String now = new SimpleDateFormat("yyy-MM-dd hh:mm:ss")
-				.format(new Date(System.currentTimeMillis()));
 
-		String FILENAME = "hello_file";
-		String string = String.format("%s;%s;%s\n", now, Text.pointcount,
-				Text.usedTime);
+		String now = new SimpleDateFormat("dd.MM.yyyy").format(new Date(System
+				.currentTimeMillis()));
+		final String data = String.format("%s;%s;%f", Text.pointcount,
+				Text.usedTime, (float) (Text.pointcount / Text.usedTime));
 
-		try {
-			FileOutputStream fos = openFileOutput(FILENAME,
-					Context.MODE_PRIVATE);
-			fos.write(string.getBytes());
-			fos.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		HighscoreUtil.getInstance(this).persist(now, data);
 
 	}
 

@@ -9,7 +9,7 @@ import ch.gibb.project.util.Dimension;
 
 public class MazeElement extends View {
 	protected Canvas bitmapCanvas;
-	public Bitmap bitmap;
+	protected Bitmap bitmap;
 	private Point position;
 	private Dimension dimension;
 

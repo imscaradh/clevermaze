@@ -1,7 +1,5 @@
 package ch.gibb.project.activity;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -106,15 +104,15 @@ public class Level extends Activity implements SensorEventListener {
 
 		final Handler handler = new Handler();
 		Timer timer = new Timer(false);
+
 		TimerTask timerTask = new TimerTask() {
 			@Override
 			public void run() {
-				final SimpleDateFormat sdf = new SimpleDateFormat("mm:ss:SSS");
 				handler.post(new Runnable() {
 					@Override
 					public void run() {
 						millis++;
-						Text.usedTime = sdf.format(new Date(millis));
+						Text.usedTime = millis;
 						textElement.postInvalidate();
 					}
 				});

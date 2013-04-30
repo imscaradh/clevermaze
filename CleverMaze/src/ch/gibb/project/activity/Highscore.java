@@ -1,14 +1,24 @@
 package ch.gibb.project.activity;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import ch.gibb.project.R;
+import ch.gibb.project.util.HighscoreUtil;
 
 public class Highscore extends Activity {
 	private ImageButton close;
+	private ListView scoreList;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -17,6 +27,29 @@ public class Highscore extends Activity {
 	}
 
 	private void initObjects() {
+		Map<String, ?> scores = HighscoreUtil.getInstance(this).loadAll();
+
+		List<String> values = new ArrayList<String>();
+		for (String key : scores.keySet()) {
+			String[] data = scores.get(key).toString().split(";");
+			String date = key.toString();
+			String points = data[0];
+			String usedTime = new SimpleDateFormat("mm:ss:SSS")
+					.format(new Date(data[1]));
+			String rank = data[2];
+
+			String display = String.format(
+					"%s  -  Date: %s Points: %s Time: %s", rank, date, points,
+					usedTime);
+			values.add(display);
+		}
+
+		scoreList = (ListView) findViewById(R.id.scoreList);
+		ArrayAdapter<String> myarrayAdapter = new ArrayAdapter<String>(this,
+				android.R.layout.simple_list_item_1, values);
+		scoreList.setAdapter(myarrayAdapter);
+		scoreList.setTextFilterEnabled(true);
+
 		close = (ImageButton) findViewById(R.id.btn_close);
 		close.setOnClickListener(new OnClickListener() {
 
