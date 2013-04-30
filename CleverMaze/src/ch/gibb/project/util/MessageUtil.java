@@ -51,6 +51,19 @@ public class MessageUtil {
 			Builder builderLvl = new AlertDialog.Builder(activity);
 			builderLvl.setMessage("Are you sure to exit the stage?");
 			builderLvl.setCancelable(true);
+			builderLvl
+					.setOnCancelListener(new DialogInterface.OnCancelListener() {
+						@Override
+						public void onCancel(DialogInterface dialog) {
+							// TODO Auto-generated method stub
+							Sensor accelerometer = ((Level) activity).sensorManager
+									.getSensorList(Sensor.TYPE_ACCELEROMETER)
+									.get(0);
+							((Level) activity).sensorManager.registerListener(
+									(Level) activity, accelerometer,
+									SensorManager.SENSOR_DELAY_FASTEST);
+						}
+					});
 			builderLvl.setNegativeButton("Cancel",
 					new DialogInterface.OnClickListener() {
 
