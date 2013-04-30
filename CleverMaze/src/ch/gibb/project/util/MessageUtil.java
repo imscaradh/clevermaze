@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 import android.widget.Toast;
 import ch.gibb.project.R;
 import ch.gibb.project.activity.Highscore;
@@ -49,7 +51,22 @@ public class MessageUtil {
 			Builder builderLvl = new AlertDialog.Builder(activity);
 			builderLvl.setMessage("Are you sure to exit the stage?");
 			builderLvl.setCancelable(true);
-			builderLvl.setNegativeButton("Cancel", null);
+			builderLvl.setNegativeButton("Cancel",
+					new DialogInterface.OnClickListener() {
+
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							// TODO Implement better > Don't works when user
+							// don't clicks on the button
+							Sensor accelerometer = ((Level) activity).sensorManager
+									.getSensorList(Sensor.TYPE_ACCELEROMETER)
+									.get(0);
+							((Level) activity).sensorManager.registerListener(
+									(Level) activity, accelerometer,
+									SensorManager.SENSOR_DELAY_FASTEST);
+						}
+
+					});
 			builderLvl.setPositiveButton("Home",
 					new DialogInterface.OnClickListener() {
 						@Override

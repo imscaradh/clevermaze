@@ -51,7 +51,7 @@ public class Level extends Activity implements SensorEventListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		this.stageNumber = 4;
+		this.stageNumber = 1;
 		Display display = getWindowManager().getDefaultDisplay();
 		displaySize = new android.graphics.Point();
 		display.getSize(displaySize);
@@ -209,6 +209,7 @@ public class Level extends Activity implements SensorEventListener {
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+			sensorManager.unregisterListener(this);
 			MessageUtil.getInstance().createAlertMessage(Level.this,
 					MessageUtil.DIALOG_LEVELEXIT);
 			return true;
