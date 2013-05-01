@@ -2,7 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.Level" >
+    tools:context=".activity.Level" 
+    android:keepScreenOn="true">
 
     <Button
         android:id="@+id/btn_close"
