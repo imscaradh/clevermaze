@@ -47,20 +47,22 @@ public class Level extends Activity implements SensorEventListener {
 	private static Bitmap finishImage;
 
 	private long millis;
+	private Timer timer;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		this.stageNumber = 1;
+		this.stageNumber = 4;
 		Display display = getWindowManager().getDefaultDisplay();
 		displaySize = new android.graphics.Point();
 		display.getSize(displaySize);
 		setStaticBitmaps(displaySize.x, displaySize.y);
 		initObjects(stageNumber);
-		createTimer();
+		// FIXME zinggpa stars have to appear if play button pressed
 	}
 
 	protected void initObjects(int stageNumber) {
+		createTimer();
 		Text.stage = stageNumber;
 		initViews(displaySize.x, displaySize.y);
 		addelementsToView();
@@ -103,7 +105,7 @@ public class Level extends Activity implements SensorEventListener {
 	private void createTimer() {
 
 		final Handler handler = new Handler();
-		Timer timer = new Timer(false);
+		timer = new Timer(false);
 
 		TimerTask timerTask = new TimerTask() {
 			@Override
@@ -119,12 +121,10 @@ public class Level extends Activity implements SensorEventListener {
 			}
 		};
 		timer.scheduleAtFixedRate(timerTask, 0, 1);
-
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
@@ -147,6 +147,7 @@ public class Level extends Activity implements SensorEventListener {
 		} else {
 			if (stageNumber == StageEnum.values().length) {
 				sensorManager.unregisterListener(this);
+				timer.cancel();
 				nextActivity(Finish.class);
 				return;
 			} else {
@@ -210,6 +211,7 @@ public class Level extends Activity implements SensorEventListener {
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
 			sensorManager.unregisterListener(this);
+			timer.cancel();
 			MessageUtil.getInstance().createAlertMessage(Level.this,
 					MessageUtil.DIALOG_LEVELEXIT);
 			return true;

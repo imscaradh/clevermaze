@@ -26,10 +26,14 @@ public class Finish extends Activity {
 	}
 
 	private void initObjects() {
+		String timeText = new SimpleDateFormat("mm:ss:SSS").format(new Date(
+				Text.usedTime));
+		String pointText = String.valueOf(Text.pointcount);
+
 		reachedPoints = (TextView) findViewById(R.id.reachedPoints);
 		usedTime = (TextView) findViewById(R.id.usedTime);
-		reachedPoints.setText(String.valueOf(Text.pointcount));
-		usedTime.setText(String.valueOf(Text.usedTime));
+		reachedPoints.setText(pointText);
+		usedTime.setText(timeText);
 
 		close = (ImageButton) findViewById(R.id.btn_close);
 		close.setOnClickListener(new OnClickListener() {
@@ -46,13 +50,11 @@ public class Finish extends Activity {
 	}
 
 	private void persist() {
-
-		String now = new SimpleDateFormat("dd.MM.yyyy").format(new Date(System
-				.currentTimeMillis()));
+		float rank = (float) Text.pointcount / (float) Text.usedTime * 10000;
 		final String data = String.format("%s;%s;%f", Text.pointcount,
-				Text.usedTime, (float) (Text.pointcount / Text.usedTime));
-
-		HighscoreUtil.getInstance(this).persist(now, data);
+				Text.usedTime, rank);
+		HighscoreUtil.getInstance(this).persist(
+				String.valueOf(System.currentTimeMillis()), data);
 
 	}
 

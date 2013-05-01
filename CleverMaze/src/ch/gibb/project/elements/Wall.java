@@ -24,7 +24,6 @@ public class Wall extends MazeElement {
 	}
 
 	protected void onDraw(Canvas canvas) {
-
 		for (RectF w : walls) {
 			canvas.drawRect(w, paint);
 		}

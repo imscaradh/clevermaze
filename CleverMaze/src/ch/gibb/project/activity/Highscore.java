@@ -32,15 +32,15 @@ public class Highscore extends Activity {
 		List<String> values = new ArrayList<String>();
 		for (String key : scores.keySet()) {
 			String[] data = scores.get(key).toString().split(";");
-			String date = key.toString();
+			float rank = Float.parseFloat(data[2]);
+			String date = new SimpleDateFormat("dd.MM.yyyy").format(new Date(
+					Long.valueOf(key)));
 			String points = data[0];
 			String usedTime = new SimpleDateFormat("mm:ss:SSS")
-					.format(new Date(data[1]));
-			String rank = data[2];
+					.format(new Date(Long.parseLong(data[1])));
 
-			String display = String.format(
-					"%s  -  Date: %s Points: %s Time: %s", rank, date, points,
-					usedTime);
+			String display = String.format("Date: %s Points: %s Time: %s",
+					date, points, usedTime);
 			values.add(display);
 		}
 
