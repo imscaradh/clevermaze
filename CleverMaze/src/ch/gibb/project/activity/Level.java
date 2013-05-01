@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.Display;
 import android.view.KeyEvent;
 import android.view.Menu;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.RelativeLayout;
@@ -52,7 +53,7 @@ public class Level extends Activity implements SensorEventListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		this.stageNumber = 4;
+		this.stageNumber = 1;
 		Display display = getWindowManager().getDefaultDisplay();
 		displaySize = new android.graphics.Point();
 		display.getSize(displaySize);
@@ -62,6 +63,9 @@ public class Level extends Activity implements SensorEventListener {
 	}
 
 	protected void initObjects(int stageNumber) {
+		// OPTIMIZE zinggpa workaround because of recreating of elements
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON,
+				WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		createTimer();
 		Text.stage = stageNumber;
 		initViews(displaySize.x, displaySize.y);
@@ -158,17 +162,17 @@ public class Level extends Activity implements SensorEventListener {
 				return;
 			}
 		}
-		// if (actionHandler.ballInHole()) {
-		// layout.removeView(mazeElement);
-		// layout.addView(mazeElement);
-		// MessageUtil.getInstance().createShortToastMessage(Level.this,
-		// "Oh no! You felt into a hole");
-		// sensorManager.unregisterListener(Level.this);
-		// Animation animation = AnimationUtils.loadAnimation(this,
-		// R.anim.push_up_out);
-		// layout.startAnimation(animation);
-		// initObjects((stageNumber == 1) ? stageNumber : --stageNumber);
-		// }
+		if (actionHandler.ballInHole()) {
+			layout.removeView(mazeElement);
+			layout.addView(mazeElement);
+			MessageUtil.getInstance().createShortToastMessage(Level.this,
+					"Oh no! You felt into a hole");
+			sensorManager.unregisterListener(Level.this);
+			Animation animation = AnimationUtils.loadAnimation(this,
+					R.anim.push_up_out);
+			layout.startAnimation(animation);
+			initObjects((stageNumber == 1) ? stageNumber : --stageNumber);
+		}
 	}
 
 	public StageEnum getStage() {
