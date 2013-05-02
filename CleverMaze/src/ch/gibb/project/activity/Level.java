@@ -38,17 +38,15 @@ public class Level extends Activity implements SensorEventListener {
 	private Wall wallElement;
 	private Text textElement;
 	private Point pointElement;
-	private BackView backView;
 	private ActionHandler actionHandler;
-	private int stageNumber;
 	private android.graphics.Point displaySize;
+	private Timer timer;
+	private int stageNumber;
+	private long millis;
 
 	private static Bitmap backgroundImage;
 	private static Bitmap wallImage;
 	private static Bitmap finishImage;
-
-	private long millis;
-	private Timer timer;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -60,13 +58,14 @@ public class Level extends Activity implements SensorEventListener {
 		setStaticBitmaps(displaySize.x, displaySize.y);
 		initObjects(stageNumber);
 		// FIXME zinggpa stars have to appear if play button pressed
+		createTimer();
 	}
 
 	protected void initObjects(int stageNumber) {
 		// OPTIMIZE zinggpa workaround because of recreating of elements
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON,
 				WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-		createTimer();
+
 		Text.stage = stageNumber;
 		initViews(displaySize.x, displaySize.y);
 		addelementsToView();
@@ -92,12 +91,10 @@ public class Level extends Activity implements SensorEventListener {
 		wallElement = new Wall(this);
 		textElement = new Text(this);
 		pointElement = new Point(this);
-		backView = new BackView(this);
 	}
 
 	private void addelementsToView() {
 		layout = new RelativeLayout(this);
-		layout.addView(backView);
 		layout.addView(mazeElement);
 		layout.addView(textElement);
 		layout.addView(pointElement);
@@ -107,7 +104,6 @@ public class Level extends Activity implements SensorEventListener {
 	}
 
 	private void createTimer() {
-
 		final Handler handler = new Handler();
 		timer = new Timer(false);
 
@@ -139,40 +135,43 @@ public class Level extends Activity implements SensorEventListener {
 
 	@Override
 	public void onSensorChanged(final SensorEvent event) {
-		updateBall(event.values[0], event.values[1]);
-	}
-
-	private void updateBall(float accelX, float accelY) {
-		// TODO: Acceleration
 		if (!actionHandler.checkIfFinished()) {
-			actionHandler.moveAndCheckX(accelX);
-			actionHandler.moveAndCheckY(accelY);
+			actionHandler.moveAndCheckX(event.values[0]);
+			actionHandler.moveAndCheckY(event.values[1]);
 			actionHandler.checkStarTouch();
 		} else {
-			if (stageNumber == StageEnum.values().length) {
-				sensorManager.unregisterListener(this);
-				timer.cancel();
-				nextActivity(Finish.class);
-				return;
-			} else {
-				Animation animation = AnimationUtils.loadAnimation(this,
-						R.anim.push_down_out);
-				layout.startAnimation(animation);
-				initObjects(++stageNumber);
-				return;
-			}
+			performStageChangeAction();
 		}
 		if (actionHandler.ballInHole()) {
-			layout.removeView(mazeElement);
-			layout.addView(mazeElement);
-			MessageUtil.getInstance().createShortToastMessage(Level.this,
-					"Oh no! You felt into a hole");
-			sensorManager.unregisterListener(Level.this);
-			Animation animation = AnimationUtils.loadAnimation(this,
-					R.anim.push_up_out);
-			layout.startAnimation(animation);
-			initObjects((stageNumber == 1) ? stageNumber : --stageNumber);
+			performHoleAction();
 		}
+	}
+
+	private void performStageChangeAction() {
+		if (stageNumber == StageEnum.values().length) {
+			sensorManager.unregisterListener(this);
+			timer.cancel();
+			nextActivity(Finish.class);
+			return;
+		} else {
+			Animation animation = AnimationUtils.loadAnimation(this,
+					R.anim.push_down_out);
+			layout.startAnimation(animation);
+			initObjects(++stageNumber);
+			return;
+		}
+	}
+
+	private void performHoleAction() {
+		// layout.removeView(mazeElement);
+		// layout.addView(mazeElement);
+		MessageUtil.getInstance().createShortToastMessage(Level.this,
+				"Oh no! You felt into a hole");
+		sensorManager.unregisterListener(Level.this);
+		Animation animation = AnimationUtils.loadAnimation(this,
+				R.anim.push_up_out);
+		layout.startAnimation(animation);
+		initObjects((stageNumber == 1) ? stageNumber : --stageNumber);
 	}
 
 	public StageEnum getStage() {
@@ -197,18 +196,13 @@ public class Level extends Activity implements SensorEventListener {
 		opts.inPurgeable = true;
 		opts.inInputShareable = true;
 		opts.inTempStorage = new byte[32 * 1024];
-		setBackgroundImage(BitmapFactory.decodeResource(getResources(),
-				R.drawable.wood, opts));
-		setBackgroundImage(Bitmap.createScaledBitmap(getBackgroundImage(),
-				width - 40, height - 40, true));
-		setWallImage(BitmapFactory.decodeResource(getResources(),
-				R.drawable.wall, opts));
-		setWallImage(Bitmap.createScaledBitmap(getWallImage(), width, height,
-				true));
-		setFinishImage(BitmapFactory.decodeResource(getResources(),
-				R.drawable.finish, opts));
-		setFinishImage(Bitmap
-				.createScaledBitmap(getFinishImage(), 73, 73, true));
+		backgroundImage = Bitmap.createScaledBitmap(BitmapFactory
+				.decodeResource(getResources(), R.drawable.wood, opts),
+				width - 40, height - 40, true);
+		wallImage = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(
+				getResources(), R.drawable.wall, opts), width, height, true);
+		finishImage = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(
+				getResources(), R.drawable.finish, opts), 73, 73, true);
 	}
 
 	@Override
@@ -276,28 +270,16 @@ public class Level extends Activity implements SensorEventListener {
 		this.stageNumber = stageNumber;
 	}
 
-	public static Bitmap getWallImage() {
-		return wallImage;
-	}
-
-	public static void setWallImage(Bitmap wallImage) {
-		Level.wallImage = wallImage;
-	}
-
 	public static Bitmap getBackgroundImage() {
 		return backgroundImage;
 	}
 
-	public static void setBackgroundImage(Bitmap backgroundImage) {
-		Level.backgroundImage = backgroundImage;
+	public static Bitmap getWallImage() {
+		return wallImage;
 	}
 
 	public static Bitmap getFinishImage() {
 		return finishImage;
-	}
-
-	public static void setFinishImage(Bitmap finishImage) {
-		Level.finishImage = finishImage;
 	}
 
 }
