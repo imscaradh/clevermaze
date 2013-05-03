@@ -3,12 +3,16 @@ package ch.gibb.project.enums;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import android.content.res.Resources;
 import android.graphics.PointF;
 import android.graphics.RectF;
+import android.util.DisplayMetrics;
+import ch.gibb.project.activity.Level;
 
 public enum StageEnum {
 
 	// @formatter:off
+	//new PointF(dpFromPx(600), dpFromPx(1180)),  -> Error
 	STAGE_1(new PointF(600, 1180), 
 			new PointF(600, 1023), 
 			new PointF[] {	new PointF(612, 40), 
@@ -278,12 +282,12 @@ public enum StageEnum {
 	}
 
 	// TODO: Implement this function, => Display Density relative
-	// public float dpFromPx(float px) {
-	// Resources resources = Level.getResources();
-	// DisplayMetrics metrics = resources.getDisplayMetrics();
-	// float dp = px / (metrics.densityDpi / 320f);
-	// return dp;
-	// }
+	public float dpFromPx(float px) {
+		Resources resources = Level.LevelContext.getResources();
+		DisplayMetrics metrics = resources.getDisplayMetrics();
+		float dp = px / (metrics.densityDpi / 320f);
+		return dp;
+	}
 
 	public PointF getStartPoint() {
 		return startPoint;
@@ -304,5 +308,4 @@ public enum StageEnum {
 	public RectF[] getWalls() {
 		return walls;
 	}
-
 }

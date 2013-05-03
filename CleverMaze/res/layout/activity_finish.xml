@@ -80,4 +80,16 @@
         android:textSize="50dp"
         android:textStyle="bold" />
 
+    
+    <TextView
+        android:id="@+id/rankDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/timeDescription"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="72dp"
+        android:text="You reached the 1 Place!"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+    
+    
 </RelativeLayout>

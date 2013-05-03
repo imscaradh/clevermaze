@@ -17,6 +17,7 @@ public class Finish extends Activity {
 	private ImageButton close;
 	private TextView reachedPoints;
 	private TextView usedTime;
+	private TextView rankDescription;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -29,11 +30,16 @@ public class Finish extends Activity {
 		String timeText = new SimpleDateFormat("mm:ss:SSS").format(new Date(
 				Text.usedTime));
 		String pointText = String.valueOf(Text.pointcount);
+		// TODO: Define Rank
+		int rank = 2;
+		String rankText = String.format("You reached the {0} place!", rank);
 
 		reachedPoints = (TextView) findViewById(R.id.reachedPoints);
 		usedTime = (TextView) findViewById(R.id.usedTime);
+		rankDescription = (TextView) findViewById(R.id.rankDescription);
 		reachedPoints.setText(pointText);
 		usedTime.setText(timeText);
+		rankDescription.setText(rankText);
 
 		close = (ImageButton) findViewById(R.id.btn_close);
 		close.setOnClickListener(new OnClickListener() {

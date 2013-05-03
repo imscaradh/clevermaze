@@ -43,6 +43,7 @@ public class Level extends Activity implements SensorEventListener {
 	private Timer timer;
 	private int stageNumber;
 	private long millis;
+	public static Context LevelContext;
 
 	private static Bitmap backgroundImage;
 	private static Bitmap wallImage;
@@ -57,6 +58,7 @@ public class Level extends Activity implements SensorEventListener {
 		display.getSize(displaySize);
 		setStaticBitmaps(displaySize.x, displaySize.y);
 		initObjects(stageNumber);
+		LevelContext = this;
 		// FIXME zinggpa stars have to appear if play button pressed
 		createTimer();
 	}
