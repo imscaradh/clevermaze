@@ -3,6 +3,7 @@ package ch.gibb.project.elements;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Paint.Style;
 import android.graphics.PointF;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
@@ -39,6 +40,8 @@ public class Maze extends MazeElement {
 
 	protected void onDraw(Canvas canvas) {
 		bitmapCanvas.drawBitmap(Level.getWallImage(), 0, 0, null);
+		Paint p = new Paint();
+		p.setStyle(Style.FILL_AND_STROKE);
 		bitmapCanvas.drawBitmap(Level.getBackgroundImage(), playGround,
 				playGround, null);
 		bitmapCanvas.drawBitmap(Level.getFinishImage(), finishPoint.x,

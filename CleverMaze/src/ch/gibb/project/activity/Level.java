@@ -199,6 +199,7 @@ public class Level extends Activity implements SensorEventListener {
 		opts.inPurgeable = true;
 		opts.inInputShareable = true;
 		opts.inTempStorage = new byte[32 * 1024];
+		// TODO: Shrink Image Correctly
 		backgroundImage = Bitmap.createScaledBitmap(BitmapFactory
 				.decodeResource(getResources(), R.drawable.wood, opts),
 				width - 40, height - 40, true);
