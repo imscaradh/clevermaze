@@ -39,11 +39,10 @@ public class Highscore extends Activity {
 			String usedTime = new SimpleDateFormat("mm:ss:SSS")
 					.format(new Date(Long.parseLong(data[1])));
 
-			String display = String.format("Date: %s Points: %s Time: %s",
-					date, points, usedTime);
+			String display = String.format("%s. %s Points in %s - Date: %s ",
+					values.size() + 1, points, usedTime, date);
 			values.add(display);
 		}
-
 		scoreList = (ListView) findViewById(R.id.scoreList);
 		ArrayAdapter<String> myarrayAdapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_1, values);

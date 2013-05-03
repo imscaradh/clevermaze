@@ -69,7 +69,6 @@ public class Level extends Activity implements SensorEventListener {
 				WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
 		StageEnum.setDisplayMetrics(this.getResources().getDisplayMetrics());
-
 		Text.stage = stageNumber;
 		initViews(displaySize.x, displaySize.y);
 		addelementsToView();
