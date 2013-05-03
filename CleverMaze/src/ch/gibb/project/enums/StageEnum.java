@@ -91,7 +91,9 @@ public enum StageEnum {
 			new ArrayList<PointF>(Arrays.asList( 
 						new PointF(539, 40),
 						new PointF(159, 680),
-						new PointF(226, 680))),
+						new PointF(226, 680),
+						new PointF(596, 714),
+						new PointF(596, 641))),
 			new RectF[] {
 							new RectF(40, 113, 340, 164), 
 							new RectF(289, 164, 600, 215),
