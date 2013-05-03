@@ -90,6 +90,7 @@ public class MessageUtil {
 									R.anim.slide_out_right);
 							((Level) activity).sensorManager
 									.unregisterListener((Level) activity);
+							((Level) activity).getTextElement().pointcount = 0;
 						}
 
 					});
