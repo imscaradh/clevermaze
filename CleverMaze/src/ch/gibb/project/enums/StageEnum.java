@@ -3,11 +3,9 @@ package ch.gibb.project.enums;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import android.content.res.Resources;
 import android.graphics.PointF;
 import android.graphics.RectF;
 import android.util.DisplayMetrics;
-import ch.gibb.project.activity.Level;
 
 public enum StageEnum {
 
@@ -271,6 +269,7 @@ public enum StageEnum {
 	private PointF[] holes;
 	private ArrayList<PointF> stars;
 	private RectF[] walls;
+	private static DisplayMetrics metrics;
 
 	StageEnum(PointF startPoint, PointF finishPoint, PointF[] holes,
 			ArrayList<PointF> stars, RectF[] walls) {
@@ -282,9 +281,7 @@ public enum StageEnum {
 	}
 
 	// TODO: Implement this function, => Display Density relative
-	public float dpFromPx(float px) {
-		Resources resources = Level.LevelContext.getResources();
-		DisplayMetrics metrics = resources.getDisplayMetrics();
+	public static float dpFromPx(float px) {
 		float dp = px / (metrics.densityDpi / 320f);
 		return dp;
 	}
@@ -307,5 +304,9 @@ public enum StageEnum {
 
 	public RectF[] getWalls() {
 		return walls;
+	}
+
+	public static void setDisplayMetrics(DisplayMetrics displayMetrics) {
+		metrics = displayMetrics;
 	}
 }
