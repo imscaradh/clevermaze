@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
 import ch.gibb.project.R;
+import ch.gibb.project.elements.Text;
 import ch.gibb.project.util.MessageUtil;
 
 public class Welcome extends Activity {
@@ -41,6 +42,7 @@ public class Welcome extends Activity {
 		@Override
 		public void onClick(View v) {
 			Log.v(this.getClass().toString(), "Button Play clicked");
+			Text.resetScore();
 			nextActivity(Level.class);
 			overridePendingTransition(R.anim.slide_in_right,
 					R.anim.slide_out_left);

@@ -63,7 +63,6 @@ public class Level extends Activity implements SensorEventListener {
 	}
 
 	protected void initObjects(int stageNumber) {
-		Text.resetScore();
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON,
 				WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
