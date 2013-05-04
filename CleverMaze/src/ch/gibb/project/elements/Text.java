@@ -13,7 +13,7 @@ import ch.gibb.project.enums.StageEnum;
 public class Text extends MazeElement {
 	public static long usedTime;
 	public static int stage;
-	public static int pointcount;
+	public static long pointcount;
 	private final SimpleDateFormat sdf = new SimpleDateFormat("mm:ss:SSS");
 
 	public Text(Context context) {
@@ -28,10 +28,15 @@ public class Text extends MazeElement {
 		paint.setTextSize(30);
 		canvas.drawText("Stage: " + stage + "/" + StageEnum.values().length,
 				getWidth() / 2 - 50, 25, paint);
-		String time = sdf.format(new Date(Text.usedTime));
+		String time = sdf.format(new Date((long) Text.usedTime));
 		canvas.drawText(String.format("Points: %s", pointcount), 40,
 				getHeight() - 15, paint);
 		canvas.drawText(String.format("Used time: %s", time), getWidth() - 330,
 				getHeight() - 15, paint);
+	}
+
+	public static void resetScore() {
+		usedTime = 0;
+		pointcount = 0;
 	}
 }

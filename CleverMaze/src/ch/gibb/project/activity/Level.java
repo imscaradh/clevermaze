@@ -41,7 +41,7 @@ public class Level extends Activity implements SensorEventListener {
 	private ActionHandler actionHandler;
 	private android.graphics.Point displaySize;
 	private Timer timer;
-	private int stageNumber;
+	private int stageNumber = 1;
 	private long millis;
 	public static Context LevelContext;
 
@@ -52,7 +52,6 @@ public class Level extends Activity implements SensorEventListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		this.stageNumber = 1;
 		Display display = getWindowManager().getDefaultDisplay();
 		displaySize = new android.graphics.Point();
 		display.getSize(displaySize);
@@ -64,7 +63,7 @@ public class Level extends Activity implements SensorEventListener {
 	}
 
 	protected void initObjects(int stageNumber) {
-		// OPTIMIZE zinggpa workaround because of recreating of elements
+		Text.resetScore();
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON,
 				WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 

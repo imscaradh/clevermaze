@@ -18,21 +18,22 @@ public class Finish extends Activity {
 	private TextView reachedPoints;
 	private TextView usedTime;
 	private TextView rankDescription;
+	private String key;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState, R.layout.activity_finish);
-		initObjects();
+
 		persist();
+		initObjects();
 	}
 
 	private void initObjects() {
 		String timeText = new SimpleDateFormat("mm:ss:SSS").format(new Date(
 				Text.usedTime));
 		String pointText = String.valueOf(Text.pointcount);
-		// TODO: Define Rank
-		int rank = 2;
-		String rankText = String.format("You reached the {0} place!", rank);
+		int rank = HighscoreUtil.getInstance(this).getPosition(key);
+		String rankText = String.format("You reached the %d place!", rank);
 
 		reachedPoints = (TextView) findViewById(R.id.reachedPoints);
 		usedTime = (TextView) findViewById(R.id.usedTime);
@@ -49,19 +50,17 @@ public class Finish extends Activity {
 				nextActivity(Welcome.class);
 				overridePendingTransition(R.anim.slide_in_left,
 						R.anim.slide_out_right);
-
 			}
 		});
-
 	}
 
 	private void persist() {
-		float rank = (float) Text.pointcount / (float) Text.usedTime * 10000;
-		final String data = String.format("%s;%s;%f", Text.pointcount,
-				Text.usedTime, rank);
-		HighscoreUtil.getInstance(this).persist(
-				String.valueOf(System.currentTimeMillis()), data);
-
+		String stopMillis = String.valueOf(System.currentTimeMillis());
+		final String data = String.format("%s;%s;%s", stopMillis,
+				Text.pointcount, Text.usedTime);
+		key = String.valueOf(((float) Text.pointcount + 1)
+				/ (float) Text.usedTime * 100);
+		HighscoreUtil.getInstance(this).persist(key, data);
 	}
 
 	@Override
