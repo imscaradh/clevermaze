@@ -9,6 +9,7 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import ch.gibb.project.R;
 import ch.gibb.project.activity.Level;
 
 public class Maze extends MazeElement {
@@ -26,6 +27,7 @@ public class Maze extends MazeElement {
 		bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
 		bitmapCanvas = new Canvas();
 		bitmapCanvas.setBitmap(bitmap);
+		setBackgroundResource(R.drawable.bottom);
 
 		holes = context.getStage().getHoles();
 		finishPoint = context.getStage().getFinishPoint();
@@ -42,8 +44,8 @@ public class Maze extends MazeElement {
 		bitmapCanvas.drawBitmap(Level.getWallImage(), 0, 0, null);
 		Paint p = new Paint();
 		p.setStyle(Style.FILL_AND_STROKE);
-		bitmapCanvas.drawBitmap(Level.getBackgroundImage(), playGround,
-				playGround, null);
+		bitmapCanvas.drawBitmap(Level.getBackgroundImage(), null, playGround,
+				null);
 		bitmapCanvas.drawBitmap(Level.getFinishImage(), finishPoint.x,
 				finishPoint.y, null);
 		canvas.drawBitmap(bitmap, 0, 0, null);
