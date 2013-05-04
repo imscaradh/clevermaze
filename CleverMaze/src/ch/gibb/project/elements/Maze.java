@@ -44,8 +44,8 @@ public class Maze extends MazeElement {
 		bitmapCanvas.drawBitmap(Level.getWallImage(), 0, 0, null);
 		Paint p = new Paint();
 		p.setStyle(Style.FILL_AND_STROKE);
-		bitmapCanvas.drawBitmap(Level.getBackgroundImage(), playGround,
-				playGround, null);
+		bitmapCanvas.drawBitmap(Level.getBackgroundImage(), null, playGround,
+				null);
 		bitmapCanvas.drawBitmap(Level.getFinishImage(), finishPoint.x,
 				finishPoint.y, null);
 		canvas.drawBitmap(bitmap, 0, 0, null);
