@@ -26,16 +26,6 @@
         android:background="@null"
         android:scaleType="fitXY"
         android:src="@drawable/backbuttonselector" />
-
-    <ImageView
-        android:id="@+id/aboutfont"
-        android:layout_width="220dp"
-        android:layout_height="111dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="16dp"
-        android:layout_toRightOf="@+id/btn_close"
-        android:src="@drawable/aboutfont" />
     
     <TextView
         android:id="@+id/version"
@@ -85,7 +75,13 @@
         android:textColor="#000000"
         android:autoLink="email"
         android:text="clevermaze@gmail.com" />
-    
-    
+
+     <ImageView
+         android:id="@+id/aboutfont"
+         android:layout_width="220dp"
+         android:layout_height="60dp"
+         android:layout_alignTop="@+id/btn_close"
+         android:layout_centerHorizontal="true"
+         android:src="@drawable/aboutfont" />
 
     </RelativeLayout>

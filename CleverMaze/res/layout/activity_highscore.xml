@@ -30,10 +30,10 @@
     <ImageView
         android:id="@+id/aboutfont"
         android:layout_width="220dp"
-        android:layout_height="111dp"
+        android:layout_height="60dp"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="15dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="30dp"
         android:layout_toRightOf="@+id/btn_close"
         android:src="@drawable/highscorefont" />
 
@@ -45,18 +45,17 @@
         android:layout_marginBottom="30dp"
         android:layout_marginLeft="35dp"
         android:layout_marginRight="35dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="40dp"
         android:listSelector="@android:color/holo_orange_dark"
         >
-
     </ListView>
 
     <ImageButton
         android:id="@+id/btn_clear"
         android:layout_width="80dp"
         android:layout_height="28dp"
-        android:layout_above="@+id/scoreList"
-        android:layout_alignRight="@+id/scoreList"
+        android:layout_alignRight="@+id/aboutfont"
+        android:layout_below="@+id/aboutfont"
         android:background="@null"
         android:scaleType="fitXY"
         android:src="@drawable/clear" />
