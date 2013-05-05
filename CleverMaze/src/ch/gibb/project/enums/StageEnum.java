@@ -5,7 +5,6 @@ import java.util.Arrays;
 
 import android.graphics.PointF;
 import android.graphics.RectF;
-import android.util.DisplayMetrics;
 
 public enum StageEnum {
 
@@ -269,7 +268,6 @@ public enum StageEnum {
 	private PointF[] holes;
 	private ArrayList<PointF> stars;
 	private RectF[] walls;
-	private static DisplayMetrics metrics;
 
 	StageEnum(PointF startPoint, PointF finishPoint, PointF[] holes,
 			ArrayList<PointF> stars, RectF[] walls) {
@@ -278,12 +276,6 @@ public enum StageEnum {
 		this.holes = holes;
 		this.stars = stars;
 		this.walls = walls;
-	}
-
-	// TODO: Implement this function, => Display Density relative
-	public static float dpFromPx(float px) {
-		float dp = px / (metrics.densityDpi / 320f);
-		return dp;
 	}
 
 	public PointF getStartPoint() {
@@ -304,9 +296,5 @@ public enum StageEnum {
 
 	public RectF[] getWalls() {
 		return walls;
-	}
-
-	public static void setDisplayMetrics(DisplayMetrics displayMetrics) {
-		metrics = displayMetrics;
 	}
 }

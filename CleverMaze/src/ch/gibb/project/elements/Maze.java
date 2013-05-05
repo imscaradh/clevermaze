@@ -16,14 +16,16 @@ public class Maze extends MazeElement {
 	private Rect playGround;
 	private PointF[] holes;
 	private PointF finishPoint;
-	private int radius = 34;
+	private float radius = 34;
 	private Paint paint;
+	private int height;
+	private int width;
 
-	public Maze(Level context, int width, int height) {
+	public Maze(Level context, int width, int height, int gap) {
 		super(context);
-
-		playGround = new Rect(40, 40, width - 40, height - 40);
-
+		playGround = new Rect(gap, gap, width - gap, height - gap);
+		this.width = width;
+		this.height = height;
 		bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
 		bitmapCanvas = new Canvas();
 		bitmapCanvas.setBitmap(bitmap);
@@ -38,6 +40,7 @@ public class Maze extends MazeElement {
 		paint.setAntiAlias(true);
 		paint.setFilterBitmap(true);
 		paint.setDither(true);
+
 	}
 
 	protected void onDraw(Canvas canvas) {
@@ -49,9 +52,11 @@ public class Maze extends MazeElement {
 		bitmapCanvas.drawBitmap(Level.getFinishImage(), finishPoint.x,
 				finishPoint.y, null);
 		canvas.drawBitmap(bitmap, 0, 0, null);
-
+		radius = context.dpFromPx(34);
 		for (PointF h : holes) {
-			bitmapCanvas.drawCircle(h.x + radius, h.y + radius, radius, paint);
+			float x = context.dpFromPx(h.x);
+			float y = context.dpFromPx(h.y);
+			bitmapCanvas.drawCircle(x + radius, y + radius, radius, paint);
 		}
 	}
 

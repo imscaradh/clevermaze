@@ -12,6 +12,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
 import android.view.KeyEvent;
@@ -44,6 +45,7 @@ public class Level extends Activity implements SensorEventListener {
 	private int stageNumber = 1;
 	private long millis;
 	public static Context LevelContext;
+	private DisplayMetrics metrics;
 
 	private static Bitmap backgroundImage;
 	private static Bitmap wallImage;
@@ -56,6 +58,7 @@ public class Level extends Activity implements SensorEventListener {
 		displaySize = new android.graphics.Point();
 		display.getSize(displaySize);
 		setStaticBitmaps(displaySize.x, displaySize.y);
+		metrics = this.getResources().getDisplayMetrics();
 		initObjects(stageNumber);
 		LevelContext = this;
 		// FIXME zinggpa stars have to appear if play button pressed
@@ -65,8 +68,6 @@ public class Level extends Activity implements SensorEventListener {
 	protected void initObjects(int stageNumber) {
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON,
 				WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-
-		StageEnum.setDisplayMetrics(this.getResources().getDisplayMetrics());
 		Text.stage = stageNumber;
 		initViews(displaySize.x, displaySize.y);
 		addelementsToView();
@@ -87,7 +88,7 @@ public class Level extends Activity implements SensorEventListener {
 	private void initViews(int x, int y) {
 		BitmapFactory.Options options = new BitmapFactory.Options();
 		options.inSampleSize = 8;
-		mazeElement = new Maze(this, x, y);
+		mazeElement = new Maze(this, x, y, (int) dpFromPx(40));
 		ballElement = new Ball(this);
 		wallElement = new Wall(this);
 		textElement = new Text(this);
@@ -156,7 +157,7 @@ public class Level extends Activity implements SensorEventListener {
 			return;
 		} else {
 			Animation animation = AnimationUtils.loadAnimation(this,
-					R.anim.push_down_out);
+					R.anim.dock_bottom_exit);
 			layout.startAnimation(animation);
 			initObjects(++stageNumber);
 			return;
@@ -170,7 +171,7 @@ public class Level extends Activity implements SensorEventListener {
 				"Oh no! You felt into a hole");
 		sensorManager.unregisterListener(Level.this);
 		Animation animation = AnimationUtils.loadAnimation(this,
-				R.anim.push_up_out);
+				R.anim.dock_top_exit);
 		layout.startAnimation(animation);
 		initObjects((stageNumber == 1) ? stageNumber : --stageNumber);
 	}
@@ -218,6 +219,11 @@ public class Level extends Activity implements SensorEventListener {
 		}
 
 		return super.onKeyDown(keyCode, event);
+	}
+
+	public float dpFromPx(float px) {
+		float dp = px / (metrics.densityDpi / 320f);
+		return dp;
 	}
 
 	public SensorManager getSensorManager() {
