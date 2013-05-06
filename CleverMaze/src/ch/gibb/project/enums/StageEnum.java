@@ -9,7 +9,6 @@ import android.graphics.RectF;
 public enum StageEnum {
 
 	// @formatter:off
-	//new PointF(dpFromPx(600), dpFromPx(1180)),  -> Error
 	STAGE_1(new PointF(600, 1180), 
 			new PointF(600, 1023), 
 			new PointF[] {	new PointF(612, 40), 

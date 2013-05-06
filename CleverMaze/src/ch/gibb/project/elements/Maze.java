@@ -1,6 +1,7 @@
 package ch.gibb.project.elements;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
@@ -9,6 +10,7 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.view.Display;
 import ch.gibb.project.R;
 import ch.gibb.project.activity.Level;
 
@@ -19,12 +21,22 @@ public class Maze extends MazeElement {
 	private int radius = 34;
 	private Paint paint;
 
-	public Maze(Level context, int width, int height, int gap) {
+	private static Bitmap backgroundImage;
+	private static Bitmap wallImage;
+	private static Bitmap finishImage;
+
+	public Maze(Level context) {
 		super(context);
+		Display display = context.getWindowManager().getDefaultDisplay();
+		android.graphics.Point displaySize = new android.graphics.Point();
+		display.getSize(displaySize);
+		setStaticBitmaps(displaySize.x, displaySize.y);
+		int gap = (int) context.PixelToDp(40);
+		playGround = new Rect(gap, gap, displaySize.x - gap, displaySize.y
+				- gap);
 
-		playGround = new Rect(gap, gap, width - gap, height - gap);
-
-		bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+		bitmap = Bitmap.createBitmap(displaySize.x, displaySize.y,
+				Bitmap.Config.ARGB_8888);
 		bitmapCanvas = new Canvas();
 		bitmapCanvas.setBitmap(bitmap);
 		setBackgroundResource(R.drawable.bottom);
@@ -41,18 +53,33 @@ public class Maze extends MazeElement {
 	}
 
 	protected void onDraw(Canvas canvas) {
-		bitmapCanvas.drawBitmap(Level.getWallImage(), 0, 0, null);
+		bitmapCanvas.drawBitmap(wallImage, 0, 0, null);
 		Paint p = new Paint();
 		p.setStyle(Style.FILL_AND_STROKE);
-		bitmapCanvas.drawBitmap(Level.getBackgroundImage(), null, playGround,
-				null);
-		bitmapCanvas.drawBitmap(Level.getFinishImage(), finishPoint.x,
-				finishPoint.y, null);
+		bitmapCanvas.drawBitmap(backgroundImage, null, playGround, null);
+		bitmapCanvas
+				.drawBitmap(finishImage, finishPoint.x, finishPoint.y, null);
 		canvas.drawBitmap(bitmap, 0, 0, null);
 
 		for (PointF h : holes) {
 			bitmapCanvas.drawCircle(h.x + radius, h.y + radius, radius, paint);
 		}
+	}
+
+	public void setStaticBitmaps(int width, int height) {
+		BitmapFactory.Options opts = new BitmapFactory.Options();
+		opts.inDither = false;
+		opts.inPurgeable = true;
+		opts.inInputShareable = true;
+		opts.inTempStorage = new byte[32 * 1024];
+		// TODO: Shrink Image Correctly
+		backgroundImage = Bitmap.createScaledBitmap(BitmapFactory
+				.decodeResource(getResources(), R.drawable.wood, opts),
+				width - 40, height - 40, true);
+		wallImage = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(
+				getResources(), R.drawable.wall, opts), width, height, true);
+		finishImage = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(
+				getResources(), R.drawable.finish, opts), 73, 73, true);
 	}
 
 	public Rect getPlayGround() {
@@ -64,11 +91,11 @@ public class Maze extends MazeElement {
 	}
 
 	public int getImageWidth() {
-		return Level.getBackgroundImage().getWidth();
+		return backgroundImage.getWidth();
 	}
 
 	public int getImageHeight() {
-		return Level.getBackgroundImage().getHeight();
+		return backgroundImage.getHeight();
 	}
 
 	public PointF[] getHoles() {
@@ -80,9 +107,8 @@ public class Maze extends MazeElement {
 	}
 
 	public RectF getFinishRect() {
-		return new RectF(finishPoint.x, finishPoint.y, Level.getFinishImage()
-				.getWidth() + finishPoint.x, Level.getFinishImage().getHeight()
-				+ finishPoint.y);
+		return new RectF(finishPoint.x, finishPoint.y, finishImage.getWidth()
+				+ finishPoint.x, finishImage.getHeight() + finishPoint.y);
 
 	}
 

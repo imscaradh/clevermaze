@@ -25,8 +25,8 @@ public class Wall extends MazeElement {
 
 	protected void onDraw(Canvas canvas) {
 		for (RectF w : walls) {
-			w.set(context.dpFromPx(w.left), context.dpFromPx(w.top),
-					context.dpFromPx(w.right), context.dpFromPx(w.bottom));
+			w.set(context.PixelToDp(w.left), context.PixelToDp(w.top),
+					context.PixelToDp(w.right), context.PixelToDp(w.bottom));
 			canvas.drawRect(w, paint);
 		}
 	}

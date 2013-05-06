@@ -4,7 +4,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -14,7 +13,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Display;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.WindowManager;
@@ -40,36 +38,24 @@ public class Level extends Activity implements SensorEventListener {
 	private Text textElement;
 	private Point pointElement;
 	private ActionHandler actionHandler;
-	private android.graphics.Point displaySize;
 	private Timer timer;
 	private int stageNumber = 1;
 	private long millis;
-	public static Context LevelContext;
 	private DisplayMetrics metrics;
-
-	private static Bitmap backgroundImage;
-	private static Bitmap wallImage;
-	private static Bitmap finishImage;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		Display display = getWindowManager().getDefaultDisplay();
-		displaySize = new android.graphics.Point();
-		display.getSize(displaySize);
-		setStaticBitmaps(displaySize.x, displaySize.y);
 		metrics = this.getResources().getDisplayMetrics();
-		initObjects(stageNumber);
-		LevelContext = this;
-		// FIXME zinggpa stars have to appear if play button pressed
+		initSensorAndViews(stageNumber);
 		createTimer();
 	}
 
-	protected void initObjects(int stageNumber) {
+	protected void initSensorAndViews(int stageNumber) {
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON,
 				WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		Text.stage = stageNumber;
-		initViews(displaySize.x, displaySize.y);
+		initMazeElements();
 		addelementsToView();
 		actionHandler = new ActionHandler(this);
 		sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -85,14 +71,15 @@ public class Level extends Activity implements SensorEventListener {
 		}
 	}
 
-	private void initViews(int x, int y) {
+	private void initMazeElements() {
 		BitmapFactory.Options options = new BitmapFactory.Options();
 		options.inSampleSize = 8;
-		mazeElement = new Maze(this, x, y, (int) dpFromPx(40));
+		mazeElement = new Maze(this);
 		ballElement = new Ball(this);
 		wallElement = new Wall(this);
 		textElement = new Text(this);
 		pointElement = new Point(this);
+
 	}
 
 	private void addelementsToView() {
@@ -137,14 +124,14 @@ public class Level extends Activity implements SensorEventListener {
 
 	@Override
 	public void onSensorChanged(final SensorEvent event) {
-		if (!actionHandler.checkIfFinished()) {
+		if (!actionHandler.isGameFinished()) {
 			actionHandler.moveAndCheckX(event.values[0]);
 			actionHandler.moveAndCheckY(event.values[1]);
-			actionHandler.checkStarTouch();
+			actionHandler.checkStarCollision();
 		} else {
 			performStageChangeAction();
 		}
-		if (actionHandler.ballInHole()) {
+		if (actionHandler.isBallInHole()) {
 			performHoleAction();
 		}
 	}
@@ -159,21 +146,19 @@ public class Level extends Activity implements SensorEventListener {
 			Animation animation = AnimationUtils.loadAnimation(this,
 					R.anim.dock_bottom_exit);
 			layout.startAnimation(animation);
-			initObjects(++stageNumber);
+			initSensorAndViews(++stageNumber);
 			return;
 		}
 	}
 
 	private void performHoleAction() {
-		// layout.removeView(mazeElement);
-		// layout.addView(mazeElement);
 		MessageUtil.getInstance().createShortToastMessage(Level.this,
 				"Oh no! You felt into a hole");
 		sensorManager.unregisterListener(Level.this);
 		Animation animation = AnimationUtils.loadAnimation(this,
 				R.anim.dock_top_exit);
 		layout.startAnimation(animation);
-		initObjects((stageNumber == 1) ? stageNumber : --stageNumber);
+		initSensorAndViews((stageNumber == 1) ? stageNumber : --stageNumber);
 	}
 
 	public StageEnum getStage() {
@@ -192,22 +177,6 @@ public class Level extends Activity implements SensorEventListener {
 		}
 	}
 
-	public void setStaticBitmaps(int width, int height) {
-		BitmapFactory.Options opts = new BitmapFactory.Options();
-		opts.inDither = false;
-		opts.inPurgeable = true;
-		opts.inInputShareable = true;
-		opts.inTempStorage = new byte[32 * 1024];
-		// TODO: Shrink Image Correctly
-		backgroundImage = Bitmap.createScaledBitmap(BitmapFactory
-				.decodeResource(getResources(), R.drawable.wood, opts),
-				width - 40, height - 40, true);
-		wallImage = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(
-				getResources(), R.drawable.wall, opts), width, height, true);
-		finishImage = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(
-				getResources(), R.drawable.finish, opts), 73, 73, true);
-	}
-
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
@@ -221,8 +190,8 @@ public class Level extends Activity implements SensorEventListener {
 		return super.onKeyDown(keyCode, event);
 	}
 
-	public float dpFromPx(float px) {
-		float dp = px / (metrics.densityDpi / 320f);
+	public float PixelToDp(float pixel) {
+		float dp = pixel / (metrics.densityDpi / 320f);
 		return dp;
 	}
 
@@ -230,40 +199,20 @@ public class Level extends Activity implements SensorEventListener {
 		return sensorManager;
 	}
 
-	public void setSensorManager(SensorManager sensorManager) {
-		this.sensorManager = sensorManager;
-	}
-
 	public Maze getMazeElement() {
 		return mazeElement;
-	}
-
-	public void setMazeElement(Maze mazeElement) {
-		this.mazeElement = mazeElement;
 	}
 
 	public Ball getBallElement() {
 		return ballElement;
 	}
 
-	public void setBallElement(Ball ballElement) {
-		this.ballElement = ballElement;
-	}
-
 	public Wall getWallElement() {
 		return wallElement;
 	}
 
-	public void setWallElement(Wall wallElement) {
-		this.wallElement = wallElement;
-	}
-
 	public Point getPointElement() {
 		return pointElement;
-	}
-
-	public void setPointElement(Point pointElement) {
-		this.pointElement = pointElement;
 	}
 
 	public Text getTextElement() {
@@ -272,22 +221,6 @@ public class Level extends Activity implements SensorEventListener {
 
 	public int getStageNumber() {
 		return stageNumber;
-	}
-
-	public void setStageNumber(int stageNumber) {
-		this.stageNumber = stageNumber;
-	}
-
-	public static Bitmap getBackgroundImage() {
-		return backgroundImage;
-	}
-
-	public static Bitmap getWallImage() {
-		return wallImage;
-	}
-
-	public static Bitmap getFinishImage() {
-		return finishImage;
 	}
 
 }

@@ -75,7 +75,7 @@ public class ActionHandler {
 		return false;
 	}
 
-	public boolean ballInHole() {
+	public boolean isBallInHole() {
 		for (PointF hole : mazeElement.getHoles()) {
 			float dx = Math.abs(ballElement.getCoordinates().x - hole.x);
 			float dy = Math.abs(ballElement.getCoordinates().y - hole.y);
@@ -87,7 +87,7 @@ public class ActionHandler {
 		return false;
 	}
 
-	public void checkStarTouch() {
+	public void checkStarCollision() {
 		for (PointF point : pointElement.getPoints()) {
 			float dx = Math.abs(ballElement.getCoordinates().x - point.x);
 			float dy = Math.abs(ballElement.getCoordinates().y - point.y);
@@ -147,7 +147,7 @@ public class ActionHandler {
 		}
 	}
 
-	public boolean checkIfFinished() {
+	public boolean isGameFinished() {
 		if (mazeElement.getFinishRect().contains(ballElement.getBallRect())) {
 			return true;
 		}

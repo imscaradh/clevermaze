@@ -25,15 +25,15 @@ public class Text extends MazeElement {
 		paint.setStyle(Style.FILL_AND_STROKE);
 		paint.setFakeBoldText(true);
 		paint.setColor(Color.BLACK);
-		paint.setTextSize(context.dpFromPx(30));
+		paint.setTextSize(context.PixelToDp(30));
 		canvas.drawText("Stage: " + stage + "/" + StageEnum.values().length,
-				getWidth() / 2 - context.dpFromPx(50), context.dpFromPx(25),
+				getWidth() / 2 - context.PixelToDp(50), context.PixelToDp(25),
 				paint);
 		String time = sdf.format(new Date((long) Text.usedTime));
 		canvas.drawText(String.format("Points: %s", pointcount),
-				context.dpFromPx(40), getHeight() - context.dpFromPx(15), paint);
+				context.PixelToDp(40), getHeight() - context.PixelToDp(15), paint);
 		canvas.drawText(String.format("Used time: %s", time), getWidth()
-				- context.dpFromPx(330), getHeight() - context.dpFromPx(15),
+				- context.PixelToDp(330), getHeight() - context.PixelToDp(15),
 				paint);
 	}
 
