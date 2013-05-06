@@ -104,7 +104,7 @@ public class ActionHandler {
 		pointElement.postInvalidate((int) toRemove.x - 1, (int) toRemove.y + 1,
 				(int) toRemove.x + pointElement.getImageWidth() + 1,
 				(int) toRemove.y - pointElement.getImageHeight() + 1);
-		Text.pointcount++;
+		Text.pointcount += Text.stage;
 		textElement.postInvalidate();
 	}
 
