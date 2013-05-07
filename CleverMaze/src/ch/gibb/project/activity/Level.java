@@ -1,7 +1,6 @@
 package ch.gibb.project.activity;
 
 import java.util.Timer;
-import java.util.TimerTask;
 
 import android.content.Context;
 import android.graphics.BitmapFactory;
@@ -45,11 +44,11 @@ public class Level extends Activity implements SensorEventListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		StageEnum.STAGE_1.init();
-		initSensorAndViews(stageNumber);
+		initSensorAndViews();
 		createTimer();
 	}
 
-	protected void initSensorAndViews(int stageNumber) {
+	protected void initSensorAndViews() {
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON,
 				WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		Text.stage = stageNumber;
@@ -90,24 +89,25 @@ public class Level extends Activity implements SensorEventListener {
 		setContentView(layout);
 	}
 
-	private void createTimer() {
-		final Handler handler = new Handler();
+	public void createTimer() {
 		timer = new Timer(false);
+		timer.scheduleAtFixedRate(new TimerTask(), 0, 1);
+	}
 
-		TimerTask timerTask = new TimerTask() {
-			@Override
-			public void run() {
-				handler.post(new Runnable() {
-					@Override
-					public void run() {
-						millis++;
-						Text.usedTime = millis;
-						textElement.postInvalidate();
-					}
-				});
-			}
-		};
-		timer.scheduleAtFixedRate(timerTask, 0, 1);
+	public class TimerTask extends java.util.TimerTask {
+		final Handler handler = new Handler();
+
+		@Override
+		public void run() {
+			handler.post(new Runnable() {
+				@Override
+				public void run() {
+					millis++;
+					Text.usedTime = millis;
+					textElement.postInvalidate();
+				}
+			});
+		}
 	}
 
 	@Override
@@ -144,7 +144,8 @@ public class Level extends Activity implements SensorEventListener {
 			Animation animation = AnimationUtils.loadAnimation(this,
 					R.anim.dock_bottom_exit);
 			layout.startAnimation(animation);
-			initSensorAndViews(++stageNumber);
+			stageNumber++;
+			initSensorAndViews();
 			return;
 		}
 	}
@@ -152,11 +153,11 @@ public class Level extends Activity implements SensorEventListener {
 	private void performHoleAction() {
 		MessageUtil.getInstance().createShortToastMessage(Level.this,
 				"Oh no! You felt into a hole");
-		sensorManager.unregisterListener(Level.this);
 		Animation animation = AnimationUtils.loadAnimation(this,
 				R.anim.dock_top_exit);
 		layout.startAnimation(animation);
-		initSensorAndViews((stageNumber == 1) ? stageNumber : --stageNumber);
+		stageNumber = (stageNumber == 1) ? stageNumber : --stageNumber;
+		initSensorAndViews();
 	}
 
 	public StageEnum getStage() {
@@ -179,9 +180,8 @@ public class Level extends Activity implements SensorEventListener {
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
 			sensorManager.unregisterListener(this);
-
-			MessageUtil.getInstance().createAlertMessage(Level.this,
-					MessageUtil.DIALOG_LEVELEXIT);
+			timer.cancel();
+			MessageUtil.getInstance().showLevelExitDialog(Level.this);
 			return true;
 		}
 
@@ -214,6 +214,10 @@ public class Level extends Activity implements SensorEventListener {
 
 	public int getStageNumber() {
 		return stageNumber;
+	}
+
+	public Timer getTimer() {
+		return timer;
 	}
 
 }

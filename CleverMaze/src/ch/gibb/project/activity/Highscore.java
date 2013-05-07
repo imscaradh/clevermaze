@@ -76,6 +76,9 @@ public class Highscore extends Activity {
 			String display = String.format("%d. %s Points in %s - Date: %s ",
 					values.size() + 1, points, usedTime, date);
 			values.add(display);
+			if (values.size() > 10) {
+				break;
+			}
 		}
 
 		scoreList = (ListView) findViewById(R.id.scoreList);
