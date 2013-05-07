@@ -24,8 +24,8 @@ public class Point extends MazeElement {
 
 	protected void onDraw(Canvas canvas) {
 		for (PointF s : points) {
-			float x = context.PixelToDp(s.x);
-			float y = context.PixelToDp(s.y);
+			float x = PixelToDp(s.x);
+			float y = PixelToDp(s.y);
 			canvas.drawBitmap(backgroundImage, x, y, null);
 		}
 	}

@@ -11,7 +11,6 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -41,12 +40,18 @@ public class Level extends Activity implements SensorEventListener {
 	private Timer timer;
 	private int stageNumber = 1;
 	private long millis;
-	private DisplayMetrics metrics;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		metrics = this.getResources().getDisplayMetrics();
+
+		try {
+			StageEnum.class.newInstance();
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
 		initSensorAndViews(stageNumber);
 		createTimer();
 	}
@@ -181,18 +186,13 @@ public class Level extends Activity implements SensorEventListener {
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
 			sensorManager.unregisterListener(this);
-			timer.cancel();
+
 			MessageUtil.getInstance().createAlertMessage(Level.this,
 					MessageUtil.DIALOG_LEVELEXIT);
 			return true;
 		}
 
 		return super.onKeyDown(keyCode, event);
-	}
-
-	public float PixelToDp(float pixel) {
-		float dp = pixel / (metrics.densityDpi / 320f);
-		return dp;
 	}
 
 	public SensorManager getSensorManager() {
