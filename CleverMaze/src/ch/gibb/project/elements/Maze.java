@@ -54,13 +54,15 @@ public class Maze extends MazeElement {
 
 	protected void onDraw(Canvas canvas) {
 		bitmapCanvas.drawBitmap(wallImage, 0, 0, null);
+		wallImage.recycle();
 		Paint p = new Paint();
 		p.setStyle(Style.FILL_AND_STROKE);
 		bitmapCanvas.drawBitmap(backgroundImage, null, playGround, null);
+		backgroundImage.recycle();
 		bitmapCanvas
 				.drawBitmap(finishImage, finishPoint.x, finishPoint.y, null);
+		finishImage.recycle();
 		canvas.drawBitmap(bitmap, 0, 0, null);
-
 		for (PointF h : holes) {
 			bitmapCanvas.drawCircle(h.x + radius, h.y + radius, radius, paint);
 		}
@@ -68,10 +70,7 @@ public class Maze extends MazeElement {
 
 	public void setStaticBitmaps(int width, int height) {
 		BitmapFactory.Options opts = new BitmapFactory.Options();
-		opts.inDither = false;
-		opts.inPurgeable = true;
 		opts.inInputShareable = true;
-		opts.inTempStorage = new byte[32 * 1024];
 		// TODO: Shrink Image Correctly
 		backgroundImage = Bitmap.createScaledBitmap(BitmapFactory
 				.decodeResource(getResources(), R.drawable.wood, opts),
