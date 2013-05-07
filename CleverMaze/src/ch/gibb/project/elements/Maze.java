@@ -31,7 +31,7 @@ public class Maze extends MazeElement {
 		android.graphics.Point displaySize = new android.graphics.Point();
 		display.getSize(displaySize);
 		setStaticBitmaps(displaySize.x, displaySize.y);
-		int gap = (int) context.PixelToDp(40);
+		int gap = (int) PixelToDp(40);
 		playGround = new Rect(gap, gap, displaySize.x - gap, displaySize.y
 				- gap);
 
