@@ -1,7 +1,6 @@
 package ch.gibb.project.activity;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -41,7 +40,6 @@ public class Welcome extends Activity {
 
 		@Override
 		public void onClick(View v) {
-			Log.v(this.getClass().toString(), "Button Play clicked");
 			Text.resetScore();
 			nextActivity(Level.class);
 			overridePendingTransition(R.anim.slide_in_right,
@@ -53,7 +51,6 @@ public class Welcome extends Activity {
 
 		@Override
 		public void onClick(View v) {
-			Log.v(this.getClass().toString(), "Button Highscore clicked");
 			nextActivity(Highscore.class);
 			overridePendingTransition(R.anim.slide_in_right,
 					R.anim.slide_out_left);
@@ -64,7 +61,6 @@ public class Welcome extends Activity {
 
 		@Override
 		public void onClick(View v) {
-			Log.v(getClass().toString(), "Button About clicked");
 			nextActivity(About.class);
 			overridePendingTransition(R.anim.slide_in_right,
 					R.anim.slide_out_left);
@@ -75,18 +71,14 @@ public class Welcome extends Activity {
 
 		@Override
 		public void onClick(View v) {
-			Log.v(getClass().toString(), "Button Close clicked");
-			MessageUtil.getInstance().createAlertMessage(Welcome.this,
-					MessageUtil.DIALOG_EXIT);
+			MessageUtil.getInstance().showAppExitDialog(Welcome.this);
 		}
 	}
 
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-			Log.v(this.getClass().toString(), "Button Back clicked");
-			MessageUtil.getInstance().createAlertMessage(Welcome.this,
-					MessageUtil.DIALOG_EXIT);
+			MessageUtil.getInstance().showAppExitDialog(Welcome.this);
 			return true;
 		}
 
