@@ -22,6 +22,7 @@ public class Welcome extends Activity {
 	public static Bitmap backgroundImage;
 	public static Bitmap wallImage;
 	public static Bitmap finishImage;
+	public static android.graphics.Point displaySize;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +44,7 @@ public class Welcome extends Activity {
 		about.setOnClickListener(new aboutListener());
 
 		Display display = getWindowManager().getDefaultDisplay();
-		android.graphics.Point displaySize = new android.graphics.Point();
+		displaySize = new android.graphics.Point();
 		display.getSize(displaySize);
 		if (backgroundImage == null)
 			setStaticBitmaps(displaySize.x, displaySize.y);

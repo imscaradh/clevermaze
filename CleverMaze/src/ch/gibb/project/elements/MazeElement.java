@@ -25,6 +25,14 @@ public class MazeElement extends View {
 		return dp;
 	}
 
+	public float xCompare(float pixel) {
+		return pixel * context.xCompareValue;
+	}
+
+	public float yCompare(float pixel) {
+		return pixel * context.yCompareValue;
+	}
+
 	public Point getPosition() {
 		return position;
 	}

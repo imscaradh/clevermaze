@@ -18,14 +18,14 @@ public class Point extends MazeElement {
 		super(context);
 		backgroundImage = Bitmap.createScaledBitmap(
 				BitmapFactory.decodeResource(getResources(), R.drawable.star),
-				60, 60, true);
+				(int) xCompare(60), (int) yCompare(60), true);
 		points = context.getStage().getStars();
 	}
 
 	protected void onDraw(Canvas canvas) {
 		for (PointF s : points) {
-			float x = PixelToDp(s.x);
-			float y = PixelToDp(s.y);
+			float x = xCompare(s.x);
+			float y = yCompare(s.y);
 			canvas.drawBitmap(backgroundImage, x, y, null);
 		}
 	}

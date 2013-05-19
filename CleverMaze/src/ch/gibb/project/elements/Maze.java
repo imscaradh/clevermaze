@@ -26,10 +26,14 @@ public class Maze extends MazeElement {
 		Display display = context.getWindowManager().getDefaultDisplay();
 		android.graphics.Point displaySize = new android.graphics.Point();
 		display.getSize(displaySize);
-		// setStaticBitmaps(displaySize.x, displaySize.y);
-		int gap = (int) PixelToDp(40);
-		playGround = new Rect(gap, gap, displaySize.x - gap, displaySize.y
-				- gap);
+		// int gap = (int) PixelToDp(40);
+		// playGround = new Rect(gap, gap, displaySize.x - gap, displaySize.y
+		// - gap);
+
+		int xgap = (int) xCompare(40);
+		int ygap = (int) yCompare(40);
+		playGround = new Rect(xgap, ygap, displaySize.x - xgap, displaySize.y
+				- ygap);
 
 		bitmap = Bitmap.createBitmap(displaySize.x, displaySize.y,
 				Bitmap.Config.ARGB_8888);
@@ -58,7 +62,10 @@ public class Maze extends MazeElement {
 				finishPoint.y, null);
 		canvas.drawBitmap(bitmap, 0, 0, null);
 		for (PointF h : holes) {
-			bitmapCanvas.drawCircle(h.x + radius, h.y + radius, radius, paint);
+			radius = (int) xCompare(radius);
+			int hx = (int) xCompare(h.x);
+			int hy = (int) yCompare(h.y);
+			bitmapCanvas.drawCircle(hx + radius, hy + radius, radius, paint);
 		}
 	}
 

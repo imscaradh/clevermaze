@@ -40,9 +40,14 @@ public class Level extends Activity implements SensorEventListener {
 	private int stageNumber = 1;
 	private long millis;
 
+	public float xCompareValue;
+	public float yCompareValue;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		xCompareValue = Welcome.displaySize.x / 720f;
+		yCompareValue = Welcome.displaySize.y / 1280f;
 		StageEnum.STAGE_1.init();
 		initSensorAndViews();
 		createTimer();
