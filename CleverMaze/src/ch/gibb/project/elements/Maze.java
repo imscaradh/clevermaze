@@ -34,7 +34,6 @@ public class Maze extends MazeElement {
 		int ygap = (int) yCompare(40);
 		playGround = new Rect(xgap, ygap, displaySize.x - xgap, displaySize.y
 				- ygap);
-
 		bitmap = Bitmap.createBitmap(displaySize.x, displaySize.y,
 				Bitmap.Config.ARGB_8888);
 		bitmapCanvas = new Canvas();
@@ -43,10 +42,9 @@ public class Maze extends MazeElement {
 
 		holes = context.getStage().getHoles();
 		finishPoint = context.getStage().getFinishPoint();
-
-		Welcome.finishImage = Bitmap.createScaledBitmap(Welcome.finishImage,
-				(int) xCompare(Welcome.finishImage.getWidth()),
-				(int) yCompare(Welcome.finishImage.getHeight()), false);
+		// Welcome.finishImage = Bitmap.createScaledBitmap(Welcome.finishImage,
+		// (int) xCompare(Welcome.finishImage.getWidth()),
+		// (int) yCompare(Welcome.finishImage.getHeight()), true);
 		paint = new Paint();
 		paint.setAlpha(0);
 		paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_IN));
@@ -61,8 +59,10 @@ public class Maze extends MazeElement {
 		p.setStyle(Style.FILL_AND_STROKE);
 		bitmapCanvas
 				.drawBitmap(Welcome.backgroundImage, null, playGround, null);
-		bitmapCanvas.drawBitmap(Welcome.finishImage, xCompare(finishPoint.x),
-				yCompare(finishPoint.y), null);
+		bitmapCanvas.drawBitmap(Welcome.finishImage, null, new Rect(
+				(int) xCompare(finishPoint.x), (int) yCompare(finishPoint.y),
+				(int) xCompare(finishPoint.x) + (int) xCompare(73),
+				(int) yCompare(finishPoint.y) + (int) yCompare(73)), null);
 		canvas.drawBitmap(bitmap, 0, 0, null);
 		for (PointF h : holes) {
 			radius = (int) xCompare(radius);
