@@ -44,6 +44,9 @@ public class Maze extends MazeElement {
 		holes = context.getStage().getHoles();
 		finishPoint = context.getStage().getFinishPoint();
 
+		Welcome.finishImage = Bitmap.createScaledBitmap(Welcome.finishImage,
+				(int) xCompare(Welcome.finishImage.getWidth()),
+				(int) yCompare(Welcome.finishImage.getHeight()), false);
 		paint = new Paint();
 		paint.setAlpha(0);
 		paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_IN));
@@ -58,8 +61,8 @@ public class Maze extends MazeElement {
 		p.setStyle(Style.FILL_AND_STROKE);
 		bitmapCanvas
 				.drawBitmap(Welcome.backgroundImage, null, playGround, null);
-		bitmapCanvas.drawBitmap(Welcome.finishImage, finishPoint.x,
-				finishPoint.y, null);
+		bitmapCanvas.drawBitmap(Welcome.finishImage, xCompare(finishPoint.x),
+				yCompare(finishPoint.y), null);
 		canvas.drawBitmap(bitmap, 0, 0, null);
 		for (PointF h : holes) {
 			radius = (int) xCompare(radius);
