@@ -1,6 +1,9 @@
 package ch.gibb.project.activity;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.view.Display;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -15,6 +18,10 @@ public class Welcome extends Activity {
 	private ImageButton highscore;
 	private ImageButton close;
 	private ImageButton about;
+
+	public static Bitmap backgroundImage;
+	public static Bitmap wallImage;
+	public static Bitmap finishImage;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +41,27 @@ public class Welcome extends Activity {
 
 		about = (ImageButton) findViewById(R.id.btn_about);
 		about.setOnClickListener(new aboutListener());
+
+		Display display = getWindowManager().getDefaultDisplay();
+		android.graphics.Point displaySize = new android.graphics.Point();
+		display.getSize(displaySize);
+		if (backgroundImage == null)
+			setStaticBitmaps(displaySize.x, displaySize.y);
+	}
+
+	public void setStaticBitmaps(int width, int height) {
+		BitmapFactory.Options opts = new BitmapFactory.Options();
+		opts.inInputShareable = true;
+		backgroundImage = Bitmap.createScaledBitmap(BitmapFactory
+				.decodeResource(getResources(), R.drawable.wood, opts),
+				width - 40, height - 40, true);
+		backgroundImage = Bitmap.createScaledBitmap(BitmapFactory
+				.decodeResource(getResources(), R.drawable.wood, opts),
+				width - 40, height - 40, true);
+		wallImage = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(
+				getResources(), R.drawable.wall, opts), width, height, true);
+		finishImage = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(
+				getResources(), R.drawable.finish, opts), 73, 73, true);
 	}
 
 	class startListener implements OnClickListener {
