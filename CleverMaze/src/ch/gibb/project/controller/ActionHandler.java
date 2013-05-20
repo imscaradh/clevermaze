@@ -77,9 +77,10 @@ public class ActionHandler {
 
 	public boolean isBallInHole() {
 		for (PointF hole : mazeElement.getHoles()) {
-			float dx = Math.abs(ballElement.getCoordinates().x - hole.x);
-			float dy = Math.abs(ballElement.getCoordinates().y - hole.y);
-			// TODO: Auslagern
+			float dx = Math.abs(ballElement.getCoordinates().x
+					- wallElement.xCompare(hole.x));
+			float dy = Math.abs(ballElement.getCoordinates().y
+					- wallElement.yCompare(hole.y));
 			if (Math.sqrt(dx * dx + dy * dy) < 33) {
 				return true;
 			}
@@ -89,8 +90,10 @@ public class ActionHandler {
 
 	public void checkStarCollision() {
 		for (PointF point : pointElement.getPoints()) {
-			float dx = Math.abs(ballElement.getCoordinates().x - point.x);
-			float dy = Math.abs(ballElement.getCoordinates().y - point.y);
+			float dx = Math.abs(ballElement.getCoordinates().x
+					- wallElement.xCompare(point.x));
+			float dy = Math.abs(ballElement.getCoordinates().y
+					- wallElement.yCompare(point.y));
 
 			if (Math.sqrt(dx * dx + dy * dy) < 33) {
 				removeStar(point);
@@ -110,8 +113,12 @@ public class ActionHandler {
 
 	public boolean checkWallTouch(float x, float y) {
 		for (RectF rect : wallElement.getWalls()) {
+			RectF wallRect = new RectF(wallElement.xCompare(rect.left),
+					wallElement.yCompare(rect.top),
+					wallElement.xCompare(rect.right),
+					wallElement.yCompare(rect.bottom));
 			RectF ballAsRect = ballElement.generateRect(x, y);
-			if (ballAsRect.intersect(rect)) {
+			if (ballAsRect.intersect(wallRect)) {
 				return true;
 			}
 		}
@@ -120,7 +127,8 @@ public class ActionHandler {
 
 	public void moveAndCheckX(float accelX) {
 		if (containsBallX(accelX)) {
-			float newX = ballElement.getCoordinates().x - (accelX * 2);
+			float newX = ballElement.getCoordinates().x
+					- ballElement.xCompare(accelX * 2);
 			if (!checkWallTouch(newX, ballElement.getCoordinates().y)) {
 				ballElement.getCoordinates().x = newX;
 			}
@@ -128,13 +136,14 @@ public class ActionHandler {
 			ballElement.getCoordinates().x = mazeElement.getPlayGround().left;
 		} else if (touchOnWall(Dimension.RIGHT)) {
 			ballElement.getCoordinates().x = (mazeElement.getPlayGround().right - (ballElement
-					.getRadius() * 2));
+					.xCompare(ballElement.getRadius() * 2)));
 		}
 	}
 
 	public void moveAndCheckY(float accelY) {
 		if (containsBallY(accelY)) {
-			float newY = ballElement.getCoordinates().y + (accelY * 2);
+			float newY = ballElement.getCoordinates().y
+					+ ballElement.yCompare(accelY * 2);
 			if (!checkWallTouch(ballElement.getCoordinates().x, newY)) {
 				ballElement.getCoordinates().y = newY;
 			}
@@ -143,7 +152,7 @@ public class ActionHandler {
 			ballElement.getCoordinates().y = mazeElement.getPlayGround().top;
 		} else if (touchOnWall(Dimension.BOTTOM)) {
 			ballElement.getCoordinates().y = (mazeElement.getPlayGround().bottom - (ballElement
-					.getRadius() * 2));
+					.yCompare(ballElement.getRadius() * 2)));
 		}
 	}
 

@@ -37,7 +37,7 @@
         android:textSize="25sp"
         android:gravity="center_horizontal"
         android:textColor="#000000"
-        android:text="Version: v1.0.0" />
+        android:text="Version: v1.1.0" />
 
     <TextView
         android:id="@+id/developers"
