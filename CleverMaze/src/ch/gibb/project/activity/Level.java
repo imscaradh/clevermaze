@@ -39,9 +39,8 @@ public class Level extends Activity implements SensorEventListener {
 	private Timer timer;
 	private int stageNumber = 1;
 	private long millis;
-
-	public float xCompareValue;
-	public float yCompareValue;
+	private float xCompareValue;
+	private float yCompareValue;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -219,6 +218,14 @@ public class Level extends Activity implements SensorEventListener {
 
 	public int getStageNumber() {
 		return stageNumber;
+	}
+
+	public float getxCompareValue() {
+		return xCompareValue;
+	}
+
+	public float getyCompareValue() {
+		return yCompareValue;
 	}
 
 	public Timer getTimer() {
