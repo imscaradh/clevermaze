@@ -81,7 +81,8 @@ public class ActionHandler {
 					- wallElement.xCompare(hole.x));
 			float dy = Math.abs(ballElement.getCoordinates().y
 					- wallElement.yCompare(hole.y));
-			if (Math.sqrt(dx * dx + dy * dy) < 33) {
+			if (Math.sqrt(mazeElement.xCompare(dx * dx)
+					+ mazeElement.yCompare(dy * dy)) < 33) {
 				return true;
 			}
 		}

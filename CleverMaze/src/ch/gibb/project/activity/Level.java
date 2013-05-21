@@ -37,7 +37,7 @@ public class Level extends Activity implements SensorEventListener {
 	private Point pointElement;
 	private ActionHandler actionHandler;
 	private Timer timer;
-	private int stageNumber = 4;
+	private int stageNumber = 2;
 	private long millis;
 	private float xCompareValue;
 	private float yCompareValue;

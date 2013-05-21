@@ -2,6 +2,7 @@ package ch.gibb.project.elements;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.graphics.PointF;
@@ -43,6 +44,7 @@ public class Maze extends MazeElement {
 		paint.setAntiAlias(true);
 		paint.setFilterBitmap(true);
 		paint.setDither(true);
+
 	}
 
 	protected void onDraw(Canvas canvas) {
@@ -64,7 +66,12 @@ public class Maze extends MazeElement {
 				bitmapCanvas
 						.drawCircle(hx + radius, hy + radius, radius, paint);
 			} else {
-				canvas.drawCircle(hx + radius, hy + radius, radius, paint);
+				RectF rect = new RectF(hx, hy, hx + (radius * 2), hy
+						+ (radius * 2));
+				paint = new Paint();
+				paint.setColor(Color.BLACK);
+				paint.setAntiAlias(true);
+				canvas.drawOval(rect, paint);
 			}
 		}
 	}
