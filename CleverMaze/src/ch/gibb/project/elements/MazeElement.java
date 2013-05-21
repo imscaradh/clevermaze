@@ -33,6 +33,10 @@ public class MazeElement extends View {
 		return pixel * context.getyCompareValue();
 	}
 
+	public float getDensityValueX() {
+		return context.getxCompareValue();
+	}
+
 	public Point getPosition() {
 		return position;
 	}

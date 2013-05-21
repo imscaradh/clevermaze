@@ -60,7 +60,12 @@ public class Maze extends MazeElement {
 			int radius = (int) xCompare(this.radius);
 			int hx = (int) xCompare(h.x);
 			int hy = (int) yCompare(h.y);
-			bitmapCanvas.drawCircle(hx + radius, hy + radius, radius, paint);
+			if (getDensityValueX() == 1.0) {
+				bitmapCanvas
+						.drawCircle(hx + radius, hy + radius, radius, paint);
+			} else {
+				canvas.drawCircle(hx + radius, hy + radius, radius, paint);
+			}
 		}
 	}
 

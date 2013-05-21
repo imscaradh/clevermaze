@@ -32,7 +32,7 @@ public enum StageEnum {
 
 	public void init() {
 		// @formatter:off
-		StageEnum.STAGE_1.startPoint = new PointF(600, 1180);
+		StageEnum.STAGE_1.startPoint = new PointF(600, 1160);
 	StageEnum.STAGE_1.finishPoint=  new PointF(600, 1023);
 		StageEnum.STAGE_1.holes =  new PointF[] {	new PointF(612, 40), 
 						new PointF(539, 40), 
@@ -74,7 +74,7 @@ public enum StageEnum {
 							new RectF(529, 501, 580, 801),
 							new RectF(405, 700, 456, 963) };
 						
-						StageEnum.STAGE_2.startPoint =new PointF(40, 40); 
+						StageEnum.STAGE_2.startPoint =new PointF(45, 45); 
 						StageEnum.STAGE_2.finishPoint = new PointF(322, 1006);
 						StageEnum.STAGE_2.holes = new PointF[] {	
 										new PointF(612, 40), 
@@ -129,7 +129,7 @@ public enum StageEnum {
 										new RectF(166, 1089, 400, 1140),
 										};
 						
-					StageEnum.STAGE_3.startPoint=new PointF(381, 1180);
+					StageEnum.STAGE_3.startPoint=new PointF(385, 1160);
 					StageEnum.STAGE_3.finishPoint = new PointF(240, 1160); 
 					StageEnum.STAGE_3.holes = new PointF[] {	
 										new PointF(602, 972),
@@ -194,7 +194,7 @@ public enum StageEnum {
 										new RectF(100, 928, 330, 979)
 										};
 					
-					StageEnum.STAGE_4.startPoint = new PointF(300, 1177);
+					StageEnum.STAGE_4.startPoint = new PointF(300, 1170);
 					StageEnum.STAGE_4.finishPoint = new PointF(435, 1157); 
 					StageEnum.STAGE_4.holes = new PointF[] {	
 									new PointF(40, 987),
@@ -279,7 +279,7 @@ public enum StageEnum {
 							));
 					StageEnum.STAGE_4.walls =new RectF[] {
 									new RectF(370, 1125, 421, 1240),
-									new RectF(100, 1125, 370, 1176),
+									new RectF(100, 1125, 370, 1140),
 									new RectF(421, 1125, 615, 1140)
 									};
 					// @formatter:on

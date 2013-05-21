@@ -19,7 +19,7 @@ public class Ball extends MazeElement {
 		super(context);
 		backgroundImage = Bitmap.createScaledBitmap(
 				BitmapFactory.decodeResource(getResources(), R.drawable.ball),
-				(int) xCompare(radius * 2), (int) yCompare(radius * 2), true);
+				(int) xCompare(radius * 2), (int) xCompare(radius * 2), true);
 		coordinates = new PointF();
 		coordinates.x = xCompare(context.getStage().getStartPoint().x);
 		coordinates.y = yCompare(context.getStage().getStartPoint().y);
